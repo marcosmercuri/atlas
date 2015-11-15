@@ -1,0 +1,43 @@
+Recommendations:
+An API is a user interface for a developer - so put some effort into making it pleasant
+Use RESTful URLs and actions
+Use SSL everywhere, no exceptions
+An API is only as good as its documentation - so have great documentation
+Version via the URL, not via headers (no version id in the url means, the latest version)
+Use query parameters for advanced filtering, sorting & searching
+Provide a way to limit which fields are returned from the API
+Return something useful from POST, PATCH & PUT requests
+HATEOAS isn't practical just yet
+Use JSON where possible, XML only if you have to
+You should use camelCase with JSON, but snake_case is 20% easier to read
+Pretty print by default & ensure gzip is supported
+Don't use response envelopes by default
+Consider using JSON for POST, PUT and PATCH request bodies
+Paginate using Link headers
+Provide a way to autoload related resource representations
+Provide a way to override the HTTP method
+Provide useful response headers for rate limiting
+Use token based authentication, transported over OAuth2 where delegation is needed
+Include response headers that facilitate caching
+Define a consumable error payload
+Effectively use HTTP Status codes
+
+* The key principles of REST involve separating your API into logical resources.
+These resources are manipulated using HTTP requests where the method (GET, POST, PUT, PATCH, DELETE) has specific meaning.
+* Blank fields are included as null instead of being omitted.
+* All timestamps are returned in ISO 8601 format:  YYYY-MM-DDTHH:MM:SSZ
+* if the relation is commonly requested alongside the resource, the API could offer functionality to
+automatically embed the relation's representation and avoid the second hit to the API. (note: for the relation
+between task and workout)
+* To prevent an API consumer from having to hit the API again for an updated representation, have the API return the updated (or created) representation as part of the response.
+* Pagination: put total size in the header (X-Total-Count)
+* Creating resource: The response is generally 201 Created with a Location header indicating where the new resource was created, and the created resource in the response body.
+
+Question:
+Should I create a separate object for the responses, or should I send the internal object (like we do it
+in carrier-integration)
+A: so it might be appropriate to define three internal representations which map to a single Bookmark resource externally:
+   class NewBookmark represents a bookmark being created
+   class Bookmark represents a full, created, bookmark
+   class BookmarkUpdates represents updates to a bookmark
+Use DTOs
