@@ -5,4 +5,12 @@ package com.crossfit.model;
  */
 public class Task {
     private Exercise exercise;
+
+    public Task (Exercise exercise) {
+        this.exercise = exercise;
+    }
+
+    public Exercise getExercise () {
+        return exercise;
+    }
 }

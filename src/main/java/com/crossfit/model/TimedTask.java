@@ -7,7 +7,8 @@ package com.crossfit.model;
 public class TimedTask extends Task {
     private Integer durationInMinutes;
 
-    public TimedTask(Integer durationInMinutes) {
+    public TimedTask(Integer durationInMinutes, Exercise exercise) {
+        super(exercise);
         this.durationInMinutes = durationInMinutes;
     }
 

@@ -7,7 +7,8 @@ package com.crossfit.model;
 public class RepetitionTask extends Task {
     private Integer repetitions;
 
-    public RepetitionTask(Integer repetitions) {
+    public RepetitionTask(Integer repetitions, Exercise exercise) {
+        super(exercise);
         this.repetitions = repetitions;
     }
 
