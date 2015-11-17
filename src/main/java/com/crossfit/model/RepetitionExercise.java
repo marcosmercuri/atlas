@@ -4,11 +4,11 @@ package com.crossfit.model;
  * Represent a physical exercise that has to be repeated
  * repetitions-times.
  */
-public class RepetitionTask extends Task {
+public class RepetitionExercise extends Exercise {
     private Integer repetitions;
 
-    public RepetitionTask(Integer repetitions, Exercise exercise) {
-        super(exercise);
+    public RepetitionExercise (Integer repetitions, Integer maleRxInKilograms, Integer femaleRxInKilograms, String name, String description) {
+        super(maleRxInKilograms, femaleRxInKilograms, name, description);
         this.repetitions = repetitions;
     }
 
@@ -22,7 +22,7 @@ public class RepetitionTask extends Task {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        RepetitionTask that = (RepetitionTask) o;
+        RepetitionExercise that = (RepetitionExercise) o;
 
         return !(repetitions != null ? !repetitions.equals(that.repetitions) : that.repetitions != null);
     }

@@ -4,11 +4,11 @@ package com.crossfit.model;
  * Represent a physical exercise that has to be repeated
  * distanceInMeters-meters.
  */
-public class DistanceTask extends Task {
+public class DistanceExercise extends Exercise {
     private Integer distanceInMeters;
 
-    public DistanceTask(Integer distanceInMeters, Exercise exercise) {
-        super(exercise);
+    public DistanceExercise (Integer distanceInMeters, Integer maleRxInKilograms, Integer femaleRxInKilograms, String name, String description) {
+        super(maleRxInKilograms, femaleRxInKilograms, name, description);
         this.distanceInMeters = distanceInMeters;
     }
 
@@ -21,7 +21,7 @@ public class DistanceTask extends Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        DistanceTask that = (DistanceTask) o;
+        DistanceExercise that = (DistanceExercise) o;
 
         return !(distanceInMeters != null ? !distanceInMeters.equals(that.distanceInMeters) : that.distanceInMeters != null);
     }

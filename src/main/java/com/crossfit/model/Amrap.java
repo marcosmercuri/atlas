@@ -8,8 +8,8 @@ import java.util.List;
 public class Amrap extends Workout {
     private Integer durationInMinutes;
 
-    public Amrap (List<Task> task, Integer durationInMinutes) {
-        super(task);
+    public Amrap (List<Exercise> exercises, Integer durationInMinutes) {
+        super(exercises);
         this.durationInMinutes = durationInMinutes;
     }
 

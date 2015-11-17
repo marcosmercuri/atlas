@@ -6,13 +6,13 @@ import java.util.List;
  * Represents a full workout (or WOD)
  */
 public class Workout {
-    private List<Task> tasks;
+    private List<Exercise> exercises;
 
-    public Workout (List<Task> tasks) {
-        this.tasks = tasks;
+    public Workout (List<Exercise> exercises) {
+        this.exercises = exercises;
     }
 
-    public List<Task> getTasks () {
-        return tasks;
+    public List<Exercise> getExercises () {
+        return exercises;
     }
 }

@@ -4,11 +4,11 @@ package com.crossfit.model;
  * Represent a physical exercise that has to be repeated
  * durationInMinutes-minutes.
  */
-public class TimedTask extends Task {
+public class TimedExercise extends Exercise {
     private Integer durationInMinutes;
 
-    public TimedTask(Integer durationInMinutes, Exercise exercise) {
-        super(exercise);
+    public TimedExercise (Integer durationInMinutes, Integer maleRxInKilograms, Integer femaleRxInKilograms, String name, String description) {
+        super(maleRxInKilograms, femaleRxInKilograms, name, description);
         this.durationInMinutes = durationInMinutes;
     }
 
@@ -22,9 +22,9 @@ public class TimedTask extends Task {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        TimedTask timedTask = (TimedTask) o;
+        TimedExercise timedExercise = (TimedExercise) o;
 
-        return !(durationInMinutes != null ? !durationInMinutes.equals(timedTask.durationInMinutes) : timedTask.durationInMinutes != null);
+        return !(durationInMinutes != null ? !durationInMinutes.equals(timedExercise.durationInMinutes) : timedExercise.durationInMinutes != null);
     }
 
     @Override

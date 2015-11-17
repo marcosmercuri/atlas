@@ -1,12 +1,15 @@
 package com.crossfit.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 import javax.validation.Valid;
 
-import com.crossfit.model.Task;
+import com.crossfit.model.Exercise;
 import com.crossfit.model.Workout;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Main controller of the application rest calls
@@ -24,10 +27,10 @@ public class AtlasController {
         return null;
     }
 
-    @RequestMapping (value = "/proposedWorkouts/{id}/tasks", method = POST)
+    @RequestMapping (value = "/proposedWorkouts/{id}/exercises", method = POST)
     //TODO Conviene crear un request y un response para separar el modelo interno?
     //TODO Add validations in model
-    public NewProposedWorkoutResponse proposedWorkout(@PathVariable("id") Long proposedWorkoutId, @Valid @RequestBody Task proposedTask) {
+    public NewProposedWorkoutResponse proposedWorkout(@PathVariable("id") Long proposedWorkoutId, @Valid @RequestBody Exercise proposedExercise) {
 
 //        Greeter greeter = new Greeter(counter.getAndIncrement(), String.format(GREETER_TEMPLATE, name));
         return null;

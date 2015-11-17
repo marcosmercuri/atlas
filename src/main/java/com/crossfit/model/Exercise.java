@@ -1,7 +1,7 @@
 package com.crossfit.model;
 
 /**
- * Represents a possible physical exercise to be done.
+ * Represents a possible physical exercise, with it's restriction.
  */
 public class Exercise {
     private Integer maleRxInKilograms;
@@ -14,12 +14,6 @@ public class Exercise {
         this.femaleRxInKilograms = femaleRxInKilograms;
         this.name = name;
         this.description = description;
-    }
-
-    public Exercise (Integer maleRxInKilograms, Integer femaleRxInKilograms, String name) {
-        this.maleRxInKilograms = maleRxInKilograms;
-        this.femaleRxInKilograms = femaleRxInKilograms;
-        this.name = name;
     }
 
     public Integer getMaleRxInKilograms () {
