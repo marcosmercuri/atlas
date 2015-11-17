@@ -28,7 +28,7 @@ These resources are manipulated using HTTP requests where the method (GET, POST,
 * All timestamps are returned in ISO 8601 format:  YYYY-MM-DDTHH:MM:SSZ
 * if the relation is commonly requested alongside the resource, the API could offer functionality to
 automatically embed the relation's representation and avoid the second hit to the API. (note: for the relation
-between task and workout)
+between exercise and workout)
 * To prevent an API consumer from having to hit the API again for an updated representation, have the API return the updated (or created) representation as part of the response.
 * Pagination: put total size in the header (X-Total-Count)
 * Creating resource: The response is generally 201 Created with a Location header indicating where the new resource was created, and the created resource in the response body.
