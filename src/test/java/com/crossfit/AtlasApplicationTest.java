@@ -49,12 +49,12 @@ public class AtlasApplicationTest {
 
     private HttpEntity<String> createValidForTimeRequest () {
         String requestBody = Utils.loadResource("new_valid_proposed_for_time_request.json");
-        return createRequestWithBody(requestBody);
+        return createRequestWithBody(requestBody, MediaType.APPLICATION_JSON);
     }
 
-    private HttpEntity<String> createRequestWithBody (String requestBody) {
+    private HttpEntity<String> createRequestWithBody (String requestBody, MediaType mediaType) {
         HttpHeaders requestHeaders = new HttpHeaders();
-        requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+        requestHeaders.setContentType(mediaType);
 
         //Creating http entity object with request body and headers
         return new HttpEntity<>(requestBody, requestHeaders);
@@ -62,18 +62,27 @@ public class AtlasApplicationTest {
 
     @Test
     public void test_bad_request_new_proposed_workout() {
-        /*
-        HttpEntity<String> httpRequest = createInvalidForTimeRequest();
+        HttpEntity<String> httpRequest = createInvalidMediaTypeRequest();
 
         Map<String, Object> apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
 
-        assertNotNull(apiResponse);*/
+        assertNotNull(apiResponse);
+        System.out.println(apiResponse);
+        assertThat(apiResponse.get("status"), is(415));
+        assertThat(apiResponse.get("message"), is("Unsupported Media Type"));
+        assertThat(apiResponse.get("developerMessage"), is("Exception: org.springframework.web.HttpMediaTypeNotSupportedException. Problem: Content type 'application/xml;charset=UTF-8' not supported"));
+        String timestamp = (String) apiResponse.get("timestamp");
+        assertTrue(timestamp.matches("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.*"));
+    }
 
+    private HttpEntity<String> createInvalidMediaTypeRequest () {
+        String requestBody = Utils.loadResource("new_valid_proposed_for_time_request.json");
+        return createRequestWithBody(requestBody, MediaType.APPLICATION_XML);
     }
 
     private HttpEntity<String> createInvalidForTimeRequest () {
         String requestBody = Utils.loadResource("new_invalid_proposed_for_time_request.json");
-        return createRequestWithBody(requestBody);
+        return createRequestWithBody(requestBody, MediaType.APPLICATION_JSON);
     }
     //TODO Make a test that validates that the error are properly catch and nicely returned
 }
