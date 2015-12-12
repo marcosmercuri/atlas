@@ -19,7 +19,7 @@ public class AtlasController {
     @RequestMapping (value = "/proposedWorkouts", method = POST)
     @ResponseStatus(HttpStatus.CREATED)
     //TODO Add validations in model
-    public ProposedWorkoutDTO proposedWorkout(@Valid @RequestBody ProposedWorkoutDTO proposedWorkout) {
+    public ProposedWorkoutDTO createProposedWorkout(@Valid @RequestBody ProposedWorkoutDTO proposedWorkout) {
         proposedWorkout.setId(UUID.randomUUID().toString());
         return proposedWorkout;
     }
