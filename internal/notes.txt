@@ -33,6 +33,15 @@ between exercise and workout)
 * Pagination: put total size in the header (X-Total-Count)
 * Creating resource: The response is generally 201 Created with a Location header indicating where the new resource was created, and the created resource in the response body.
 
+* Error message:
+{
+    "status": 404,
+    "code": 40483,
+    "message": "Oops! It looks like that file does not exist.",
+    "developerMessage": "File resource for path /uploads/foobar.txt does not exist.  Please wait 10 minutes until the upload batch completes before checking again.",
+    "timestamp": 2015-12-03T00:11:05.211
+}
+
 Question:
 Should I create a separate object for the responses, or should I send the internal object (like we do it
 in carrier-integration)
