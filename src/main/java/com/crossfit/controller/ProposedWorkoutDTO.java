@@ -3,14 +3,20 @@ package com.crossfit.controller;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * POJO for a request of the proposedWorkout service.
  */
 class ProposedWorkoutDTO {
     private String id;
-    @NotNull
+    @NotNull(message="the list of exercises cannot be null")
+    @NotEmpty(message="the list of exercises cannot be empty")
     private List<ProposedExerciseDTO> exercises;
+
+    @NotNull(message="the type of the workout cannot be null")
     private WorkoutType type;
+
     private Integer durationInMinutes;
     private Integer maxAllowedMinutes;
     private Integer numberOfRounds;
