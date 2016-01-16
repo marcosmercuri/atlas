@@ -1,0 +1,16 @@
+{
+    "exercises": [
+        {
+            "type": "REPETITION",
+            "name": "pullUp",
+            "description": "pull up",
+            "numberOfRepetitions": 10
+        },
+        {
+            "type": "REPETITION",
+            "name": "kettlebellSwing",
+            "description": "kettlebell swing",
+            "numberOfRepetitions": 10
+        }
+    ]
+}

@@ -70,4 +70,20 @@ public class AtlasControllerTest {
         result.andDo(print());
         result.andExpect(MockMvcResultMatchers.status().isUnsupportedMediaType());
     }
+
+    @Test
+    public void test_missing_type_in_new_proposed_workout_request() throws Exception {
+        ResultActions result = mockMvc.perform(
+              post("/proposedWorkouts")
+                    .content(createRequestWithMissingType())
+                    .contentType(jsonContentType)
+        );
+
+        result.andExpect(status().isBadRequest());
+    }
+
+    private String createRequestWithMissingType() {
+        return Utils.loadResource("proposed_workout_request_with_missing_type.json");
+    }
+
 }
