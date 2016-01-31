@@ -28,15 +28,12 @@ public class AtlasController {
 
     @RequestMapping (value = "/proposedWorkouts", method = POST)
     @ResponseStatus(HttpStatus.CREATED)
-    //TODO Add validations in model
     public ProposedWorkoutDTO createProposedWorkout(@Valid @RequestBody ProposedWorkoutDTO proposedWorkout) {
         proposedWorkout.setId(UUID.randomUUID().toString());
         return proposedWorkout;
     }
 
     @RequestMapping (value = "/proposedWorkouts/{id}/exercises", method = POST)
-    //TODO Conviene crear un request y un response para separar el modelo interno?
-    //TODO Add validations in model
     public ProposedWorkoutDTO proposedWorkout(@PathVariable("id") Long proposedWorkoutId, @Valid @RequestBody Exercise proposedExercise) {
 
 //        Greeter greeter = new Greeter(counter.getAndIncrement(), String.format(GREETER_TEMPLATE, name));
