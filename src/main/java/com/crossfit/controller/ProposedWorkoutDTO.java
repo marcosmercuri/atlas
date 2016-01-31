@@ -10,11 +10,11 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 class ProposedWorkoutDTO {
     private String id;
-    @NotNull(message="the list of exercises cannot be null")
-    @NotEmpty(message="the list of exercises cannot be empty")
+    @NotNull(message="error.exercises.null")
+    @NotEmpty(message="error.exercises.empty")
     private List<ProposedExerciseDTO> exercises;
 
-    @NotNull(message="the type of the workout cannot be null")
+    @NotNull(message="error.type.null")
     private WorkoutType type;
 
     private Integer durationInMinutes;
