@@ -135,10 +135,14 @@ public class DefaultErrorResponseAttributes extends DefaultErrorAttributes {
 
     private ErrorInformation processBasicException (BasicException basicException) {
         ErrorInformation errorInformation = new ErrorInformation();
-        errorInformation.message = basicException.getUserMessage();
-        errorInformation.developerMessage = basicException.getDeveloperMessage();
+        errorInformation.message = translateOrGetTheSame(basicException.getUserMessage());
+        errorInformation.developerMessage = translateOrGetTheSame(basicException.getDeveloperMessage());
         errorInformation.errorCode = Optional.of(basicException.getCode());
         return errorInformation;
+    }
+
+    private String translateOrGetTheSame(String messageKey) {
+        return translateMessage(messageKey).orElse(messageKey);
     }
 
     private ErrorInformation processErrorByDefault (Map<String, Object> defaultErrorAttributes) {

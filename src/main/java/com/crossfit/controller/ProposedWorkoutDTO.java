@@ -1,8 +1,12 @@
 package com.crossfit.controller;
 
+import static com.crossfit.controller.RequestErrorCodes.*;
+
 import java.util.List;
+import java.util.Optional;
 import javax.validation.constraints.NotNull;
 
+import com.crossfit.exceptions.BasicException;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -58,7 +62,19 @@ class ProposedWorkoutDTO {
     }
 
     public void setType (String type) {
-        this.type = WorkoutType.valueOf(type);
+        try {
+            this.type = WorkoutType.valueOf(type.toUpperCase());
+        } catch (IllegalArgumentException exception) {
+            throw createInvalidTypeException(type, exception);
+        }
+    }
+
+    private BasicException createInvalidTypeException (String type, IllegalArgumentException originalException) {
+        //I couldn't find a way to get the messageSource injected, to pass the type as argument to the message
+        return new BasicException("error.type.invalid",
+              "error.type.invalid.developerMessage",
+              INVALID_FIELDS_IN_REQUEST_ERROR_CODE,
+              Optional.of(originalException));
     }
 
     public String getId () {
