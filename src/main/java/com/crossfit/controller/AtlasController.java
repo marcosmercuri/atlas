@@ -7,7 +7,9 @@ import javax.validation.Valid;
 
 import com.crossfit.model.Exercise;
 import com.crossfit.model.Workout;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -15,6 +17,14 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 public class AtlasController {
+
+    @Autowired
+    ProposedWorkoutValidator proposedWorkoutValidator;
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.addValidators(proposedWorkoutValidator);
+    }
 
     @RequestMapping (value = "/proposedWorkouts", method = POST)
     @ResponseStatus(HttpStatus.CREATED)

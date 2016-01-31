@@ -31,13 +31,15 @@ import org.springframework.web.context.request.RequestAttributes;
  * }
  */
 public class DefaultErrorResponseAttributes extends DefaultErrorAttributes {
+
+    @Autowired
+    private MessageSource msgSource;
+
     private class ErrorInformation {
         String message;
         String developerMessage;
         Optional<Integer> errorCode = Optional.empty();
     }
-
-    private static final int MISSING_FIELDS_IN_REQUEST_ERROR_CODE = 40401;
 
     @Override
     public Map<String, Object> getErrorAttributes(RequestAttributes requestAttributes, boolean includeStackTrace) {
@@ -98,11 +100,37 @@ public class DefaultErrorResponseAttributes extends DefaultErrorAttributes {
 
         errorInformation.message = error.getBindingResult().getFieldErrors()
               .stream()
-              .map(DefaultMessageSourceResolvable::getDefaultMessage)
+              .map(this::getErrorMessages)
+              .map(this::translateMessages)
               .collect(Collectors.joining(". "));
 
         errorInformation.developerMessage = error.toString();
         return errorInformation;
+    }
+
+    //TODO Move all the translation things to a class of its own
+    private String translateMessages (Stream<String> messages) {
+        return messages
+              .map(this::translateMessage)
+              .filter(Optional::isPresent)
+              .map(Optional::get)
+              .collect(Collectors.joining(". "));
+    }
+
+    private Optional<String> translateMessage (String errorMessageKey) {
+        Locale currentLocale = LocaleContextHolder.getLocale();
+        try {
+            return Optional.of(msgSource.getMessage(errorMessageKey, null, currentLocale));
+        } catch (NoSuchMessageException ex) {
+            return Optional.empty();
+        }
+    }
+
+    private Stream<String> getErrorMessages (FieldError fieldError) {
+        List<String> errors = new ArrayList<>();
+        errors.add(fieldError.getDefaultMessage());
+        errors.addAll(Arrays.asList(fieldError.getCodes()));
+        return errors.stream();
     }
 
     private ErrorInformation processBasicException (BasicException basicException) {
