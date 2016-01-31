@@ -14,15 +14,22 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 public class AtlasApplicationConfiguration {
 
     @Bean
-    public ErrorAttributes errorAttribute(){
+    public ErrorAttributes errorAttribute () {
         return new DefaultErrorResponseAttributes();
     }
 
     @Bean (name = "messageSource")
-    public ReloadableResourceBundleMessageSource messageSource() {
+    public ReloadableResourceBundleMessageSource messageSource () {
         ReloadableResourceBundleMessageSource messageBundle = new ReloadableResourceBundleMessageSource();
         messageBundle.setBasename("classpath:messages/messages");
         messageBundle.setDefaultEncoding("UTF-8");
         return messageBundle;
+    }
+
+    @Bean
+    public LocaleResolver localeResolver () {
+        SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+        localeResolver.setDefaultLocale(Locale.US);
+        return localeResolver;
     }
 }
