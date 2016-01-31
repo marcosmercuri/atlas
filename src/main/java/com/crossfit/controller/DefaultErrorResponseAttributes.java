@@ -96,7 +96,7 @@ public class DefaultErrorResponseAttributes extends DefaultErrorAttributes {
 
     private ErrorInformation processInvalidRequestParameter (MethodArgumentNotValidException error) {
         ErrorInformation errorInformation = new ErrorInformation();
-        errorInformation.errorCode = Optional.of(MISSING_FIELDS_IN_REQUEST_ERROR_CODE);
+        errorInformation.errorCode = Optional.of(INVALID_FIELDS_IN_REQUEST_ERROR_CODE);
 
         errorInformation.message = error.getBindingResult().getFieldErrors()
               .stream()
