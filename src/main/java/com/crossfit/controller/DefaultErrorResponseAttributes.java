@@ -1,15 +1,19 @@
 package com.crossfit.controller;
 
+import static com.crossfit.controller.RequestErrorCodes.*;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.crossfit.exceptions.BasicException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.DefaultErrorAttributes;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.context.MessageSource;
+import org.springframework.context.NoSuchMessageException;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.context.request.RequestAttributes;
@@ -53,13 +57,39 @@ public class DefaultErrorResponseAttributes extends DefaultErrorAttributes {
     }
 
     private ErrorInformation processError(Throwable error, Map<String, Object> defaultErrorAttributes) {
-        if (error instanceof BasicException) {
-            return processBasicException((BasicException)error);
+        Optional<BasicException> basicException = getBasicExceptionFromError(error);
+        if (basicException.isPresent()) {
+            return processBasicException(basicException.get());
         } else if (error instanceof MethodArgumentNotValidException) {
             return processInvalidRequestParameter((MethodArgumentNotValidException)error);
         } else {
             return processErrorByDefault(defaultErrorAttributes);
         }
+    }
+
+    /**
+     * Checks if the error is a BasicException. Also checks that the cause of the error
+     * or the cause of the cause of the error is a BasicException.
+     * If neither of the above, returns empty optional.
+     *
+     * This was done because sometimes the exception gets wrapped a few times by spring
+     * (eg, validation error of the enum WorkoutType)
+     */
+    private Optional<BasicException> getBasicExceptionFromError (Throwable error) {
+        if (isBasicException(error)) {
+            return Optional.of((BasicException)error);
+        }
+        if (isBasicException(error.getCause())) {
+            return Optional.ofNullable((BasicException)error.getCause());
+        }
+        if (error.getCause()!= null && isBasicException(error.getCause().getCause())) {
+            return Optional.ofNullable((BasicException)error.getCause().getCause());
+        }
+        return Optional.empty();
+    }
+
+    private boolean isBasicException (Throwable error) {
+        return error instanceof BasicException;
     }
 
     private ErrorInformation processInvalidRequestParameter (MethodArgumentNotValidException error) {
