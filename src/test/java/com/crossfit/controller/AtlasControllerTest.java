@@ -61,6 +61,22 @@ public class AtlasControllerTest {
     }
 
     @Test
+    public void test_successful_new_proposed_workout_with_type_in_lower_case () throws Exception {
+        mockMvc.perform(
+              post("/proposedWorkouts")
+                    .content(createValidForTimeRequestWithTypeInLowerCase())
+                    .contentType(jsonContentType)
+        )
+              .andExpect(status().isCreated())
+              .andExpect(jsonPath("$.id", is(not(""))));
+    }
+
+    private String createValidForTimeRequestWithTypeInLowerCase () {
+        String validRequestWithTypeInUpperCase = createValidForTimeRequest();
+        return validRequestWithTypeInUpperCase.replace("FOR_TIME", "for_time");
+    }
+
+    @Test
     public void test_invalid_content_type_in_request_new_proposed_workout () throws Exception {
         ResultActions result = mockMvc.perform(
               post("/proposedWorkouts")
@@ -78,7 +94,6 @@ public class AtlasControllerTest {
                     .content(createRequestWithMissingType())
                     .contentType(jsonContentType)
         );
-
         result.andExpect(status().isBadRequest());
     }
 
@@ -86,4 +101,33 @@ public class AtlasControllerTest {
         return Utils.loadResource("proposed_workout_request_with_missing_type.json");
     }
 
+    @Test
+    public void test_invalid_workout_type_in_new_proposed_workout_request() throws Exception {
+        ResultActions result = mockMvc.perform(
+              post("/proposedWorkouts")
+                    .content(createRequestWithInvalidWorkoutType())
+                    .contentType(jsonContentType)
+        );
+        result.andDo(print());
+        result.andExpect(status().isBadRequest());
+    }
+
+    private String createRequestWithInvalidWorkoutType () {
+        return Utils.loadResource("proposed_workout_request_with_invalid_workout_type.json");
+    }
+
+    @Test
+    public void test_missing_DurationInMinutes_field_in_amrap_proposed_workout_request() throws Exception {
+        ResultActions result = mockMvc.perform(
+              post("/proposedWorkouts")
+                    .content(createRequestWithMissingDurationInMinutesForAmrap())
+                    .contentType(jsonContentType)
+        );
+        result.andDo(print());
+        result.andExpect(status().isBadRequest());
+    }
+
+    private String createRequestWithMissingDurationInMinutesForAmrap () {
+        return Utils.loadResource("proposed_amrap_workout_request_without_duration_in_minutes.json");
+    }
 }

@@ -2,6 +2,9 @@ package com.crossfit;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Map;
 
@@ -17,6 +20,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.web.servlet.ResultActions;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration (classes = AtlasApplication.class)
@@ -49,7 +53,7 @@ public class AtlasApplicationTest {
 
     private HttpEntity<String> createValidForTimeRequest () {
         String requestBody = Utils.loadResource("new_valid_proposed_for_time_request.json");
-        return createRequestWithBody(requestBody, MediaType.APPLICATION_JSON);
+        return createJsonRequestWithBody(requestBody);
     }
 
     private HttpEntity<String> createRequestWithBody (String requestBody, MediaType mediaType) {
@@ -89,8 +93,9 @@ public class AtlasApplicationTest {
         Map<String, Object> apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
 
         assertNotNull(apiResponse);
-        System.out.println(apiResponse);
+
         assertThat(apiResponse.get("status"), is(400));
+        assertThat(apiResponse.get("code"), is(40001));
         String errorMessage = (String)apiResponse.get("message");
         assertThat(errorMessage, containsString("the list of exercises cannot be empty"));
         assertThat(errorMessage, containsString("the type of the workout cannot be null"));
@@ -100,6 +105,42 @@ public class AtlasApplicationTest {
 
     private HttpEntity<String> createRequestWithVariousMissingFields () {
         String requestBody = Utils.loadResource("proposed_workout_request_with_exercises_and_type_fields_missing.json");
-        return createRequestWithBody(requestBody, MediaType.APPLICATION_JSON);
+        return createJsonRequestWithBody(requestBody);
+    }
+
+    private HttpEntity<String> createJsonRequestWithBody (String requestBody) {return createRequestWithBody(requestBody, MediaType.APPLICATION_JSON);}
+
+    @Test
+    public void test_invalid_workout_type_in_new_proposed_workout() {
+        HttpEntity<String> httpRequest = createRequestWithInvalidWorkoutType();
+
+        Map<String, Object> apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
+
+        assertNotNull(apiResponse);
+        assertThat(apiResponse.get("status"), is(400));
+        assertThat((String)apiResponse.get("message"), containsString("The workout type is not a valid value"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("Check the allow workout types"));
+    }
+
+    private HttpEntity<String> createRequestWithInvalidWorkoutType () {
+        String requestBody = Utils.loadResource("proposed_workout_request_with_invalid_workout_type.json");
+        return createJsonRequestWithBody(requestBody);
+    }
+
+    @Test
+    public void test_missing_DurationInMinutes_field_in_amrap_proposed_workout_request() throws Exception {
+        HttpEntity<String> httpRequest = createRequestWithMissingDurationInMinutesForAmrap();
+
+        Map<String, Object> apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
+
+        assertNotNull(apiResponse);
+        assertThat(apiResponse.get("status"), is(400));
+        assertThat(apiResponse.get("message"), is("For AMRAP workout, the durationInMinutes cannot be null nor empty"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("Field error in object 'proposedWorkoutDTO' on field 'durationInMinutes'"));
+    }
+
+    private HttpEntity<String> createRequestWithMissingDurationInMinutesForAmrap () {
+        String requestBody = Utils.loadResource("proposed_amrap_workout_request_without_duration_in_minutes.json");
+        return createJsonRequestWithBody(requestBody);
     }
 }
