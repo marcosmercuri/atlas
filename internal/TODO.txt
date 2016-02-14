@@ -1,3 +1,4 @@
+* Refactor validator, to avoid duplication, try using lambdas.
 * Once the API request validation has been completed, document the API.
 * Add javadoc where it's important.
 * Add code quality analysis on push.
