@@ -1,0 +1,17 @@
+{
+    "exercises": [
+        {
+            "description": "pull up",
+            "numberOfRepetitions": 10
+        },
+        {
+            "type": "REPETITION",
+            "name": "",
+            "description": "kettlebell swing",
+            "numberOfRepetitions": 10
+        }
+    ],
+    "type": "FOR_TIME",
+    "numberOfRounds": 10,
+    "maxAllowedMinutes": 20
+}

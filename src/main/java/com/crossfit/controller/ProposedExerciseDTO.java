@@ -2,17 +2,18 @@ package com.crossfit.controller;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * POJO for a request of proposedExercise
  */
 class ProposedExerciseDTO {
-    @NotNull
+    @NotNull(message="error.proposedExercise.name.null")
+    @NotBlank(message="error.proposedExercise.name.blank")
     private String name;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message="error.proposedExercise.type.null")
     private ExerciseType type;
 
     private String description;

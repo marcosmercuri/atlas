@@ -200,4 +200,29 @@ public class AtlasApplicationTest {
         String requestBody = Utils.loadResource("proposed_for_time_workout_request_with_invalid_number_of_rounds_and_invalid_max_allowed_minutes.json");
         return createJsonRequestWithBody(requestBody);
     }
+
+    /**
+     * Test that all the missing fields are in the response message.
+     */
+    @Test
+    public void test_missing_required_fields_on_proposed_exercise_on_new_proposed_workout() {
+        HttpEntity<String> httpRequest = createRequestWithAllRequiredFieldsMissingInProposedExercise();
+
+        Map apiResponse = postRequest(httpRequest);
+
+        assertNotNull(apiResponse);
+
+        verifyBadRequestStatus(apiResponse);
+        assertThat(apiResponse.get("code"), is(40001));
+        String errorMessage = (String)apiResponse.get("message");
+        assertThat(errorMessage, containsString("The name of the proposed exercise cannot be null"));
+        assertThat(errorMessage, containsString("The name of the proposed exercise cannot be blank"));
+        assertThat(errorMessage, containsString("The type of the proposed exercise cannot be null"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.AtlasController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 4 error(s)"));
+    }
+
+    private HttpEntity<String> createRequestWithAllRequiredFieldsMissingInProposedExercise () {
+        String requestBody = Utils.loadResource("proposed_workout_request_with_all_required_fields_missing_in_exercise.json");
+        return createJsonRequestWithBody(requestBody);
+    }
 }

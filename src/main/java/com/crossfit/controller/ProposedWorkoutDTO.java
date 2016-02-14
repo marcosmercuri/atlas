@@ -4,6 +4,7 @@ import static com.crossfit.controller.RequestErrorCodes.*;
 
 import java.util.List;
 import java.util.Optional;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.crossfit.exceptions.BasicException;
@@ -16,6 +17,7 @@ class ProposedWorkoutDTO {
     private String id;
     @NotNull(message="error.proposedWorkout.exercises.null")
     @NotEmpty(message="error.proposedWorkout.exercises.empty")
+    @Valid
     private List<ProposedExerciseDTO> exercises;
 
     @NotNull(message="error.proposedWorkout.type.null")
