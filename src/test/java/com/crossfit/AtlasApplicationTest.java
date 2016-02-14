@@ -139,4 +139,21 @@ public class AtlasApplicationTest {
         String requestBody = Utils.loadResource("proposed_amrap_workout_request_without_duration_in_minutes.json");
         return createJsonRequestWithBody(requestBody);
     }
+
+    @Test
+    public void test_invalid_value_for_DurationInMinutes_field_in_amrap_proposed_workout_request() throws Exception {
+        HttpEntity<String> httpRequest = createRequestWithInvalidDurationInMinutesForAmrap();
+
+        Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
+
+        assertNotNull(apiResponse);
+        assertThat(apiResponse.get("status"), is(400));
+        assertThat(apiResponse.get("message"), is("For AMRAP workout, the durationInMinutes has to be above zero"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("Field error in object 'proposedWorkoutDTO' on field 'durationInMinutes'"));
+    }
+
+    private HttpEntity<String> createRequestWithInvalidDurationInMinutesForAmrap () {
+        String requestBody = Utils.loadResource("proposed_amrap_workout_request_with_invalid_duration_in_minutes.json");
+        return createJsonRequestWithBody(requestBody);
+    }
 }
