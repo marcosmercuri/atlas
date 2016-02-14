@@ -2,9 +2,6 @@ package com.crossfit;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Map;
 
@@ -20,7 +17,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.web.servlet.ResultActions;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration (classes = AtlasApplication.class)
@@ -41,7 +37,7 @@ public class AtlasApplicationTest {
     public void test_successful_new_proposed_workout() {
         HttpEntity<String> httpRequest = createValidForTimeRequest();
 
-        Map<String, Object> apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
+        Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
 
         assertNotNull(apiResponse);
         assertThat(apiResponse.get("id"), is(not("")));
@@ -68,7 +64,7 @@ public class AtlasApplicationTest {
     public void test_bad_request_new_proposed_workout() {
         HttpEntity<String> httpRequest = createInvalidMediaTypeRequest();
 
-        Map<String, Object> apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
+        Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
 
         assertNotNull(apiResponse);
         assertThat(apiResponse.get("status"), is(415));
@@ -90,7 +86,7 @@ public class AtlasApplicationTest {
     public void test_missing_required_fields_new_proposed_workout() {
         HttpEntity<String> httpRequest = createRequestWithVariousMissingFields();
 
-        Map<String, Object> apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
+        Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
 
         assertNotNull(apiResponse);
 
@@ -114,7 +110,7 @@ public class AtlasApplicationTest {
     public void test_invalid_workout_type_in_new_proposed_workout() {
         HttpEntity<String> httpRequest = createRequestWithInvalidWorkoutType();
 
-        Map<String, Object> apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
+        Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
 
         assertNotNull(apiResponse);
         assertThat(apiResponse.get("status"), is(400));
@@ -131,11 +127,11 @@ public class AtlasApplicationTest {
     public void test_missing_DurationInMinutes_field_in_amrap_proposed_workout_request() throws Exception {
         HttpEntity<String> httpRequest = createRequestWithMissingDurationInMinutesForAmrap();
 
-        Map<String, Object> apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
+        Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
 
         assertNotNull(apiResponse);
         assertThat(apiResponse.get("status"), is(400));
-        assertThat(apiResponse.get("message"), is("For AMRAP workout, the durationInMinutes cannot be null nor empty"));
+        assertThat(apiResponse.get("message"), is("For AMRAP workout, the durationInMinutes cannot be null nor empty. "));
         assertThat((String)apiResponse.get("developerMessage"), containsString("Field error in object 'proposedWorkoutDTO' on field 'durationInMinutes'"));
     }
 
