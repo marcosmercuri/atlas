@@ -38,23 +38,36 @@ class ProposedWorkoutValidator implements Validator {
     }
 
     private void validateForTime (ProposedWorkoutDTO proposedWorkout, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "numberOfRounds", "error.workoutType.forTime.numberOfRounds.null");
+        validateNumberOfRounds(proposedWorkout, errors);
+        validateMaxAllowedMinutes(proposedWorkout, errors);
+    }
+
+    private void validateMaxAllowedMinutes (ProposedWorkoutDTO proposedWorkout, Errors errors) {
+        String maxAllowedMinutesFieldName = "maxAllowedMinutes";
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, maxAllowedMinutesFieldName, "error.workoutType.forTime.maxAllowedMinutes.null");
+        validateFieldIsAboveZero(maxAllowedMinutesFieldName, proposedWorkout.getMaxAllowedMinutes(), errors, "error.workoutType.forTime.maxAllowedMinutes.invalid");
+    }
+
+    private void validateNumberOfRounds (ProposedWorkoutDTO proposedWorkout, Errors errors) {
+        String numberOfRoundsFieldName = "numberOfRounds";
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, numberOfRoundsFieldName, "error.workoutType.forTime.numberOfRounds.null");
+        validateFieldIsAboveZero(numberOfRoundsFieldName, proposedWorkout.getNumberOfRounds(), errors, "error.workoutType.forTime.numberOfRounds.invalid");
     }
 
     private void validateAmrap (ProposedWorkoutDTO proposedWorkout, Errors errors) {
-
         validateDurationInMinutes(proposedWorkout, errors);
-
-
     }
 
     private void validateDurationInMinutes (ProposedWorkoutDTO proposedWorkout, Errors errors) {
         String durationInMinutesFieldName = "durationInMinutes";
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, durationInMinutesFieldName, "error.workoutType.amrap.durationInMinutes.null");
+        validateFieldIsAboveZero(durationInMinutesFieldName, proposedWorkout.getDurationInMinutes(), errors, "error.workoutType.amrap.durationInMinutes.invalid");
+    }
 
+    private void validateFieldIsAboveZero (String fieldName, Integer fieldValue, Errors errors, String errorCode) {
         Optional
-              .ofNullable(proposedWorkout.getDurationInMinutes())
+              .ofNullable(fieldValue)
               .filter(durationInMinutes -> durationInMinutes <= 0)
-              .ifPresent(durationInMinutes -> errors.rejectValue(durationInMinutesFieldName, "error.workoutType.amrap.durationInMinutes.invalid"));
+              .ifPresent(durationInMinutes -> errors.rejectValue(fieldName, errorCode));
     }
 }

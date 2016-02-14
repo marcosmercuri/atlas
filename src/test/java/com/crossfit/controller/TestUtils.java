@@ -44,6 +44,24 @@ public class TestUtils {
         return proposedWorkoutDTO;
     }
 
+    public static ProposedWorkoutDTO givenForTimeWithInvalidNumberOfRounds () {
+        ProposedWorkoutDTO proposedWorkoutDTO = givenValidForTimeProposedWorkout(2);
+        proposedWorkoutDTO.setNumberOfRounds(-5);
+        return proposedWorkoutDTO;
+    }
+
+    public static ProposedWorkoutDTO givenForTimeWithoutMaxAllowedMinutes () {
+        ProposedWorkoutDTO proposedWorkoutDTO = givenValidForTimeProposedWorkout(2);
+        proposedWorkoutDTO.setMaxAllowedMinutes(null);
+        return proposedWorkoutDTO;
+    }
+
+    public static ProposedWorkoutDTO givenForTimeWithInvalidMaxAllowedMinutes () {
+        ProposedWorkoutDTO proposedWorkoutDTO = givenValidForTimeProposedWorkout(2);
+        proposedWorkoutDTO.setMaxAllowedMinutes(-1);
+        return proposedWorkoutDTO;
+    }
+
     public static List<ProposedExerciseDTO> givenListOfExercises (Integer numberOfExercises) {
         List<ProposedExerciseDTO> exercises = new ArrayList<>(numberOfExercises);
         for (int i = 1; i <= numberOfExercises; i++) {
