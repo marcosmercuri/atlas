@@ -156,4 +156,21 @@ public class AtlasApplicationTest {
         String requestBody = Utils.loadResource("proposed_amrap_workout_request_with_invalid_duration_in_minutes.json");
         return createJsonRequestWithBody(requestBody);
     }
+
+    @Test
+    public void test_missing_numberOfRounds_field_in_forTime_proposed_workout_request() throws Exception {
+        HttpEntity<String> httpRequest = createRequestWithMissingNumberOfRoundsForForTime();
+
+        Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
+        System.out.println("Response:" + apiResponse);
+        assertNotNull(apiResponse);
+        assertThat(apiResponse.get("status"), is(400));
+        assertThat(apiResponse.get("message"), is("For FOR TIME workout, the numberOfRounds cannot be null nor empty"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("Field error in object 'proposedWorkoutDTO' on field 'numberOfRounds'"));
+    }
+
+    private HttpEntity<String> createRequestWithMissingNumberOfRoundsForForTime () {
+        String requestBody = Utils.loadResource("proposed_for_time_workout_request_with_missing_number_of_rounds.json");
+        return createJsonRequestWithBody(requestBody);
+    }
 }
