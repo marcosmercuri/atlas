@@ -43,15 +43,11 @@ class ProposedWorkoutValidator implements Validator {
     }
 
     private void validateMaxAllowedMinutes (ProposedWorkoutDTO proposedWorkout, Errors errors) {
-        String maxAllowedMinutesFieldName = "maxAllowedMinutes";
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, maxAllowedMinutesFieldName, "error.workoutType.forTime.maxAllowedMinutes.null");
-        validateFieldIsAboveZero(maxAllowedMinutesFieldName, proposedWorkout.getMaxAllowedMinutes(), errors, "error.workoutType.forTime.maxAllowedMinutes.invalid");
+        validateIntegerField(errors, "error.workoutType.forTime", "maxAllowedMinutes", proposedWorkout.getMaxAllowedMinutes());
     }
 
     private void validateNumberOfRounds (ProposedWorkoutDTO proposedWorkout, Errors errors) {
-        String numberOfRoundsFieldName = "numberOfRounds";
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, numberOfRoundsFieldName, "error.workoutType.forTime.numberOfRounds.null");
-        validateFieldIsAboveZero(numberOfRoundsFieldName, proposedWorkout.getNumberOfRounds(), errors, "error.workoutType.forTime.numberOfRounds.invalid");
+        validateIntegerField(errors, "error.workoutType.forTime", "numberOfRounds", proposedWorkout.getNumberOfRounds());
     }
 
     private void validateAmrap (ProposedWorkoutDTO proposedWorkout, Errors errors) {
@@ -59,9 +55,15 @@ class ProposedWorkoutValidator implements Validator {
     }
 
     private void validateDurationInMinutes (ProposedWorkoutDTO proposedWorkout, Errors errors) {
-        String durationInMinutesFieldName = "durationInMinutes";
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, durationInMinutesFieldName, "error.workoutType.amrap.durationInMinutes.null");
-        validateFieldIsAboveZero(durationInMinutesFieldName, proposedWorkout.getDurationInMinutes(), errors, "error.workoutType.amrap.durationInMinutes.invalid");
+        validateIntegerField(errors, "error.workoutType.amrap", "durationInMinutes", proposedWorkout.getDurationInMinutes());
+    }
+
+    private void validateIntegerField (Errors errors, String errorCodePrefix, String fieldName, Integer fieldValue) {
+        String nullFieldErrorCode = String.format("%s.%s.null", errorCodePrefix, fieldName);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldName, nullFieldErrorCode);
+
+        String aboveZeroFieldErrorCode = String.format("%s.%s.invalid", errorCodePrefix, fieldName);
+        validateFieldIsAboveZero(fieldName, fieldValue, errors, aboveZeroFieldErrorCode);
     }
 
     private void validateFieldIsAboveZero (String fieldName, Integer fieldValue, Errors errors, String errorCode) {
