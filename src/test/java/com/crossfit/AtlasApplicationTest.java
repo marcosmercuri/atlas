@@ -86,16 +86,16 @@ public class AtlasApplicationTest {
     public void test_missing_required_fields_new_proposed_workout() {
         HttpEntity<String> httpRequest = createRequestWithVariousMissingFields();
 
-        Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
+        Map apiResponse = postRequest(httpRequest);
 
         assertNotNull(apiResponse);
 
-        assertThat(apiResponse.get("status"), is(400));
+        verifyBadRequestStatus(apiResponse);
         assertThat(apiResponse.get("code"), is(40001));
         String errorMessage = (String)apiResponse.get("message");
-        assertThat(errorMessage, containsString("the list of exercises cannot be empty"));
-        assertThat(errorMessage, containsString("the type of the workout cannot be null"));
-        assertThat(errorMessage, containsString("the list of exercises cannot be null"));
+        assertThat(errorMessage, containsString("The list of exercises cannot be empty"));
+        assertThat(errorMessage, containsString("The type of the workout cannot be null"));
+        assertThat(errorMessage, containsString("The list of exercises cannot be null"));
         assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.AtlasController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 3 error(s)"));
     }
 

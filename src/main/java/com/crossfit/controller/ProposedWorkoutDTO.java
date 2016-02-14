@@ -14,11 +14,11 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 class ProposedWorkoutDTO {
     private String id;
-    @NotNull(message="error.exercises.null")
-    @NotEmpty(message="error.exercises.empty")
+    @NotNull(message="error.proposedWorkout.exercises.null")
+    @NotEmpty(message="error.proposedWorkout.exercises.empty")
     private List<ProposedExerciseDTO> exercises;
 
-    @NotNull(message="error.type.null")
+    @NotNull(message="error.proposedWorkout.type.null")
     private WorkoutType type;
 
     private Integer durationInMinutes;
