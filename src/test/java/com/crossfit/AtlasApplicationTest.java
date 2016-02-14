@@ -124,7 +124,7 @@ public class AtlasApplicationTest {
     }
 
     @Test
-    public void test_missing_DurationInMinutes_field_in_amrap_proposed_workout_request() throws Exception {
+    public void test_missing_durationInMinutes_field_in_amrap_proposed_workout_request() throws Exception {
         HttpEntity<String> httpRequest = createRequestWithMissingDurationInMinutesForAmrap();
 
         Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
@@ -141,7 +141,7 @@ public class AtlasApplicationTest {
     }
 
     @Test
-    public void test_invalid_value_for_DurationInMinutes_field_in_amrap_proposed_workout_request() throws Exception {
+    public void test_invalid_value_for_durationInMinutes_field_in_amrap_proposed_workout_request() throws Exception {
         HttpEntity<String> httpRequest = createRequestWithInvalidDurationInMinutesForAmrap();
 
         Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
@@ -158,19 +158,40 @@ public class AtlasApplicationTest {
     }
 
     @Test
-    public void test_missing_numberOfRounds_field_in_forTime_proposed_workout_request() throws Exception {
-        HttpEntity<String> httpRequest = createRequestWithMissingNumberOfRoundsForForTime();
+    public void test_missing_numberOfRounds_and_maxAllowedMinutes_fields_in_forTime_proposed_workout_request() throws Exception {
+        HttpEntity<String> httpRequest = createRequestWithMissingNumberOfRoundsAndMaxAllowedMinutesForForTime();
 
         Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
         System.out.println("Response:" + apiResponse);
         assertNotNull(apiResponse);
         assertThat(apiResponse.get("status"), is(400));
-        assertThat(apiResponse.get("message"), is("For FOR TIME workout, the numberOfRounds cannot be null nor empty"));
+        assertThat((String)apiResponse.get("message"), containsString("For FOR TIME workout, the numberOfRounds cannot be null nor empty"));
+        assertThat((String)apiResponse.get("message"), containsString("For FOR TIME workout, the maxAllowedMinutes cannot be null nor empty"));
         assertThat((String)apiResponse.get("developerMessage"), containsString("Field error in object 'proposedWorkoutDTO' on field 'numberOfRounds'"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("Field error in object 'proposedWorkoutDTO' on field 'maxAllowedMinutes'"));
     }
 
-    private HttpEntity<String> createRequestWithMissingNumberOfRoundsForForTime () {
-        String requestBody = Utils.loadResource("proposed_for_time_workout_request_with_missing_number_of_rounds.json");
+    private HttpEntity<String> createRequestWithMissingNumberOfRoundsAndMaxAllowedMinutesForForTime () {
+        String requestBody = Utils.loadResource("proposed_for_time_workout_request_with_missing_number_of_rounds_and_max_allowed_minutes.json");
+        return createJsonRequestWithBody(requestBody);
+    }
+
+    @Test
+    public void test_invalid_value_for_numberOfRounds_and_maxAllowedMinutes_fields_in_forTime_proposed_workout_request() throws Exception {
+        HttpEntity<String> httpRequest = createRequestWithInvalidMaxAllowedMinutesAndInvalidNumberOfRoundsForForTime();
+
+        Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
+
+        assertNotNull(apiResponse);
+        assertThat(apiResponse.get("status"), is(400));
+        assertThat((String)apiResponse.get("message"), containsString("For FOR TIME workout, the numberOfRounds has to be above zero"));
+        assertThat((String)apiResponse.get("message"), containsString("For FOR TIME workout, the maxAllowedMinutes has to be above zero"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("Field error in object 'proposedWorkoutDTO' on field 'numberOfRounds'"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("Field error in object 'proposedWorkoutDTO' on field 'maxAllowedMinutes'"));
+    }
+
+    private HttpEntity<String> createRequestWithInvalidMaxAllowedMinutesAndInvalidNumberOfRoundsForForTime () {
+        String requestBody = Utils.loadResource("proposed_for_time_workout_request_with_invalid_number_of_rounds_and_invalid_max_allowed_minutes.json");
         return createJsonRequestWithBody(requestBody);
     }
 }
