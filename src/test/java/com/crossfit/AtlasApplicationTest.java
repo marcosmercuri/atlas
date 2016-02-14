@@ -131,7 +131,7 @@ public class AtlasApplicationTest {
 
         assertNotNull(apiResponse);
         assertThat(apiResponse.get("status"), is(400));
-        assertThat(apiResponse.get("message"), is("For AMRAP workout, the durationInMinutes cannot be null nor empty. "));
+        assertThat(apiResponse.get("message"), is("For AMRAP workout, the durationInMinutes cannot be null nor empty"));
         assertThat((String)apiResponse.get("developerMessage"), containsString("Field error in object 'proposedWorkoutDTO' on field 'durationInMinutes'"));
     }
 
