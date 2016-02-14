@@ -7,6 +7,10 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+/**
+ * Validator for the ProposedWorkoutDTO.
+ * Validates that the correct fields are set for each type of WorkoutType.
+ */
 @Component
 class ProposedWorkoutValidator implements Validator {
     @Override
