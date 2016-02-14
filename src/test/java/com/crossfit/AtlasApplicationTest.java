@@ -37,10 +37,14 @@ public class AtlasApplicationTest {
     public void test_successful_new_proposed_workout() {
         HttpEntity<String> httpRequest = createValidForTimeRequest();
 
-        Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
+        Map apiResponse = postRequest(httpRequest);
 
         assertNotNull(apiResponse);
         assertThat(apiResponse.get("id"), is(not("")));
+    }
+
+    private Map postRequest (HttpEntity<String> httpRequest) {
+        return restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
     }
 
     private String getApplicationUrl () {
@@ -64,7 +68,7 @@ public class AtlasApplicationTest {
     public void test_bad_request_new_proposed_workout() {
         HttpEntity<String> httpRequest = createInvalidMediaTypeRequest();
 
-        Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
+        Map apiResponse = postRequest(httpRequest);
 
         assertNotNull(apiResponse);
         assertThat(apiResponse.get("status"), is(415));
@@ -110,13 +114,15 @@ public class AtlasApplicationTest {
     public void test_invalid_workout_type_in_new_proposed_workout() {
         HttpEntity<String> httpRequest = createRequestWithInvalidWorkoutType();
 
-        Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
+        Map apiResponse = postRequest(httpRequest);
 
         assertNotNull(apiResponse);
-        assertThat(apiResponse.get("status"), is(400));
+        verifyBadRequestStatus(apiResponse);
         assertThat((String)apiResponse.get("message"), containsString("The workout type is not a valid value"));
         assertThat((String)apiResponse.get("developerMessage"), containsString("Check the allow workout types"));
     }
+
+    private void verifyBadRequestStatus (Map apiResponse) {assertThat(apiResponse.get("status"), is(400));}
 
     private HttpEntity<String> createRequestWithInvalidWorkoutType () {
         String requestBody = Utils.loadResource("proposed_workout_request_with_invalid_workout_type.json");
@@ -127,10 +133,10 @@ public class AtlasApplicationTest {
     public void test_missing_durationInMinutes_field_in_amrap_proposed_workout_request() throws Exception {
         HttpEntity<String> httpRequest = createRequestWithMissingDurationInMinutesForAmrap();
 
-        Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
+        Map apiResponse = postRequest(httpRequest);
 
         assertNotNull(apiResponse);
-        assertThat(apiResponse.get("status"), is(400));
+        verifyBadRequestStatus(apiResponse);
         assertThat(apiResponse.get("message"), is("For AMRAP workout, the durationInMinutes cannot be null nor empty"));
         assertThat((String)apiResponse.get("developerMessage"), containsString("Field error in object 'proposedWorkoutDTO' on field 'durationInMinutes'"));
     }
@@ -144,10 +150,10 @@ public class AtlasApplicationTest {
     public void test_invalid_value_for_durationInMinutes_field_in_amrap_proposed_workout_request() throws Exception {
         HttpEntity<String> httpRequest = createRequestWithInvalidDurationInMinutesForAmrap();
 
-        Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
+        Map apiResponse = postRequest(httpRequest);
 
         assertNotNull(apiResponse);
-        assertThat(apiResponse.get("status"), is(400));
+        verifyBadRequestStatus(apiResponse);
         assertThat(apiResponse.get("message"), is("For AMRAP workout, the durationInMinutes has to be above zero"));
         assertThat((String)apiResponse.get("developerMessage"), containsString("Field error in object 'proposedWorkoutDTO' on field 'durationInMinutes'"));
     }
@@ -161,10 +167,10 @@ public class AtlasApplicationTest {
     public void test_missing_numberOfRounds_and_maxAllowedMinutes_fields_in_forTime_proposed_workout_request() throws Exception {
         HttpEntity<String> httpRequest = createRequestWithMissingNumberOfRoundsAndMaxAllowedMinutesForForTime();
 
-        Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
-        System.out.println("Response:" + apiResponse);
+        Map apiResponse = postRequest(httpRequest);
+
         assertNotNull(apiResponse);
-        assertThat(apiResponse.get("status"), is(400));
+        verifyBadRequestStatus(apiResponse);
         assertThat((String)apiResponse.get("message"), containsString("For FOR TIME workout, the numberOfRounds cannot be null nor empty"));
         assertThat((String)apiResponse.get("message"), containsString("For FOR TIME workout, the maxAllowedMinutes cannot be null nor empty"));
         assertThat((String)apiResponse.get("developerMessage"), containsString("Field error in object 'proposedWorkoutDTO' on field 'numberOfRounds'"));
@@ -180,10 +186,10 @@ public class AtlasApplicationTest {
     public void test_invalid_value_for_numberOfRounds_and_maxAllowedMinutes_fields_in_forTime_proposed_workout_request() throws Exception {
         HttpEntity<String> httpRequest = createRequestWithInvalidMaxAllowedMinutesAndInvalidNumberOfRoundsForForTime();
 
-        Map apiResponse = restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
+        Map apiResponse = postRequest(httpRequest);
 
         assertNotNull(apiResponse);
-        assertThat(apiResponse.get("status"), is(400));
+        verifyBadRequestStatus(apiResponse);
         assertThat((String)apiResponse.get("message"), containsString("For FOR TIME workout, the numberOfRounds has to be above zero"));
         assertThat((String)apiResponse.get("message"), containsString("For FOR TIME workout, the maxAllowedMinutes has to be above zero"));
         assertThat((String)apiResponse.get("developerMessage"), containsString("Field error in object 'proposedWorkoutDTO' on field 'numberOfRounds'"));
