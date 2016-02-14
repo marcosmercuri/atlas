@@ -13,6 +13,5 @@
             "numberOfRepetitions": 10
         }
     ],
-    "type": "AMRAP",
-    "maxAllowedMinutes": 20
+    "type": "AMRAP"
 }
