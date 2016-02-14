@@ -65,11 +65,11 @@ class ProposedWorkoutDTO {
         try {
             this.type = WorkoutType.valueOf(type.toUpperCase());
         } catch (IllegalArgumentException exception) {
-            throw createInvalidTypeException(type, exception);
+            throw createInvalidTypeException(exception);
         }
     }
 
-    private BasicException createInvalidTypeException (String type, IllegalArgumentException originalException) {
+    private BasicException createInvalidTypeException (IllegalArgumentException originalException) {
         //I couldn't find a way to get the messageSource injected, to pass the type as argument to the message
         return new BasicException("error.type.invalid",
               "error.type.invalid.developerMessage",
