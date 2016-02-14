@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class AtlasController {
 
     @Autowired
-    ProposedWorkoutValidator proposedWorkoutValidator;
+    private ProposedWorkoutValidator proposedWorkoutValidator;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
