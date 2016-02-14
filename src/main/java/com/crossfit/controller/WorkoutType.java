@@ -1,5 +1,5 @@
 package com.crossfit.controller;
 
 enum WorkoutType {
-    AMRAP, FOR_TIME;
+    AMRAP, FOR_TIME
 }

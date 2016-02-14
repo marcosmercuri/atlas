@@ -49,7 +49,7 @@ class ProposedWorkoutValidator implements Validator {
     }
 
     private void validateDurationInMinutes (ProposedWorkoutDTO proposedWorkout, Errors errors) {
-        String durationInMinutesFieldName = "durationInMinutes";;
+        String durationInMinutesFieldName = "durationInMinutes";
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, durationInMinutesFieldName, "error.workoutType.amrap.durationInMinutes.null");
 
         Optional

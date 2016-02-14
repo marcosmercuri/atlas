@@ -57,7 +57,7 @@ public class TestUtils {
         ProposedExerciseDTO proposedExerciseDTO = new ProposedExerciseDTO();
         proposedExerciseDTO.setName("Burpees");
         proposedExerciseDTO.setType(getRandomExerciseType());
-        proposedExerciseDTO.setDescription("Burpess description");
+        proposedExerciseDTO.setDescription("Burpees description");
         proposedExerciseDTO.setNumberOfRepetitions(2);
         return proposedExerciseDTO;
     }
