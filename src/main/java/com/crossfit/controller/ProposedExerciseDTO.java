@@ -1,13 +1,12 @@
 package com.crossfit.controller;
 
-import static com.crossfit.controller.RequestErrorCodes.INVALID_FIELDS_IN_REQUEST_ERROR_CODE;
+import static com.crossfit.controller.RequestErrorCodes.*;
 
 import java.util.Optional;
 import javax.validation.constraints.NotNull;
 
 import com.crossfit.exceptions.BasicException;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * POJO for a request of proposedExercise
