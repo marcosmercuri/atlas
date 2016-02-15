@@ -86,4 +86,11 @@ public class TestUtils {
         Collections.shuffle(teams);
         return teams.get(0).toString();
     }
+
+    public static ProposedExerciseDTO createExerciseWithOneRx() {
+        ProposedExerciseDTO randomValidExercise = createRandomValidExercise();
+        randomValidExercise.setFemaleRxInKilograms(50);
+        randomValidExercise.setMaleRxInKilograms(null);
+        return randomValidExercise;
+    }
 }

@@ -17,13 +17,23 @@ public class ProposedExerciseValidatorTest {
     }
 
     @Test
-    public void given_a_valid_proposed_exercise_when_validated_there_are_no_errors() {
+    public void given_a_valid_exercise_when_validated_there_are_no_errors() {
         ProposedExerciseDTO proposedExercise = createRandomValidExercise();
         Errors errors = createEmptyErrors(proposedExercise);
 
         validator.validate(proposedExercise, errors);
 
         assertFalse(errors.hasErrors());
+    }
+
+    @Test
+    public void given_an_exercise_with_one_rx_when_validated_then_validation_fails() {
+        ProposedExerciseDTO proposedExercise = createExerciseWithOneRx();
+        Errors errors = createEmptyErrors(proposedExercise);
+
+        validator.validate(proposedExercise, errors);
+
+        //TODO Add assertions.
     }
 
     private Errors createEmptyErrors (ProposedExerciseDTO proposedExercise) {
