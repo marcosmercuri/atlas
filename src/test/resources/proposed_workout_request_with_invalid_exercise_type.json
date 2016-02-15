@@ -1,0 +1,13 @@
+{
+    "exercises": [
+        {
+            "type": "INVALID",
+            "name": "kettlebellSwing",
+            "description": "kettlebell swing",
+            "numberOfRepetitions": 10
+        }
+    ],
+    "type": "FOR_TIME",
+    "numberOfRounds": 10,
+    "maxAllowedMinutes": 20
+}

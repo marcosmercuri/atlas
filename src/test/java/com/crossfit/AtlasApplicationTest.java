@@ -130,6 +130,23 @@ public class AtlasApplicationTest {
     }
 
     @Test
+    public void test_invalid_exercise_type_in_new_proposed_workout() {
+        HttpEntity<String> httpRequest = createRequestWithInvalidExerciseType();
+
+        Map apiResponse = postRequest(httpRequest);
+
+        assertNotNull(apiResponse);
+        verifyBadRequestStatus(apiResponse);
+        assertThat((String)apiResponse.get("message"), containsString("The exercise type is not a valid value"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("Check the allow exercise types"));
+    }
+
+    private HttpEntity<String> createRequestWithInvalidExerciseType () {
+        String requestBody = Utils.loadResource("proposed_workout_request_with_invalid_exercise_type.json");
+        return createJsonRequestWithBody(requestBody);
+    }
+
+    @Test
     public void test_missing_durationInMinutes_field_in_amrap_proposed_workout_request() throws Exception {
         HttpEntity<String> httpRequest = createRequestWithMissingDurationInMinutesForAmrap();
 
