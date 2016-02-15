@@ -4,6 +4,7 @@ import static com.crossfit.controller.WorkoutType.*;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -15,6 +16,9 @@ import org.springframework.validation.Validator;
  */
 @Component
 class ProposedWorkoutValidator implements Validator {
+    @Autowired
+    private ProposedExerciseValidator proposedExerciseValidator;
+
     @Override
     public boolean supports (Class<?> clazz) {
         return ProposedWorkoutDTO.class.equals(clazz);
@@ -35,6 +39,13 @@ class ProposedWorkoutValidator implements Validator {
             validateForTime(proposedWorkout, errors);
         }
 
+        validateExerciseList(proposedWorkout, errors);
+    }
+
+    private void validateExerciseList (ProposedWorkoutDTO proposedWorkout, Errors errors) {
+        proposedWorkout.getExercises().stream().forEach(
+              proposedExercise -> proposedExerciseValidator.validate(proposedExercise, errors)
+        );
     }
 
     private void validateForTime (ProposedWorkoutDTO proposedWorkout, Errors errors) {

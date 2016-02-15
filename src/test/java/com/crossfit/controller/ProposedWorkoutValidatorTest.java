@@ -7,32 +7,40 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
 public class ProposedWorkoutValidatorTest {
+    @Mock
+    private ProposedExerciseValidator exerciseValidator;
+
+    @InjectMocks
     private ProposedWorkoutValidator validator;
 
     @Before
     public void setUp() {
-        validator = new ProposedWorkoutValidator();
+        MockitoAnnotations.initMocks(this);
     }
-
 
     @Test
     public void given_a_valid_amrap_workout_when_validated_there_are_no_errors() {
         ProposedWorkoutDTO proposedWorkoutDTO = givenValidAmrapProposedWorkout(2);
-        Errors errors = new BeanPropertyBindingResult(proposedWorkoutDTO, "proposedWorkoutDTO");
+        Errors errors = createEmptyErrors(proposedWorkoutDTO);
 
         validator.validate(proposedWorkoutDTO, errors);
 
         assertFalse(errors.hasErrors());
     }
 
+    private Errors createEmptyErrors (ProposedWorkoutDTO proposedWorkoutDTO) {return new BeanPropertyBindingResult(proposedWorkoutDTO, "proposedWorkoutDTO");}
+
     @Test
     public void given_an_amrap_without_durationInMinutes_when_validated_then_the_validation_fails() {
         ProposedWorkoutDTO proposedWorkoutDTO = givenAmrapWithoutDurationInMinutes();
-        Errors errors = new BeanPropertyBindingResult(proposedWorkoutDTO, "proposedWorkoutDTO");
+        Errors errors = createEmptyErrors(proposedWorkoutDTO);
 
         validator.validate(proposedWorkoutDTO, errors);
 
@@ -44,7 +52,7 @@ public class ProposedWorkoutValidatorTest {
     @Test
     public void given_an_amrap_with_invalid_value_durationInMinutes_when_validated_then_the_validation_fails() {
         ProposedWorkoutDTO proposedWorkoutDTO = TestUtils.givenAmrapWithInvalidValueDurationInMinutes();
-        Errors errors = new BeanPropertyBindingResult(proposedWorkoutDTO, "proposedWorkoutDTO");
+        Errors errors = createEmptyErrors(proposedWorkoutDTO);
         validator.validate(proposedWorkoutDTO, errors);
 
         assertTrue(errors.hasErrors());
@@ -55,7 +63,7 @@ public class ProposedWorkoutValidatorTest {
     @Test
     public void given_a_valid_forTime_workout_when_validated_there_are_no_errors() {
         ProposedWorkoutDTO proposedWorkoutDTO = givenValidForTimeProposedWorkout(2);
-        Errors errors = new BeanPropertyBindingResult(proposedWorkoutDTO, "proposedWorkoutDTO");
+        Errors errors = createEmptyErrors(proposedWorkoutDTO);
 
         validator.validate(proposedWorkoutDTO, errors);
 
@@ -65,7 +73,7 @@ public class ProposedWorkoutValidatorTest {
     @Test
     public void given_a_forTime_without_numberOfRounds_when_validated_then_the_validation_fails() {
         ProposedWorkoutDTO proposedWorkoutDTO = TestUtils.givenForTimeWithoutNumberOfRounds();
-        Errors errors = new BeanPropertyBindingResult(proposedWorkoutDTO, "proposedWorkoutDTO");
+        Errors errors = createEmptyErrors(proposedWorkoutDTO);
 
         validator.validate(proposedWorkoutDTO, errors);
 
@@ -77,7 +85,7 @@ public class ProposedWorkoutValidatorTest {
     @Test
     public void given_a_forTime_with_invalid_numberOfRounds_when_validated_then_the_validation_fails() {
         ProposedWorkoutDTO proposedWorkoutDTO = TestUtils.givenForTimeWithInvalidNumberOfRounds();
-        Errors errors = new BeanPropertyBindingResult(proposedWorkoutDTO, "proposedWorkoutDTO");
+        Errors errors = createEmptyErrors(proposedWorkoutDTO);
 
         validator.validate(proposedWorkoutDTO, errors);
 
@@ -89,7 +97,7 @@ public class ProposedWorkoutValidatorTest {
     @Test
     public void given_a_forTime_without_maxAllowedMinutes_when_validated_then_the_validation_fails() {
         ProposedWorkoutDTO proposedWorkoutDTO = TestUtils.givenForTimeWithoutMaxAllowedMinutes();
-        Errors errors = new BeanPropertyBindingResult(proposedWorkoutDTO, "proposedWorkoutDTO");
+        Errors errors = createEmptyErrors(proposedWorkoutDTO);
 
         validator.validate(proposedWorkoutDTO, errors);
 
@@ -101,7 +109,7 @@ public class ProposedWorkoutValidatorTest {
     @Test
     public void given_a_forTime_with_invalid_maxAllowedMinutes_when_validated_then_the_validation_fails() {
         ProposedWorkoutDTO proposedWorkoutDTO = TestUtils.givenForTimeWithInvalidMaxAllowedMinutes();
-        Errors errors = new BeanPropertyBindingResult(proposedWorkoutDTO, "proposedWorkoutDTO");
+        Errors errors = createEmptyErrors(proposedWorkoutDTO);
 
         validator.validate(proposedWorkoutDTO, errors);
 
