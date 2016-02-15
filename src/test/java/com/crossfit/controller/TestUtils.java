@@ -65,12 +65,12 @@ public class TestUtils {
     public static List<ProposedExerciseDTO> givenListOfExercises (Integer numberOfExercises) {
         List<ProposedExerciseDTO> exercises = new ArrayList<>(numberOfExercises);
         for (int i = 1; i <= numberOfExercises; i++) {
-            exercises.add(createRandomExercise());
+            exercises.add(createRandomValidExercise());
         }
         return exercises;
     }
 
-    private static ProposedExerciseDTO createRandomExercise () {
+    public static ProposedExerciseDTO createRandomValidExercise () {
         // For the time being, it's random enough
         ProposedExerciseDTO proposedExerciseDTO = new ProposedExerciseDTO();
         proposedExerciseDTO.setName("Burpees");
