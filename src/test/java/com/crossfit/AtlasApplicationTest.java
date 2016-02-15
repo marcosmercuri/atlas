@@ -52,8 +52,7 @@ public class AtlasApplicationTest {
     }
 
     private HttpEntity<String> createValidForTimeRequest () {
-        String requestBody = Utils.loadResource("new_valid_proposed_for_time_request.json");
-        return createJsonRequestWithBody(requestBody);
+        return createRequestFromFile("new_valid_proposed_for_time_request.json");
     }
 
     private HttpEntity<String> createRequestWithBody (String requestBody, MediaType mediaType) {
@@ -104,8 +103,7 @@ public class AtlasApplicationTest {
     }
 
     private HttpEntity<String> createRequestWithVariousMissingFields () {
-        String requestBody = Utils.loadResource("proposed_workout_request_with_exercises_and_type_fields_missing.json");
-        return createJsonRequestWithBody(requestBody);
+        return createRequestFromFile("proposed_workout_request_with_exercises_and_type_fields_missing.json");
     }
 
     private HttpEntity<String> createJsonRequestWithBody (String requestBody) {return createRequestWithBody(requestBody, MediaType.APPLICATION_JSON);}
@@ -125,8 +123,7 @@ public class AtlasApplicationTest {
     private void verifyBadRequestStatus (Map apiResponse) {assertThat(apiResponse.get("status"), is(400));}
 
     private HttpEntity<String> createRequestWithInvalidWorkoutType () {
-        String requestBody = Utils.loadResource("proposed_workout_request_with_invalid_workout_type.json");
-        return createJsonRequestWithBody(requestBody);
+        return createRequestFromFile("proposed_workout_request_with_invalid_workout_type.json");
     }
 
     @Test
@@ -142,8 +139,7 @@ public class AtlasApplicationTest {
     }
 
     private HttpEntity<String> createRequestWithInvalidExerciseType () {
-        String requestBody = Utils.loadResource("proposed_workout_request_with_invalid_exercise_type.json");
-        return createJsonRequestWithBody(requestBody);
+        return createRequestFromFile("proposed_workout_request_with_invalid_exercise_type.json");
     }
 
     @Test
@@ -159,7 +155,11 @@ public class AtlasApplicationTest {
     }
 
     private HttpEntity<String> createRequestWithMissingDurationInMinutesForAmrap () {
-        String requestBody = Utils.loadResource("proposed_amrap_workout_request_without_duration_in_minutes.json");
+        return createRequestFromFile("proposed_amrap_workout_request_without_duration_in_minutes.json");
+    }
+
+    private HttpEntity<String> createRequestFromFile (String fileName) {
+        String requestBody = Utils.loadResource(fileName);
         return createJsonRequestWithBody(requestBody);
     }
 
@@ -176,8 +176,7 @@ public class AtlasApplicationTest {
     }
 
     private HttpEntity<String> createRequestWithInvalidDurationInMinutesForAmrap () {
-        String requestBody = Utils.loadResource("proposed_amrap_workout_request_with_invalid_duration_in_minutes.json");
-        return createJsonRequestWithBody(requestBody);
+        return createRequestFromFile("proposed_amrap_workout_request_with_invalid_duration_in_minutes.json");
     }
 
     @Test
@@ -195,8 +194,7 @@ public class AtlasApplicationTest {
     }
 
     private HttpEntity<String> createRequestWithMissingNumberOfRoundsAndMaxAllowedMinutesForForTime () {
-        String requestBody = Utils.loadResource("proposed_for_time_workout_request_with_missing_number_of_rounds_and_max_allowed_minutes.json");
-        return createJsonRequestWithBody(requestBody);
+        return createRequestFromFile("proposed_for_time_workout_request_with_missing_number_of_rounds_and_max_allowed_minutes.json");
     }
 
     @Test
@@ -214,8 +212,7 @@ public class AtlasApplicationTest {
     }
 
     private HttpEntity<String> createRequestWithInvalidMaxAllowedMinutesAndInvalidNumberOfRoundsForForTime () {
-        String requestBody = Utils.loadResource("proposed_for_time_workout_request_with_invalid_number_of_rounds_and_invalid_max_allowed_minutes.json");
-        return createJsonRequestWithBody(requestBody);
+        return createRequestFromFile("proposed_for_time_workout_request_with_invalid_number_of_rounds_and_invalid_max_allowed_minutes.json");
     }
 
     /**
@@ -239,7 +236,6 @@ public class AtlasApplicationTest {
     }
 
     private HttpEntity<String> createRequestWithAllRequiredFieldsMissingInProposedExercise () {
-        String requestBody = Utils.loadResource("proposed_workout_request_with_all_required_fields_missing_in_exercise.json");
-        return createJsonRequestWithBody(requestBody);
+        return createRequestFromFile("proposed_workout_request_with_all_required_fields_missing_in_exercise.json");
     }
 }
