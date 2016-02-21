@@ -2,8 +2,6 @@ package com.crossfit.controller;
 
 import static com.crossfit.controller.WorkoutType.*;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -31,12 +29,14 @@ class ProposedWorkoutValidator implements Validator {
             return;
         }
 
-        ProposedWorkoutDTO proposedWorkout = (ProposedWorkoutDTO) target;
+        validateProposedWorkout(errors, (ProposedWorkoutDTO) target);
+    }
 
+    private void validateProposedWorkout (Errors errors, ProposedWorkoutDTO proposedWorkout) {
         if (proposedWorkout.getType().equals(AMRAP.toString())) {
-            validateAmrap(proposedWorkout, errors);
+            validateAmrap(errors);
         } else if (proposedWorkout.getType().equals(FOR_TIME.toString())) {
-            validateForTime(proposedWorkout, errors);
+            validateForTime(errors);
         }
 
         validateExerciseList(proposedWorkout, errors);
@@ -48,39 +48,29 @@ class ProposedWorkoutValidator implements Validator {
         );
     }
 
-    private void validateForTime (ProposedWorkoutDTO proposedWorkout, Errors errors) {
-        validateNumberOfRounds(proposedWorkout, errors);
-        validateMaxAllowedMinutes(proposedWorkout, errors);
+    private void validateForTime (Errors errors) {
+        validateNumberOfRounds(errors);
+        validateMaxAllowedMinutes(errors);
     }
 
-    private void validateMaxAllowedMinutes (ProposedWorkoutDTO proposedWorkout, Errors errors) {
-        validateIntegerField(errors, "error.workoutType.forTime", "maxAllowedMinutes", proposedWorkout.getMaxAllowedMinutes());
+    private void validateMaxAllowedMinutes (Errors errors) {
+        validateFieldNotEmpty(errors, "error.workoutType.forTime", "maxAllowedMinutes");
     }
 
-    private void validateNumberOfRounds (ProposedWorkoutDTO proposedWorkout, Errors errors) {
-        validateIntegerField(errors, "error.workoutType.forTime", "numberOfRounds", proposedWorkout.getNumberOfRounds());
+    private void validateNumberOfRounds (Errors errors) {
+        validateFieldNotEmpty(errors, "error.workoutType.forTime", "numberOfRounds");
     }
 
-    private void validateAmrap (ProposedWorkoutDTO proposedWorkout, Errors errors) {
-        validateDurationInMinutes(proposedWorkout, errors);
+    private void validateAmrap (Errors errors) {
+        validateDurationInMinutes(errors);
     }
 
-    private void validateDurationInMinutes (ProposedWorkoutDTO proposedWorkout, Errors errors) {
-        validateIntegerField(errors, "error.workoutType.amrap", "durationInMinutes", proposedWorkout.getDurationInMinutes());
+    private void validateDurationInMinutes (Errors errors) {
+        validateFieldNotEmpty(errors, "error.workoutType.amrap", "durationInMinutes");
     }
 
-    private void validateIntegerField (Errors errors, String errorCodePrefix, String fieldName, Integer fieldValue) {
+    private void validateFieldNotEmpty (Errors errors, String errorCodePrefix, String fieldName) {
         String nullFieldErrorCode = String.format("%s.%s.null", errorCodePrefix, fieldName);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldName, nullFieldErrorCode);
-
-        String aboveZeroFieldErrorCode = String.format("%s.%s.invalid", errorCodePrefix, fieldName);
-        validateFieldIsAboveZero(fieldName, fieldValue, errors, aboveZeroFieldErrorCode);
-    }
-
-    private void validateFieldIsAboveZero (String fieldName, Integer fieldValue, Errors errors, String errorCode) {
-        Optional
-              .ofNullable(fieldValue)
-              .filter(durationInMinutes -> durationInMinutes <= 0)
-              .ifPresent(durationInMinutes -> errors.rejectValue(fieldName, errorCode));
     }
 }

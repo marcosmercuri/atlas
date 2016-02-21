@@ -5,6 +5,7 @@ import static com.crossfit.controller.RequestErrorCodes.*;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import com.crossfit.exceptions.BasicException;
@@ -23,8 +24,13 @@ class ProposedWorkoutDTO {
     @NotNull(message="error.proposedWorkout.type.null")
     private WorkoutType type;
 
+    @Min (value = 1, message="error.proposedWorkout.durationInMinutes.invalid")
     private Integer durationInMinutes;
+
+    @Min (value = 1, message="error.proposedWorkout.maxAllowedMinutes.invalid")
     private Integer maxAllowedMinutes;
+
+    @Min (value = 1, message="error.proposedWorkout.numberOfRounds.invalid")
     private Integer numberOfRounds;
 
     public List<ProposedExerciseDTO> getExercises () {

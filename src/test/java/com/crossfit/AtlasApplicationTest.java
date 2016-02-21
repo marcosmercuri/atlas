@@ -164,19 +164,21 @@ public class AtlasApplicationTest {
     }
 
     @Test
-    public void test_invalid_value_for_durationInMinutes_field_in_amrap_proposed_workout_request() throws Exception {
-        HttpEntity<String> httpRequest = createRequestWithInvalidDurationInMinutesForAmrap();
+    public void test_invalid_value_for_numeric_fields_in_amrap_proposed_workout_request () throws Exception {
+        HttpEntity<String> httpRequest = createRequestWithInvalidNumericFieldsForAmrap();
 
         Map apiResponse = postRequest(httpRequest);
 
         assertNotNull(apiResponse);
         verifyBadRequestStatus(apiResponse);
-        assertThat(apiResponse.get("message"), is("For AMRAP workout, the durationInMinutes has to be above zero"));
+        assertThat((String)apiResponse.get("message"), containsString("For AMRAP workout, the durationInMinutes has to be above zero"));
+        assertThat((String)apiResponse.get("message"), containsString("For FOR TIME workout, the maxAllowedMinutes has to be above zero"));
+        assertThat((String)apiResponse.get("message"), containsString("For FOR TIME workout, the numberOfRounds has to be above zero"));
         assertThat((String)apiResponse.get("developerMessage"), containsString("Field error in object 'proposedWorkoutDTO' on field 'durationInMinutes'"));
     }
 
-    private HttpEntity<String> createRequestWithInvalidDurationInMinutesForAmrap () {
-        return createRequestFromFile("proposed_amrap_workout_request_with_invalid_duration_in_minutes.json");
+    private HttpEntity<String> createRequestWithInvalidNumericFieldsForAmrap () {
+        return createRequestFromFile("proposed_amrap_workout_request_with_invalid_numeric_fields.json");
     }
 
     @Test
@@ -237,5 +239,30 @@ public class AtlasApplicationTest {
 
     private HttpEntity<String> createRequestWithAllRequiredFieldsMissingInProposedExercise () {
         return createRequestFromFile("proposed_workout_request_with_all_required_fields_missing_in_exercise.json");
+    }
+
+    @Test
+    public void test_invalid_integer_fields_value_on_proposed_exercise_on_new_proposed_workout() {
+        HttpEntity<String> httpRequest = createRequestWithAllIntegerFieldsInvalidInProposedExercise();
+
+        Map apiResponse = postRequest(httpRequest);
+
+        assertNotNull(apiResponse);
+
+        verifyBadRequestStatus(apiResponse);
+        assertThat(apiResponse.get("code"), is(40001));
+        String errorMessage = (String)apiResponse.get("message");
+
+        //TODO After commit extract all this to methods
+        assertThat(errorMessage, containsString("The number of repetitions of the proposed exercise has to be above zero"));
+        assertThat(errorMessage, containsString("The male Rx of the proposed exercise has to be above zero"));
+        assertThat(errorMessage, containsString("The female Rx of the proposed exercise has to be above zero"));
+        assertThat(errorMessage, containsString("The distance in meters of the proposed exercise has to be above zero"));
+        assertThat(errorMessage, containsString("The duration of the proposed exercise has to be above zero"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.AtlasController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 5 error(s)"));
+    }
+
+    private HttpEntity<String> createRequestWithAllIntegerFieldsInvalidInProposedExercise () {
+        return createRequestFromFile("proposed_workout_request_with_all_integer_fields_invalid_in_exercise.json");
     }
 }

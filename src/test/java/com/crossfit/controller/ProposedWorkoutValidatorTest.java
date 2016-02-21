@@ -50,17 +50,6 @@ public class ProposedWorkoutValidatorTest {
     }
 
     @Test
-    public void given_an_amrap_with_invalid_value_durationInMinutes_when_validated_then_the_validation_fails() {
-        ProposedWorkoutDTO proposedWorkoutDTO = TestUtils.givenAmrapWithInvalidValueDurationInMinutes();
-        Errors errors = createEmptyErrors(proposedWorkoutDTO);
-        validator.validate(proposedWorkoutDTO, errors);
-
-        assertTrue(errors.hasErrors());
-        assertThat(errors.getErrorCount(), is(1));
-        assertThat(errors.getFieldError("durationInMinutes").getCode(), is("error.workoutType.amrap.durationInMinutes.invalid"));
-    }
-
-    @Test
     public void given_a_valid_forTime_workout_when_validated_there_are_no_errors() {
         ProposedWorkoutDTO proposedWorkoutDTO = givenValidForTimeProposedWorkout(2);
         Errors errors = createEmptyErrors(proposedWorkoutDTO);
@@ -83,18 +72,6 @@ public class ProposedWorkoutValidatorTest {
     }
 
     @Test
-    public void given_a_forTime_with_invalid_numberOfRounds_when_validated_then_the_validation_fails() {
-        ProposedWorkoutDTO proposedWorkoutDTO = TestUtils.givenForTimeWithInvalidNumberOfRounds();
-        Errors errors = createEmptyErrors(proposedWorkoutDTO);
-
-        validator.validate(proposedWorkoutDTO, errors);
-
-        assertTrue(errors.hasErrors());
-        assertThat(errors.getErrorCount(), is(1));
-        assertThat(errors.getFieldError("numberOfRounds").getCode(), is("error.workoutType.forTime.numberOfRounds.invalid"));
-    }
-
-    @Test
     public void given_a_forTime_without_maxAllowedMinutes_when_validated_then_the_validation_fails() {
         ProposedWorkoutDTO proposedWorkoutDTO = TestUtils.givenForTimeWithoutMaxAllowedMinutes();
         Errors errors = createEmptyErrors(proposedWorkoutDTO);
@@ -106,15 +83,4 @@ public class ProposedWorkoutValidatorTest {
         assertThat(errors.getFieldError("maxAllowedMinutes").getCode(), is("error.workoutType.forTime.maxAllowedMinutes.null"));
     }
 
-    @Test
-    public void given_a_forTime_with_invalid_maxAllowedMinutes_when_validated_then_the_validation_fails() {
-        ProposedWorkoutDTO proposedWorkoutDTO = TestUtils.givenForTimeWithInvalidMaxAllowedMinutes();
-        Errors errors = createEmptyErrors(proposedWorkoutDTO);
-
-        validator.validate(proposedWorkoutDTO, errors);
-
-        assertTrue(errors.hasErrors());
-        assertThat(errors.getErrorCount(), is(1));
-        assertThat(errors.getFieldError("maxAllowedMinutes").getCode(), is("error.workoutType.forTime.maxAllowedMinutes.invalid"));
-    }
 }

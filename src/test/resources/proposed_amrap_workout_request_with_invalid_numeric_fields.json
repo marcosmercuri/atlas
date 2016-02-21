@@ -14,5 +14,7 @@
         }
     ],
     "type": "AMRAP",
-    "durationInMinutes": -1
+    "durationInMinutes": -1,
+    "maxAllowedMinutes": -1,
+    "numberOfRounds": -1
 }
