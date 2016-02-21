@@ -15,6 +15,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.context.request.RequestAttributes;
 
@@ -98,7 +99,7 @@ public class DefaultErrorResponseAttributes extends DefaultErrorAttributes {
         ErrorInformation errorInformation = new ErrorInformation();
         errorInformation.errorCode = Optional.of(INVALID_FIELDS_IN_REQUEST_ERROR_CODE);
 
-        errorInformation.message = error.getBindingResult().getFieldErrors()
+        errorInformation.message = error.getBindingResult().getAllErrors()
               .stream()
               .map(this::getErrorMessages)
               .map(this::translateMessages)
@@ -126,7 +127,7 @@ public class DefaultErrorResponseAttributes extends DefaultErrorAttributes {
         }
     }
 
-    private Stream<String> getErrorMessages (FieldError fieldError) {
+    private Stream<String> getErrorMessages (ObjectError fieldError) {
         List<String> errors = new ArrayList<>();
         errors.add(fieldError.getDefaultMessage());
         errors.addAll(Arrays.asList(fieldError.getCodes()));
