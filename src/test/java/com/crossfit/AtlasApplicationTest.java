@@ -265,4 +265,24 @@ public class AtlasApplicationTest {
     private HttpEntity<String> createRequestWithAllIntegerFieldsInvalidInProposedExercise () {
         return createRequestFromFile("proposed_workout_request_with_all_integer_fields_invalid_in_exercise.json");
     }
+
+    @Test
+    public void test_one_rx_field_is_missing_on_proposed_exercise_on_new_proposed_workout() {
+        HttpEntity<String> httpRequest = createRequestWithOnlyMaleRxInProposedExercise();
+
+        Map apiResponse = postRequest(httpRequest);
+
+        assertNotNull(apiResponse);
+
+        verifyBadRequestStatus(apiResponse);
+        assertThat(apiResponse.get("code"), is(40001));
+        String errorMessage = (String)apiResponse.get("message");
+
+        assertThat(errorMessage, containsString("Either both rx fields are set, or non can"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.AtlasController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 1 error(s)"));
+    }
+
+    private HttpEntity<String> createRequestWithOnlyMaleRxInProposedExercise () {
+        return createRequestFromFile("proposed_workout_request_with_only_male_rx_in_exercise.json");
+    }
 }

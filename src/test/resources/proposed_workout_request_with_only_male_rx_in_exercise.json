@@ -1,0 +1,14 @@
+{
+    "exercises": [
+        {
+            "type": "REPETITION",
+            "name": "pullUp",
+            "description": "pull up",
+            "numberOfRepetitions": 10,
+            "maleRxInKilograms": 24
+        }
+    ],
+    "type": "FOR_TIME",
+    "numberOfRounds": 10,
+    "maxAllowedMinutes": 20
+}
