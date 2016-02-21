@@ -22,5 +22,17 @@ class ProposedExerciseValidator implements Validator {
         if (errors.hasErrors()) {
             return;
         }
+
+        validateProposedExercise(errors, (ProposedExerciseDTO) target);
+    }
+
+    private void validateProposedExercise (Errors errors, ProposedExerciseDTO proposedExercise) {
+        validateRx(errors, proposedExercise);
+    }
+
+    private void validateRx (Errors errors, ProposedExerciseDTO proposedExercise) {
+        if (proposedExercise.getFemaleRxInKilograms()!=null ^ proposedExercise.getMaleRxInKilograms()!=null) {
+            errors.reject("error.proposedExercise.rx.oneValueMissing");
+        }
     }
 }

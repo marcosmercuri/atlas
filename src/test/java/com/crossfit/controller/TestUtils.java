@@ -87,10 +87,22 @@ public class TestUtils {
         return teams.get(0).toString();
     }
 
-    public static ProposedExerciseDTO createExerciseWithOneRx() {
-        ProposedExerciseDTO randomValidExercise = createRandomValidExercise();
-        randomValidExercise.setFemaleRxInKilograms(50);
+    public static ProposedExerciseDTO createExerciseWithOnlyFemaleRx () {
+        ProposedExerciseDTO randomValidExercise = createExerciseWithBothRx();
         randomValidExercise.setMaleRxInKilograms(null);
+        return randomValidExercise;
+    }
+
+    public static ProposedExerciseDTO createExerciseWithOnlyMaleRx () {
+        ProposedExerciseDTO randomValidExercise = createExerciseWithBothRx();
+        randomValidExercise.setFemaleRxInKilograms(null);
+        return randomValidExercise;
+    }
+
+    public static ProposedExerciseDTO createExerciseWithBothRx() {
+        ProposedExerciseDTO randomValidExercise = createRandomValidExercise();
+        randomValidExercise.setFemaleRxInKilograms(45);
+        randomValidExercise.setMaleRxInKilograms(50);
         return randomValidExercise;
     }
 }

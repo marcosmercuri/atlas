@@ -1,7 +1,11 @@
 package com.crossfit.controller;
 
 import static com.crossfit.controller.TestUtils.*;
-import static org.junit.Assert.assertFalse;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,13 +31,38 @@ public class ProposedExerciseValidatorTest {
     }
 
     @Test
-    public void given_an_exercise_with_one_rx_when_validated_then_validation_fails() {
-        ProposedExerciseDTO proposedExercise = createExerciseWithOneRx();
+    public void given_an_exercise_with_both_rx_when_validated_there_are_no_errors() {
+        ProposedExerciseDTO proposedExercise = createExerciseWithBothRx();
         Errors errors = createEmptyErrors(proposedExercise);
 
         validator.validate(proposedExercise, errors);
 
-        //TODO Add assertions.
+        assertFalse(errors.hasErrors());
+    }
+
+    @Test
+    public void given_an_exercise_with_female_rx_only_when_validated_then_validation_fails() {
+        given_exercise_with_one_rx_when_validated_then_validation_fails(createExerciseWithOnlyFemaleRx());
+    }
+
+    @Test
+    public void given_an_exercise_with_male_rx_only_when_validated_then_validation_fails() {
+        given_exercise_with_one_rx_when_validated_then_validation_fails(createExerciseWithOnlyMaleRx());
+    }
+
+    private void given_exercise_with_one_rx_when_validated_then_validation_fails (ProposedExerciseDTO exerciseWithOnlyOneRx) {
+        Errors errors = createEmptyErrors(exerciseWithOnlyOneRx);
+
+        validator.validate(exerciseWithOnlyOneRx, errors);
+
+        verifyRxMissingValueError(errors);
+    }
+
+    private void verifyRxMissingValueError (Errors errors) {
+        assertTrue(errors.hasErrors());
+        assertThat(errors.getErrorCount(), is(1));
+        List<String> errorCodes = errors.getAllErrors().stream().map(error -> error.getCode()).collect(Collectors.toList());
+        assertTrue(errorCodes.contains("error.proposedExercise.rx.oneValueMissing"));
     }
 
     private Errors createEmptyErrors (ProposedExerciseDTO proposedExercise) {
