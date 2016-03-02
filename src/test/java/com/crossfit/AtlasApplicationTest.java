@@ -40,6 +40,7 @@ public class AtlasApplicationTest {
         Map apiResponse = postRequest(httpRequest);
 
         assertNotNull(apiResponse);
+        assertNotNull(apiResponse.get("id"));
         assertThat(apiResponse.get("id"), is(not("")));
     }
 
