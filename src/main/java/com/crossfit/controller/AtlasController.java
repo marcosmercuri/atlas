@@ -25,7 +25,7 @@ public class AtlasController {
         binder.addValidators(proposedWorkoutValidator);
     }
 
-    @RequestMapping (value = "/proposedWorkouts", method = POST)
+    @RequestMapping (value = "/proposedWorkouts", method = POST, produces = "application/json; charset=utf-8")
     @ResponseStatus(HttpStatus.CREATED)
     public ProposedWorkoutDTO createProposedWorkout(@Valid @RequestBody ProposedWorkoutDTO proposedWorkout) {
         proposedWorkout.setId(UUID.randomUUID().toString());
