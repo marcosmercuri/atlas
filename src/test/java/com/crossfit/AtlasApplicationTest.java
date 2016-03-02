@@ -286,4 +286,26 @@ public class AtlasApplicationTest {
     private HttpEntity<String> createRequestWithOnlyMaleRxInProposedExercise () {
         return createRequestFromFile("proposed_workout_request_with_only_male_rx_in_exercise.json");
     }
+
+    @Test
+    public void test_rx_and_distance_in_meters_fields_exceed_decimal_length_n_proposed_exercise_on_new_proposed_workout() {
+        HttpEntity<String> httpRequest = createRequestWithAllDoubleFieldsExceedingDecimalLengthInProposedExercise();
+
+        Map apiResponse = postRequest(httpRequest);
+
+        assertNotNull(apiResponse);
+
+        verifyBadRequestStatus(apiResponse);
+        assertThat(apiResponse.get("code"), is(40001));
+        String errorMessage = (String)apiResponse.get("message");
+
+        assertThat(errorMessage, containsString("The male Rx can have two decimals at the most"));
+        assertThat(errorMessage, containsString("The female Rx can have two decimals at the most"));
+        assertThat(errorMessage, containsString("The distance in meters can have two decimals at the most"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.AtlasController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 3 error(s)"));
+    }
+
+    private HttpEntity<String> createRequestWithAllDoubleFieldsExceedingDecimalLengthInProposedExercise () {
+        return createRequestFromFile("proposed_workout_request_with_all_double_fields_exceeding_decimal_length_in_exercise.json");
+    }
 }

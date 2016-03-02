@@ -3,6 +3,7 @@ package com.crossfit.controller;
 import static com.crossfit.controller.RequestErrorCodes.*;
 
 import java.util.Optional;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -22,13 +23,15 @@ class ProposedExerciseDTO {
 
     private String description;
 
-    //@Digits (integer=10, fraction=2, message="error.workoutType.amrap.durationInSeconds.invalid.exceedDecimals")
+    @Digits (integer=10, fraction=2, message="error.proposedExercise.maleRxInKilograms.exceedDecimals")
     @Min (value = 1, message="error.proposedExercise.maleRxInKilograms.belowMin")
     private Double maleRxInKilograms;
 
+    @Digits (integer=10, fraction=2, message="error.proposedExercise.femaleRxInKilograms.exceedDecimals")
     @Min (value = 1, message="error.proposedExercise.femaleRxInKilograms.belowMin")
     private Double femaleRxInKilograms;
 
+    @Digits (integer=10, fraction=2, message="error.proposedExercise.distanceInMeters.exceedDecimals")
     @Min (value = 1, message="error.proposedExercise.distanceInMeters.belowMin")
     private Double distanceInMeters;
 

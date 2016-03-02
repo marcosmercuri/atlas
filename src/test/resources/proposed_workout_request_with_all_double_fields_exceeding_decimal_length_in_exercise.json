@@ -1,0 +1,15 @@
+{
+    "exercises": [
+        {
+            "type": "REPETITION",
+            "name": "pullUp",
+            "description": "pull up",
+            "maleRxInKilograms": 12.99999,
+            "femaleRxInKilograms": 12.333,
+            "distanceInMeters": 12.2222
+        }
+    ],
+    "type": "FOR_TIME",
+    "numberOfRounds": 10,
+    "maxAllowedSeconds": 20
+}
