@@ -53,7 +53,10 @@ public class AtlasControllerTest {
                     .contentType(jsonContentType)
         )
               .andExpect(status().isCreated())
-              .andExpect(jsonPath("$.id", is(not(""))));
+              .andExpect(jsonPath("$.id", is(not(""))))
+              .andExpect(jsonPath("$.exercises[0].femaleRxInKilograms", is(8.5)))
+              .andExpect(jsonPath("$.exercises[1].maleRxInKilograms", is(12.5)))
+        ;
     }
 
     private String createValidForTimeRequest () {

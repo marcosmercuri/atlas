@@ -101,8 +101,8 @@ public class TestUtils {
 
     public static ProposedExerciseDTO createExerciseWithBothRx() {
         ProposedExerciseDTO randomValidExercise = createRandomValidExercise();
-        randomValidExercise.setFemaleRxInKilograms(45);
-        randomValidExercise.setMaleRxInKilograms(50);
+        randomValidExercise.setFemaleRxInKilograms(45D);
+        randomValidExercise.setMaleRxInKilograms(50D);
         return randomValidExercise;
     }
 }

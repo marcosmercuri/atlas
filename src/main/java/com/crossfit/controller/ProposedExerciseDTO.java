@@ -24,13 +24,13 @@ class ProposedExerciseDTO {
 
     //@Digits (integer=10, fraction=2, message="error.workoutType.amrap.durationInMinutes.invalid.exceedDecimals")
     @Min (value = 1, message="error.proposedExercise.maleRxInKilograms.belowMin")
-    private Integer maleRxInKilograms;
+    private Double maleRxInKilograms;
 
     @Min (value = 1, message="error.proposedExercise.femaleRxInKilograms.belowMin")
-    private Integer femaleRxInKilograms;
+    private Double femaleRxInKilograms;
 
     @Min (value = 1, message="error.proposedExercise.distanceInMeters.belowMin")
-    private Integer distanceInMeters;
+    private Double distanceInMeters;
 
     @Min (value = 1, message="error.proposedExercise.durationInMinutes.belowMin")
     private Integer durationInMinutes;
@@ -44,14 +44,6 @@ class ProposedExerciseDTO {
 
     public void setDurationInMinutes (Integer durationInMinutes) {
         this.durationInMinutes = durationInMinutes;
-    }
-
-    public Integer getDistanceInMeters () {
-        return distanceInMeters;
-    }
-
-    public void setDistanceInMeters (Integer distanceInMeters) {
-        this.distanceInMeters = distanceInMeters;
     }
 
     public String getDescription () {
@@ -70,20 +62,28 @@ class ProposedExerciseDTO {
         this.name = name;
     }
 
-    public Integer getFemaleRxInKilograms () {
-        return femaleRxInKilograms;
-    }
-
-    public void setFemaleRxInKilograms (Integer femaleRxInKilograms) {
-        this.femaleRxInKilograms = femaleRxInKilograms;
-    }
-
-    public Integer getMaleRxInKilograms () {
+    public Double getMaleRxInKilograms () {
         return maleRxInKilograms;
     }
 
-    public void setMaleRxInKilograms (Integer maleRxInKilograms) {
+    public void setMaleRxInKilograms (Double maleRxInKilograms) {
         this.maleRxInKilograms = maleRxInKilograms;
+    }
+
+    public Double getFemaleRxInKilograms () {
+        return femaleRxInKilograms;
+    }
+
+    public void setFemaleRxInKilograms (Double femaleRxInKilograms) {
+        this.femaleRxInKilograms = femaleRxInKilograms;
+    }
+
+    public Double getDistanceInMeters () {
+        return distanceInMeters;
+    }
+
+    public void setDistanceInMeters (Double distanceInMeters) {
+        this.distanceInMeters = distanceInMeters;
     }
 
     public Integer getNumberOfRepetitions () {

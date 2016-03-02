@@ -4,13 +4,17 @@
             "type": "REPETITION",
             "name": "pullUp",
             "description": "pull up",
-            "numberOfRepetitions": 10
+            "numberOfRepetitions": 10,
+            "maleRxInKilograms": 12.00,
+            "femaleRxInKilograms": 8.50
         },
         {
-            "type": "REPETITION",
+            "type": "TIMED",
             "name": "kettlebellSwing",
             "description": "kettlebell swing",
-            "numberOfRepetitions": 10
+            "maleRxInKilograms": 12.50,
+            "femaleRxInKilograms": 8.00,
+            "durationInMinutes": 10
         }
     ],
     "type": "FOR_TIME",
