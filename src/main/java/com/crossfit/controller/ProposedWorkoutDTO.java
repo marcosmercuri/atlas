@@ -24,11 +24,11 @@ class ProposedWorkoutDTO {
     @NotNull(message="error.proposedWorkout.type.null")
     private WorkoutType type;
 
-    @Min (value = 1, message="error.proposedWorkout.durationInMinutes.invalid")
-    private Integer durationInMinutes;
+    @Min (value = 1, message="error.proposedWorkout.durationInSeconds.invalid")
+    private Integer durationInSeconds;
 
-    @Min (value = 1, message="error.proposedWorkout.maxAllowedMinutes.invalid")
-    private Integer maxAllowedMinutes;
+    @Min (value = 1, message="error.proposedWorkout.maxAllowedSeconds.invalid")
+    private Integer maxAllowedSeconds;
 
     @Min (value = 1, message="error.proposedWorkout.numberOfRounds.invalid")
     private Integer numberOfRounds;
@@ -41,20 +41,20 @@ class ProposedWorkoutDTO {
         this.exercises = exercises;
     }
 
-    public Integer getDurationInMinutes () {
-        return durationInMinutes;
+    public Integer getDurationInSeconds () {
+        return durationInSeconds;
     }
 
-    public void setDurationInMinutes (Integer durationInMinutes) {
-        this.durationInMinutes = durationInMinutes;
+    public void setDurationInSeconds (Integer durationInSeconds) {
+        this.durationInSeconds = durationInSeconds;
     }
 
-    public Integer getMaxAllowedMinutes () {
-        return maxAllowedMinutes;
+    public Integer getMaxAllowedSeconds () {
+        return maxAllowedSeconds;
     }
 
-    public void setMaxAllowedMinutes (Integer maxAllowedMinutes) {
-        this.maxAllowedMinutes = maxAllowedMinutes;
+    public void setMaxAllowedSeconds (Integer maxAllowedSeconds) {
+        this.maxAllowedSeconds = maxAllowedSeconds;
     }
 
     public Integer getNumberOfRounds () {

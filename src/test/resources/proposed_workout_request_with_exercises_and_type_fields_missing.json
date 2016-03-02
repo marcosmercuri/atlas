@@ -1,4 +1,4 @@
 {
     "numberOfRounds": 10,
-    "maxAllowedMinutes": 20
+    "maxAllowedSeconds": 20
 }

@@ -38,15 +38,15 @@ public class ProposedWorkoutValidatorTest {
     private Errors createEmptyErrors (ProposedWorkoutDTO proposedWorkoutDTO) {return new BeanPropertyBindingResult(proposedWorkoutDTO, "proposedWorkoutDTO");}
 
     @Test
-    public void given_an_amrap_without_durationInMinutes_when_validated_then_the_validation_fails() {
-        ProposedWorkoutDTO proposedWorkoutDTO = givenAmrapWithoutDurationInMinutes();
+    public void given_an_amrap_without_durationInSeconds_when_validated_then_the_validation_fails() {
+        ProposedWorkoutDTO proposedWorkoutDTO = givenAmrapWithoutDurationInSeconds();
         Errors errors = createEmptyErrors(proposedWorkoutDTO);
 
         validator.validate(proposedWorkoutDTO, errors);
 
         assertTrue(errors.hasErrors());
         assertThat(errors.getErrorCount(), is(1));
-        assertThat(errors.getFieldError("durationInMinutes").getCode(), is("error.workoutType.amrap.durationInMinutes.null"));
+        assertThat(errors.getFieldError("durationInSeconds").getCode(), is("error.workoutType.amrap.durationInSeconds.null"));
     }
 
     @Test
@@ -72,15 +72,15 @@ public class ProposedWorkoutValidatorTest {
     }
 
     @Test
-    public void given_a_forTime_without_maxAllowedMinutes_when_validated_then_the_validation_fails() {
-        ProposedWorkoutDTO proposedWorkoutDTO = TestUtils.givenForTimeWithoutMaxAllowedMinutes();
+    public void given_a_forTime_without_maxAllowedSeconds_when_validated_then_the_validation_fails() {
+        ProposedWorkoutDTO proposedWorkoutDTO = TestUtils.givenForTimeWithoutMaxAllowedSeconds();
         Errors errors = createEmptyErrors(proposedWorkoutDTO);
 
         validator.validate(proposedWorkoutDTO, errors);
 
         assertTrue(errors.hasErrors());
         assertThat(errors.getErrorCount(), is(1));
-        assertThat(errors.getFieldError("maxAllowedMinutes").getCode(), is("error.workoutType.forTime.maxAllowedMinutes.null"));
+        assertThat(errors.getFieldError("maxAllowedSeconds").getCode(), is("error.workoutType.forTime.maxAllowedSeconds.null"));
     }
 
 }

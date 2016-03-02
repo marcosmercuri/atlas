@@ -120,17 +120,17 @@ public class AtlasControllerTest {
     }
 
     @Test
-    public void test_missing_DurationInMinutes_field_in_amrap_proposed_workout_request() throws Exception {
+    public void test_missing_DurationInSeconds_field_in_amrap_proposed_workout_request() throws Exception {
         ResultActions result = mockMvc.perform(
               post("/proposedWorkouts")
-                    .content(createRequestWithMissingDurationInMinutesForAmrap())
+                    .content(createRequestWithMissingDurationInSecondsForAmrap())
                     .contentType(jsonContentType)
         );
         result.andDo(print());
         result.andExpect(status().isBadRequest());
     }
 
-    private String createRequestWithMissingDurationInMinutesForAmrap () {
-        return Utils.loadResource("proposed_amrap_workout_request_without_duration_in_minutes.json");
+    private String createRequestWithMissingDurationInSecondsForAmrap () {
+        return Utils.loadResource("proposed_amrap_workout_request_without_duration_in_seconds.json");
     }
 }

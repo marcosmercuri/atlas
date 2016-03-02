@@ -2,18 +2,18 @@ package com.crossfit.model;
 
 /**
  * Represent a physical exercise that has to be repeated
- * durationInMinutes-minutes.
+ * durationInSeconds-seconds.
  */
 public class TimedExercise extends Exercise {
-    private Integer durationInMinutes;
+    private Integer durationInSeconds;
 
-    public TimedExercise (Integer durationInMinutes, Integer maleRxInKilograms, Integer femaleRxInKilograms, String name, String description) {
+    public TimedExercise (Integer durationInSeconds, Integer maleRxInKilograms, Integer femaleRxInKilograms, String name, String description) {
         super(maleRxInKilograms, femaleRxInKilograms, name, description);
-        this.durationInMinutes = durationInMinutes;
+        this.durationInSeconds = durationInSeconds;
     }
 
-    public Integer getDurationInMinutes() {
-        return durationInMinutes;
+    public Integer getDurationInSeconds() {
+        return durationInSeconds;
     }
 
     @Override
@@ -24,13 +24,13 @@ public class TimedExercise extends Exercise {
 
         TimedExercise timedExercise = (TimedExercise) o;
 
-        return !(durationInMinutes != null ? !durationInMinutes.equals(timedExercise.durationInMinutes) : timedExercise.durationInMinutes != null);
+        return !(durationInSeconds != null ? !durationInSeconds.equals(timedExercise.durationInSeconds) : timedExercise.durationInSeconds != null);
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (durationInMinutes != null ? durationInMinutes.hashCode() : 0);
+        result = 31 * result + (durationInSeconds != null ? durationInSeconds.hashCode() : 0);
         return result;
     }
 }

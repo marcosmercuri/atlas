@@ -14,10 +14,10 @@
             "description": "kettlebell swing",
             "maleRxInKilograms": 12.50,
             "femaleRxInKilograms": 8.00,
-            "durationInMinutes": 10
+            "durationInSeconds": 10
         }
     ],
     "type": "FOR_TIME",
     "numberOfRounds": 10,
-    "maxAllowedMinutes": 20
+    "maxAllowedSeconds": 20
 }

@@ -22,7 +22,7 @@ class ProposedExerciseDTO {
 
     private String description;
 
-    //@Digits (integer=10, fraction=2, message="error.workoutType.amrap.durationInMinutes.invalid.exceedDecimals")
+    //@Digits (integer=10, fraction=2, message="error.workoutType.amrap.durationInSeconds.invalid.exceedDecimals")
     @Min (value = 1, message="error.proposedExercise.maleRxInKilograms.belowMin")
     private Double maleRxInKilograms;
 
@@ -32,18 +32,18 @@ class ProposedExerciseDTO {
     @Min (value = 1, message="error.proposedExercise.distanceInMeters.belowMin")
     private Double distanceInMeters;
 
-    @Min (value = 1, message="error.proposedExercise.durationInMinutes.belowMin")
-    private Integer durationInMinutes;
+    @Min (value = 1, message="error.proposedExercise.durationInSeconds.belowMin")
+    private Integer durationInSeconds;
 
     @Min (value = 1, message="error.proposedExercise.numberOfRepetitions.belowMin")
     private Integer numberOfRepetitions;
 
-    public Integer getDurationInMinutes () {
-        return durationInMinutes;
+    public Integer getDurationInSeconds () {
+        return durationInSeconds;
     }
 
-    public void setDurationInMinutes (Integer durationInMinutes) {
-        this.durationInMinutes = durationInMinutes;
+    public void setDurationInSeconds (Integer durationInSeconds) {
+        this.durationInSeconds = durationInSeconds;
     }
 
     public String getDescription () {

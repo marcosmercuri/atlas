@@ -14,5 +14,5 @@
         }
     ],
     "type": "FOR_TIME",
-    "maxAllowedMinutes": 20
+    "maxAllowedSeconds": 20
 }

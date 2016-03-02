@@ -11,21 +11,21 @@ public class TestUtils {
     public static ProposedWorkoutDTO givenValidAmrapProposedWorkout (Integer numberOfExercises) {
         ProposedWorkoutDTO proposedWorkoutDTO = new ProposedWorkoutDTO();
         proposedWorkoutDTO.setType(WorkoutType.AMRAP.name());
-        proposedWorkoutDTO.setDurationInMinutes(10);
+        proposedWorkoutDTO.setDurationInSeconds(10);
         proposedWorkoutDTO.setExercises(givenListOfExercises(numberOfExercises));
         return proposedWorkoutDTO;
     }
 
-    public static ProposedWorkoutDTO givenAmrapWithoutDurationInMinutes () {
+    public static ProposedWorkoutDTO givenAmrapWithoutDurationInSeconds () {
         ProposedWorkoutDTO proposedWorkoutDTO = givenValidAmrapProposedWorkout(2);
-        proposedWorkoutDTO.setDurationInMinutes(null);
+        proposedWorkoutDTO.setDurationInSeconds(null);
         return proposedWorkoutDTO;
     }
 
 
-    public static ProposedWorkoutDTO givenAmrapWithInvalidValueDurationInMinutes () {
+    public static ProposedWorkoutDTO givenAmrapWithInvalidValueDurationInSeconds () {
         ProposedWorkoutDTO proposedWorkoutDTO = givenValidAmrapProposedWorkout(2);
-        proposedWorkoutDTO.setDurationInMinutes(0);
+        proposedWorkoutDTO.setDurationInSeconds(0);
         return proposedWorkoutDTO;
     }
 
@@ -33,7 +33,7 @@ public class TestUtils {
         ProposedWorkoutDTO proposedWorkoutDTO = new ProposedWorkoutDTO();
         proposedWorkoutDTO.setType(WorkoutType.FOR_TIME.name());
         proposedWorkoutDTO.setNumberOfRounds(10);
-        proposedWorkoutDTO.setMaxAllowedMinutes(15);
+        proposedWorkoutDTO.setMaxAllowedSeconds(15);
         proposedWorkoutDTO.setExercises(givenListOfExercises(numberOfExercises));
         return proposedWorkoutDTO;
     }
@@ -50,15 +50,15 @@ public class TestUtils {
         return proposedWorkoutDTO;
     }
 
-    public static ProposedWorkoutDTO givenForTimeWithoutMaxAllowedMinutes () {
+    public static ProposedWorkoutDTO givenForTimeWithoutMaxAllowedSeconds () {
         ProposedWorkoutDTO proposedWorkoutDTO = givenValidForTimeProposedWorkout(2);
-        proposedWorkoutDTO.setMaxAllowedMinutes(null);
+        proposedWorkoutDTO.setMaxAllowedSeconds(null);
         return proposedWorkoutDTO;
     }
 
-    public static ProposedWorkoutDTO givenForTimeWithInvalidMaxAllowedMinutes () {
+    public static ProposedWorkoutDTO givenForTimeWithInvalidMaxAllowedSeconds () {
         ProposedWorkoutDTO proposedWorkoutDTO = givenValidForTimeProposedWorkout(2);
-        proposedWorkoutDTO.setMaxAllowedMinutes(-1);
+        proposedWorkoutDTO.setMaxAllowedSeconds(-1);
         return proposedWorkoutDTO;
     }
 

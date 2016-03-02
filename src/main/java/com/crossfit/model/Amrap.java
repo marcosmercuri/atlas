@@ -4,17 +4,17 @@ import java.util.List;
 
 /**
  * A type of workout in which a list of exercises must be repeated
- * for durationInMinutes minutes.
+ * for durationInSeconds seconds.
  */
 public class Amrap extends Workout {
-    private Integer durationInMinutes;
+    private Integer durationInSeconds;
 
-    public Amrap (List<Exercise> exercises, Integer durationInMinutes) {
+    public Amrap (List<Exercise> exercises, Integer durationInSeconds) {
         super(exercises);
-        this.durationInMinutes = durationInMinutes;
+        this.durationInSeconds = durationInSeconds;
     }
 
-    public Integer getDurationInMinutes () {
-        return durationInMinutes;
+    public Integer getDurationInSeconds () {
+        return durationInSeconds;
     }
 }

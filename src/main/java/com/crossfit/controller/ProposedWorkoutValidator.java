@@ -50,11 +50,11 @@ class ProposedWorkoutValidator implements Validator {
 
     private void validateForTime (Errors errors) {
         validateNumberOfRounds(errors);
-        validateMaxAllowedMinutes(errors);
+        validateMaxAllowedSeconds(errors);
     }
 
-    private void validateMaxAllowedMinutes (Errors errors) {
-        validateFieldNotEmpty(errors, "error.workoutType.forTime", "maxAllowedMinutes");
+    private void validateMaxAllowedSeconds (Errors errors) {
+        validateFieldNotEmpty(errors, "error.workoutType.forTime", "maxAllowedSeconds");
     }
 
     private void validateNumberOfRounds (Errors errors) {
@@ -62,11 +62,11 @@ class ProposedWorkoutValidator implements Validator {
     }
 
     private void validateAmrap (Errors errors) {
-        validateDurationInMinutes(errors);
+        validateDurationInSeconds(errors);
     }
 
-    private void validateDurationInMinutes (Errors errors) {
-        validateFieldNotEmpty(errors, "error.workoutType.amrap", "durationInMinutes");
+    private void validateDurationInSeconds (Errors errors) {
+        validateFieldNotEmpty(errors, "error.workoutType.amrap", "durationInSeconds");
     }
 
     private void validateFieldNotEmpty (Errors errors, String errorCodePrefix, String fieldName) {
