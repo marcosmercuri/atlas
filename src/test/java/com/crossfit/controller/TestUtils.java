@@ -1,5 +1,7 @@
 package com.crossfit.controller;
 
+import static com.crossfit.controller.ExerciseType.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -104,5 +106,49 @@ public class TestUtils {
         randomValidExercise.setFemaleRxInKilograms(45D);
         randomValidExercise.setMaleRxInKilograms(50D);
         return randomValidExercise;
+    }
+
+    public static ProposedExerciseDTO createDistanceExerciseWithoutDistanceInMeters() {
+        ProposedExerciseDTO distanceExercise = createValidDistanceExercise();
+        distanceExercise.setDistanceInMeters(null);
+        return distanceExercise;
+    }
+
+    private static ProposedExerciseDTO createValidDistanceExercise () {
+        ProposedExerciseDTO proposedExerciseDTO = new ProposedExerciseDTO();
+        proposedExerciseDTO.setType(DISTANCE.toString());
+        proposedExerciseDTO.setName("Run");
+        proposedExerciseDTO.setDescription("Run description");
+        proposedExerciseDTO.setDistanceInMeters(100D);
+        return proposedExerciseDTO;
+    }
+
+    public static ProposedExerciseDTO createTimedExerciseWithoutDurationInSeconds() {
+        ProposedExerciseDTO distanceExercise = createValidTimedExercise();
+        distanceExercise.setDurationInSeconds(null);
+        return distanceExercise;
+    }
+
+    private static ProposedExerciseDTO createValidTimedExercise() {
+        ProposedExerciseDTO proposedExerciseDTO = new ProposedExerciseDTO();
+        proposedExerciseDTO.setType(TIMED.toString());
+        proposedExerciseDTO.setName("burpees");
+        proposedExerciseDTO.setDescription("Burpees description");
+        proposedExerciseDTO.setDurationInSeconds(120);
+        return proposedExerciseDTO;
+    }
+    public static ProposedExerciseDTO createRepetitionExerciseWithoutNumberOfRepetitions() {
+        ProposedExerciseDTO distanceExercise = createRepetitionExercise();
+        distanceExercise.setNumberOfRepetitions(null);
+        return distanceExercise;
+    }
+
+    private static ProposedExerciseDTO createRepetitionExercise() {
+        ProposedExerciseDTO proposedExerciseDTO = new ProposedExerciseDTO();
+        proposedExerciseDTO.setType(REPETITION.toString());
+        proposedExerciseDTO.setName("burpees");
+        proposedExerciseDTO.setDescription("Burpees description");
+        proposedExerciseDTO.setNumberOfRepetitions(12);
+        return proposedExerciseDTO;
     }
 }

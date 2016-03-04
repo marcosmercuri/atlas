@@ -1,12 +1,14 @@
 package com.crossfit.controller;
 
 import static com.crossfit.controller.TestUtils.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -67,5 +69,41 @@ public class ProposedExerciseValidatorTest {
 
     private Errors createEmptyErrors (ProposedExerciseDTO proposedExercise) {
         return new BeanPropertyBindingResult(proposedExercise, "proposedExerciseDTO");
+    }
+
+    @Test
+    public void given_a_distance_exercise_without_distanceInMeters_when_validated_then_the_validation_fails() {
+        ProposedExerciseDTO proposedExercise = createDistanceExerciseWithoutDistanceInMeters();
+        Errors errors = createEmptyErrors(proposedExercise);
+
+        validator.validate(proposedExercise, errors);
+
+        verifyMissingField(errors, "distanceInMeters", "error.proposedExercise.distance.distanceInMeters.null");
+    }
+
+    @Test
+    public void given_a_timed_exercise_without_durationInSeconds_when_validated_then_the_validation_fails() {
+        ProposedExerciseDTO proposedExercise = createTimedExerciseWithoutDurationInSeconds();
+        Errors errors = createEmptyErrors(proposedExercise);
+
+        validator.validate(proposedExercise, errors);
+
+        verifyMissingField(errors, "durationInSeconds", "error.proposedExercise.timed.durationInSeconds.null");
+    }
+
+    @Test
+    public void given_a_repetition_exercise_without_numberOfRepetitions_when_validated_then_the_validation_fails() {
+        ProposedExerciseDTO proposedExercise = createRepetitionExerciseWithoutNumberOfRepetitions();
+        Errors errors = createEmptyErrors(proposedExercise);
+
+        validator.validate(proposedExercise, errors);
+
+        verifyMissingField(errors, "numberOfRepetitions", "error.proposedExercise.repetition.numberOfRepetitions.null");
+    }
+
+    private void verifyMissingField (Errors errors, String missingField, String expectedMissingFieldMessage) {
+        assertTrue(errors.hasErrors());
+        assertThat(errors.getErrorCount(), CoreMatchers.is(1));
+        assertThat(errors.getFieldError(missingField).getCode(), CoreMatchers.is(expectedMissingFieldMessage));
     }
 }
