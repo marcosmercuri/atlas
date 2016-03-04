@@ -1,0 +1,22 @@
+{
+    "exercises": [
+        {
+            "type": "REPETITION",
+            "name": "pullUp",
+            "description": "pull up"
+        },
+        {
+            "type": "TIMED",
+            "name": "kettlebellSwing",
+            "description": "kettlebell swing"
+        },
+        {
+            "type": "DISTANCE",
+            "name": "run",
+            "description": "run"
+        }
+    ],
+    "type": "FOR_TIME",
+    "numberOfRounds": 10,
+    "maxAllowedSeconds": 20
+}

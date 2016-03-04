@@ -4,9 +4,11 @@ import static com.crossfit.controller.WorkoutType.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * Validator for the ProposedWorkoutDTO.
@@ -44,8 +46,14 @@ class ProposedWorkoutValidator implements Validator {
 
     private void validateExerciseList (ProposedWorkoutDTO proposedWorkout, Errors errors) {
         proposedWorkout.getExercises().stream().forEach(
-              proposedExercise -> proposedExerciseValidator.validate(proposedExercise, errors)
+              proposedExercise -> validateExercise(proposedExercise, errors)
         );
+    }
+
+    private void validateExercise(ProposedExerciseDTO proposedExercise, Errors errors) {
+        Errors exerciseErrors = new BeanPropertyBindingResult(proposedExercise, errors.getObjectName());
+        ValidationUtils.invokeValidator(proposedExerciseValidator, proposedExercise, exerciseErrors);
+        errors.addAllErrors(exerciseErrors);
     }
 
     private void validateForTime (Errors errors) {

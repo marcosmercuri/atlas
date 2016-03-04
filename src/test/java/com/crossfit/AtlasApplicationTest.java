@@ -288,7 +288,7 @@ public class AtlasApplicationTest {
     }
 
     @Test
-    public void test_rx_and_distance_in_meters_fields_exceed_decimal_length_n_proposed_exercise_on_new_proposed_workout() {
+    public void test_rx_and_distance_in_meters_fields_exceed_decimal_length_on_proposed_exercise_on_new_proposed_workout() {
         HttpEntity<String> httpRequest = createRequestWithAllDoubleFieldsExceedingDecimalLengthInProposedExercise();
 
         Map apiResponse = postRequest(httpRequest);
@@ -307,5 +307,27 @@ public class AtlasApplicationTest {
 
     private HttpEntity<String> createRequestWithAllDoubleFieldsExceedingDecimalLengthInProposedExercise () {
         return createRequestFromFile("proposed_workout_request_with_all_double_fields_exceeding_decimal_length_in_exercise.json");
+    }
+
+    @Test
+    public void test_missing_fields_on_each_exercise_type_on_new_proposed_workout() {
+        HttpEntity<String> httpRequest = createRequestWithAllRequiredFieldsMissingInProposedExerciseForEachType();
+
+        Map apiResponse = postRequest(httpRequest);
+
+        assertNotNull(apiResponse);
+
+        verifyBadRequestStatus(apiResponse);
+        assertThat(apiResponse.get("code"), is(40001));
+        String errorMessage = (String)apiResponse.get("message");
+
+        assertThat(errorMessage, containsString("For REPETITION exercise, the numberOfRepetitions cannot be null nor empty"));
+        assertThat(errorMessage, containsString("For TIMED exercise, the durationInSeconds cannot be null nor empty"));
+        assertThat(errorMessage, containsString("For DISTANCE exercise, the distanceInMeters cannot be null nor empty"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.AtlasController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 3 error(s)"));
+    }
+
+    private HttpEntity<String> createRequestWithAllRequiredFieldsMissingInProposedExerciseForEachType() {
+        return createRequestFromFile("exercise/proposed_workout_request_with_missing_fields_on_each_exercise_type.json");
     }
 }
