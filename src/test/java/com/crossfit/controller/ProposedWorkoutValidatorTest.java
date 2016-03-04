@@ -44,9 +44,7 @@ public class ProposedWorkoutValidatorTest {
 
         validator.validate(proposedWorkoutDTO, errors);
 
-        assertTrue(errors.hasErrors());
-        assertThat(errors.getErrorCount(), is(1));
-        assertThat(errors.getFieldError("durationInSeconds").getCode(), is("error.workoutType.amrap.durationInSeconds.null"));
+        verifyMissingField(errors, "durationInSeconds", "error.workoutType.amrap.durationInSeconds.null");
     }
 
     @Test
@@ -66,9 +64,7 @@ public class ProposedWorkoutValidatorTest {
 
         validator.validate(proposedWorkoutDTO, errors);
 
-        assertTrue(errors.hasErrors());
-        assertThat(errors.getErrorCount(), is(1));
-        assertThat(errors.getFieldError("numberOfRounds").getCode(), is("error.workoutType.forTime.numberOfRounds.null"));
+        verifyMissingField(errors, "numberOfRounds", "error.workoutType.forTime.numberOfRounds.null");
     }
 
     @Test
@@ -78,9 +74,12 @@ public class ProposedWorkoutValidatorTest {
 
         validator.validate(proposedWorkoutDTO, errors);
 
-        assertTrue(errors.hasErrors());
-        assertThat(errors.getErrorCount(), is(1));
-        assertThat(errors.getFieldError("maxAllowedSeconds").getCode(), is("error.workoutType.forTime.maxAllowedSeconds.null"));
+        verifyMissingField(errors, "maxAllowedSeconds", "error.workoutType.forTime.maxAllowedSeconds.null");
     }
 
+    private void verifyMissingField (Errors errors, String missingField, String expectedMissingFieldMessage) {
+        assertTrue(errors.hasErrors());
+        assertThat(errors.getErrorCount(), is(1));
+        assertThat(errors.getFieldError(missingField).getCode(), is(expectedMissingFieldMessage));
+    }
 }
