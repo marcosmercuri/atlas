@@ -109,7 +109,8 @@ public class DefaultErrorResponseAttributes extends DefaultErrorAttributes {
         return errorInformation;
     }
 
-    //TODO Move all the translation things to a class of its own
+    //TODO Move all the translation things to a class of its own.
+    //TODO if no tranlsation is found, return one of the codes
     private String translateMessages (Stream<String> messages) {
         return messages
               .map(this::translateMessage)
