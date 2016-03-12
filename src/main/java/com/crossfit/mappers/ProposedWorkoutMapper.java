@@ -6,9 +6,9 @@ import com.crossfit.model.Workout;
 public interface ProposedWorkoutMapper {
 
     /**
-     *
-     * @param proposedWorkoutDTO
-     * @return
+     * Maps the DTO to its corresponding entity Workout (be Amrpa, ForTime, etc)
+     * @param proposedWorkoutDTO the DTO to be mapped
+     * @return the model entity with the same values as proposedWorkoutDTO.
      */
     Workout mapToEntity (ProposedWorkoutDTO proposedWorkoutDTO);
 }
