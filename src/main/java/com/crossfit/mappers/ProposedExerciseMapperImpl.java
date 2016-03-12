@@ -23,8 +23,9 @@ class ProposedExerciseMapperImpl implements ProposedExerciseMapper {
                 return mapToTimedExercise(proposedExerciseDTO);
             case REPETITION:
                 return mapToRepetitionExercise(proposedExerciseDTO);
+            default:
+                throw new MapperNotAvailableForProposedExerciseTypeException(proposedExerciseDTO.getTypeEnum());
         }
-        return null;
     }
 
     private RepetitionExercise mapToRepetitionExercise (ProposedExerciseDTO proposedExerciseDTO) {
