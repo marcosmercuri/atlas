@@ -76,17 +76,32 @@ public class TestUtils {
         // For the time being, it's random enough
         ProposedExerciseDTO proposedExerciseDTO = new ProposedExerciseDTO();
         proposedExerciseDTO.setName("Burpees");
-        proposedExerciseDTO.setType(getRandomExerciseType());
         proposedExerciseDTO.setDescription("Burpees description");
-        proposedExerciseDTO.setNumberOfRepetitions(2);
+        setRandomTypeWithCorrespondingFields(proposedExerciseDTO);
         return proposedExerciseDTO;
     }
 
-    private static String getRandomExerciseType () {
+    private static void setRandomTypeWithCorrespondingFields(ProposedExerciseDTO proposedExerciseDTO) {
+        ExerciseType exerciseType = getRandomExerciseType();
+        proposedExerciseDTO.setType(exerciseType.toString());
+        switch (exerciseType) {
+            case REPETITION:
+                proposedExerciseDTO.setNumberOfRepetitions(2);
+                break;
+            case TIMED:
+                proposedExerciseDTO.setDurationInSeconds(200);
+                break;
+            case DISTANCE:
+                proposedExerciseDTO.setDistanceInMeters(2D);
+                break;
+        }
+    }
+
+    private static ExerciseType getRandomExerciseType () {
         List<ExerciseType> teams = new ArrayList<>();
         Collections.addAll(teams, ExerciseType.values());
         Collections.shuffle(teams);
-        return teams.get(0).toString();
+        return teams.get(0);
     }
 
     public static ProposedExerciseDTO createExerciseWithOnlyFemaleRx () {
