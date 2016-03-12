@@ -1,6 +1,6 @@
-* Change type from integer to double for fields in proposedWorkout and proposedExercise
-* Finish proposedExercise validation
-* Once the API request validation has been completed, document the API.
+* Finish mappers
+* Save the proposed exercise.
+* Document the API.
 * Add javadoc where it's important.
 * Add code quality analysis on push.
 * Add rest authentication
