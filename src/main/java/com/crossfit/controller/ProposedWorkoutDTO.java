@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 /**
  * POJO for a request of the proposedWorkout service.
  */
-class ProposedWorkoutDTO {
+public class ProposedWorkoutDTO {
     private String id;
     @NotNull(message="error.proposedWorkout.exercises.null")
     @NotEmpty(message="error.proposedWorkout.exercises.empty")

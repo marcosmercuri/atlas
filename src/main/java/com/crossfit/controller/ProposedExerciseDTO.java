@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotBlank;
 /**
  * POJO for a request of proposedExercise
  */
-class ProposedExerciseDTO {
+public class ProposedExerciseDTO {
     @NotNull(message="error.proposedExercise.name.null")
     @NotBlank(message="error.proposedExercise.name.blank")
     private String name;
@@ -101,8 +101,13 @@ class ProposedExerciseDTO {
         return type != null ? type.toString() : null;
     }
 
+    public ExerciseType getTypeEnum () {
+        return type;
+    }
+
     public void setType (String type) {
         try {
+            //TODO Move this into the enum
             this.type = ExerciseType.valueOf(type);
         } catch (IllegalArgumentException exception) {
             throw createInvalidTypeException(exception);
