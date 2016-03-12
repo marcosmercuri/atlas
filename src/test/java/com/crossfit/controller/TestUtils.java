@@ -129,12 +129,14 @@ public class TestUtils {
         return distanceExercise;
     }
 
-    private static ProposedExerciseDTO createValidDistanceExercise () {
+    public static ProposedExerciseDTO createValidDistanceExercise () {
         ProposedExerciseDTO proposedExerciseDTO = new ProposedExerciseDTO();
         proposedExerciseDTO.setType(DISTANCE.toString());
         proposedExerciseDTO.setName("Run");
         proposedExerciseDTO.setDescription("Run description");
         proposedExerciseDTO.setDistanceInMeters(100D);
+        proposedExerciseDTO.setFemaleRxInKilograms(100D);
+        proposedExerciseDTO.setMaleRxInKilograms(100D);
         return proposedExerciseDTO;
     }
 
@@ -144,26 +146,30 @@ public class TestUtils {
         return distanceExercise;
     }
 
-    private static ProposedExerciseDTO createValidTimedExercise() {
+    public static ProposedExerciseDTO createValidTimedExercise () {
         ProposedExerciseDTO proposedExerciseDTO = new ProposedExerciseDTO();
         proposedExerciseDTO.setType(TIMED.toString());
         proposedExerciseDTO.setName("burpees");
         proposedExerciseDTO.setDescription("Burpees description");
         proposedExerciseDTO.setDurationInSeconds(120);
+        proposedExerciseDTO.setFemaleRxInKilograms(100D);
+        proposedExerciseDTO.setMaleRxInKilograms(100D);
         return proposedExerciseDTO;
     }
     public static ProposedExerciseDTO createRepetitionExerciseWithoutNumberOfRepetitions() {
-        ProposedExerciseDTO distanceExercise = createRepetitionExercise();
+        ProposedExerciseDTO distanceExercise = createValidRepetitionExercise();
         distanceExercise.setNumberOfRepetitions(null);
         return distanceExercise;
     }
 
-    private static ProposedExerciseDTO createRepetitionExercise() {
+    public static ProposedExerciseDTO createValidRepetitionExercise () {
         ProposedExerciseDTO proposedExerciseDTO = new ProposedExerciseDTO();
         proposedExerciseDTO.setType(REPETITION.toString());
         proposedExerciseDTO.setName("burpees");
         proposedExerciseDTO.setDescription("Burpees description");
         proposedExerciseDTO.setNumberOfRepetitions(12);
+        proposedExerciseDTO.setFemaleRxInKilograms(100D);
+        proposedExerciseDTO.setMaleRxInKilograms(100D);
         return proposedExerciseDTO;
     }
 }
