@@ -9,6 +9,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import com.crossfit.exceptions.BasicException;
+import com.crossfit.model.Workout;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -67,6 +68,10 @@ public class ProposedWorkoutDTO {
 
     public String getType () {
         return type != null ? type.toString() : null;
+    }
+
+    public WorkoutType getTypeEnum() {
+        return type;
     }
 
     public void setType (String type) {
