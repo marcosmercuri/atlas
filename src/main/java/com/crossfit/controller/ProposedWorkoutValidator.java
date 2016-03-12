@@ -16,8 +16,12 @@ import org.springframework.validation.annotation.Validated;
  */
 @Component
 class ProposedWorkoutValidator implements Validator {
-    @Autowired
     private ProposedExerciseValidator proposedExerciseValidator;
+
+    @Autowired
+    public ProposedWorkoutValidator(ProposedExerciseValidator proposedExerciseValidator) {
+        this.proposedExerciseValidator = proposedExerciseValidator;
+    }
 
     @Override
     public boolean supports (Class<?> clazz) {
