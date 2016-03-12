@@ -4,6 +4,8 @@ import static com.crossfit.controller.TestUtils.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +25,7 @@ public class ProposedWorkoutValidatorTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        when(exerciseValidator.supports(any())).thenReturn(true);
     }
 
     @Test
