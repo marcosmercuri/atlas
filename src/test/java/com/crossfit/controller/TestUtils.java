@@ -5,6 +5,7 @@ import static com.crossfit.controller.ExerciseType.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class TestUtils {
     private TestUtils () {
@@ -75,7 +76,8 @@ public class TestUtils {
     public static ProposedExerciseDTO createRandomValidExercise () {
         // For the time being, it's random enough
         ProposedExerciseDTO proposedExerciseDTO = new ProposedExerciseDTO();
-        proposedExerciseDTO.setName("Burpees");
+        Random random = new Random();
+        proposedExerciseDTO.setName("Burpees"+ random.ints(1, 10));
         proposedExerciseDTO.setDescription("Burpees description");
         setRandomTypeWithCorrespondingFields(proposedExerciseDTO);
         return proposedExerciseDTO;
