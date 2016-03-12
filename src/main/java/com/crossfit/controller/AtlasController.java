@@ -28,6 +28,8 @@ public class AtlasController {
     @RequestMapping (value = "/proposedWorkouts", method = POST, produces = "application/json; charset=utf-8")
     @ResponseStatus(HttpStatus.CREATED)
     public ProposedWorkoutDTO createProposedWorkout(@Valid @RequestBody ProposedWorkoutDTO proposedWorkout) {
+        //saveProposedWorkout = proposedWorkoutManager.saveProposedWorkout(mapper.mapToProposedWorkout(proposedWorkout));
+        //return mapper.mapToProposedWorkoutDTO(savedProposedWorkout);
         proposedWorkout.setId(UUID.randomUUID().toString());
         return proposedWorkout;
     }
