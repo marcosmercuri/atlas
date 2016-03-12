@@ -5,29 +5,15 @@ package com.crossfit.model;
  * distanceInMeters-meters.
  */
 public class DistanceExercise extends Exercise {
-    private Integer distanceInMeters;
+    private final Double distanceInMeters;
 
-    public DistanceExercise (Integer distanceInMeters, Integer maleRxInKilograms, Integer femaleRxInKilograms, String name, String description) {
-        super(maleRxInKilograms, femaleRxInKilograms, name, description);
+    public DistanceExercise (Double distanceInMeters, String name) {
+        super(name);
         this.distanceInMeters = distanceInMeters;
     }
 
-    public Integer getDistanceInMeters() {
+    public Double getDistanceInMeters() {
         return distanceInMeters;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        DistanceExercise that = (DistanceExercise) o;
-
-        return !(distanceInMeters != null ? !distanceInMeters.equals(that.distanceInMeters) : that.distanceInMeters != null);
-    }
-
-    @Override
-    public int hashCode() {
-        return distanceInMeters != null ? distanceInMeters.hashCode() : 0;
-    }
 }

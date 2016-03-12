@@ -5,10 +5,10 @@ package com.crossfit.model;
  * repetitions-times.
  */
 public class RepetitionExercise extends Exercise {
-    private Integer repetitions;
+    private final Integer repetitions;
 
-    public RepetitionExercise (Integer repetitions, Integer maleRxInKilograms, Integer femaleRxInKilograms, String name, String description) {
-        super(maleRxInKilograms, femaleRxInKilograms, name, description);
+    public RepetitionExercise (Integer repetitions, String name) {
+        super(name);
         this.repetitions = repetitions;
     }
 
