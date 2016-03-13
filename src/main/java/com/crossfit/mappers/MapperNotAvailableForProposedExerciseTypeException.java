@@ -6,9 +6,9 @@ import com.crossfit.controller.ExerciseType;
 import com.crossfit.exceptions.BasicException;
 import com.crossfit.model.Exercise;
 
-public class MapperNotAvailableForProposedExerciseTypeException extends BasicException {
+class MapperNotAvailableForProposedExerciseTypeException extends BasicException {
 
-    public MapperNotAvailableForProposedExerciseTypeException (ExerciseType exerciseType) {
+    MapperNotAvailableForProposedExerciseTypeException (ExerciseType exerciseType) {
         super(
               String.format("The exercise type %s cannot be transform to a domain class", exerciseType.toString()),
               String.format("The exercise type %s doesn't have a mapper available", exerciseType.toString()),
