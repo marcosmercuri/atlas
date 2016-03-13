@@ -1,8 +1,8 @@
-package com.crossfit.manager;
+package com.crossfit.services;
 
 import com.crossfit.model.Workout;
 
-public interface ProposedWorkoutManager {
+public interface ProposedWorkoutService {
 
     /**
      * Saves the proposed workout, giving an id.
