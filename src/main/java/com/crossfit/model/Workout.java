@@ -2,9 +2,14 @@ package com.crossfit.model;
 
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 /**
  * Represents a full workout (or WOD)
  */
+//TODO Find out how to store the same entity in different collections
+@Document(collection = "proposedworkouts")
 public class Workout {
     @Id
     private final String id;
