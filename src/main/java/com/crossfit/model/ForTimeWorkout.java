@@ -10,8 +10,8 @@ public class ForTimeWorkout extends Workout {
     private Integer maxAllowedSeconds;
     private Integer numberOfRounds;
 
-    public ForTimeWorkout (List<Exercise> exercises, Integer maxAllowedSeconds, Integer numberOfRounds) {
-        super(exercises);
+    public ForTimeWorkout (List<Exercise> exercises, Integer maxAllowedSeconds, Integer numberOfRounds, String id) {
+        super(id, exercises);
         this.maxAllowedSeconds = maxAllowedSeconds;
         this.numberOfRounds = numberOfRounds;
     }

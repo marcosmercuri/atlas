@@ -7,8 +7,8 @@ package com.crossfit.model;
 public class DistanceExercise extends Exercise {
     private final Double distanceInMeters;
 
-    public DistanceExercise (Double distanceInMeters, String name) {
-        super(name);
+    public DistanceExercise (Double distanceInMeters, String name, String id) {
+        super(id, name);
         this.distanceInMeters = distanceInMeters;
     }
 

@@ -41,6 +41,7 @@ public class ProposedExerciseMapperImplTest {
         assertThat(exercise.getFemaleRxInKilograms(), is(dto.getFemaleRxInKilograms()));
         assertThat(exercise.getDescription(), is(dto.getDescription()));
         assertThat(exercise.getName(), is(dto.getName()));
+        assertThat(exercise.getId(), is(dto.getId()));
     }
 
     @Test

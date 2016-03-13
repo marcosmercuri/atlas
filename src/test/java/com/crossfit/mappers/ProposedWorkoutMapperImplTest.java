@@ -54,6 +54,7 @@ public class ProposedWorkoutMapperImplTest {
     }
 
     private void verifyWorkoutCommonFields (Workout workout, ProposedWorkoutDTO dto) {
+        assertThat(workout.getId(), is(dto.getId()));
         assertThat(workout.getExercises().size(), is(dto.getExercises().size()));
         workout.getExercises().stream().forEach(exercise -> verifyExerciseExistsInWorkoutDto(dto, exercise));
     }

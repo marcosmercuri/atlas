@@ -14,6 +14,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * POJO for a request of proposedExercise
  */
 public class ProposedExerciseDTO {
+    private String id;
     @NotNull(message="error.proposedExercise.name.null")
     @NotBlank(message="error.proposedExercise.name.blank")
     private String name;
@@ -120,5 +121,13 @@ public class ProposedExerciseDTO {
               "error.proposedExercise.type.invalid.developerMessage",
               INVALID_FIELDS_IN_REQUEST_ERROR_CODE,
               Optional.of(exception));
+    }
+
+    public String getId () {
+        return id;
+    }
+
+    public void setId (String id) {
+        this.id = id;
     }
 }

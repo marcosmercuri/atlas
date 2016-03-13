@@ -39,12 +39,18 @@ class ProposedWorkoutMapperImpl implements ProposedWorkoutMapper {
 
     private ForTimeWorkout mapToForTime (ProposedWorkoutDTO proposedWorkoutDTO) {
         List<Exercise> exercises = mapExercises(proposedWorkoutDTO.getExercises());
-        return new ForTimeWorkout(exercises, proposedWorkoutDTO.getMaxAllowedSeconds(), proposedWorkoutDTO.getNumberOfRounds());
+        return new ForTimeWorkout(
+              exercises,
+              proposedWorkoutDTO.getMaxAllowedSeconds(),
+              proposedWorkoutDTO.getNumberOfRounds(),
+              proposedWorkoutDTO.getId());
     }
 
     private Amrap mapToAmrap (ProposedWorkoutDTO proposedWorkoutDTO) {
         List<Exercise> exercises = mapExercises(proposedWorkoutDTO.getExercises());
-        return new Amrap(exercises, proposedWorkoutDTO.getDurationInSeconds());
+        return new Amrap(exercises,
+              proposedWorkoutDTO.getDurationInSeconds(),
+              proposedWorkoutDTO.getId());
     }
 
     private List<Exercise> mapExercises (List<ProposedExerciseDTO> exercises) {

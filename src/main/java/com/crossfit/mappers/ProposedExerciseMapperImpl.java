@@ -29,19 +29,28 @@ class ProposedExerciseMapperImpl implements ProposedExerciseMapper {
     }
 
     private RepetitionExercise mapToRepetitionExercise (ProposedExerciseDTO proposedExerciseDTO) {
-        RepetitionExercise repetitionExercise = new RepetitionExercise(proposedExerciseDTO.getNumberOfRepetitions(), proposedExerciseDTO.getName());
+        RepetitionExercise repetitionExercise = new RepetitionExercise(
+              proposedExerciseDTO.getNumberOfRepetitions(),
+              proposedExerciseDTO.getName(),
+              proposedExerciseDTO.getId());
         mapCommonExerciseFields(proposedExerciseDTO, repetitionExercise);
         return repetitionExercise;
     }
 
     private TimedExercise mapToTimedExercise (ProposedExerciseDTO proposedExerciseDTO) {
-        TimedExercise timedExercise = new TimedExercise(proposedExerciseDTO.getDurationInSeconds(), proposedExerciseDTO.getName());
+        TimedExercise timedExercise = new TimedExercise(
+              proposedExerciseDTO.getDurationInSeconds(),
+              proposedExerciseDTO.getName(),
+              proposedExerciseDTO.getId());
         mapCommonExerciseFields(proposedExerciseDTO, timedExercise);
         return timedExercise;
     }
 
     private DistanceExercise mapToDistanceExercise (ProposedExerciseDTO proposedExerciseDTO) {
-        DistanceExercise distanceExercise = new DistanceExercise(proposedExerciseDTO.getDistanceInMeters(), proposedExerciseDTO.getName());
+        DistanceExercise distanceExercise = new DistanceExercise(
+              proposedExerciseDTO.getDistanceInMeters(),
+              proposedExerciseDTO.getName(),
+              proposedExerciseDTO.getId());
         mapCommonExerciseFields(proposedExerciseDTO, distanceExercise);
         return distanceExercise;
     }

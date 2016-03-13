@@ -7,8 +7,8 @@ package com.crossfit.model;
 public class TimedExercise extends Exercise {
     private final Integer durationInSeconds;
 
-    public TimedExercise (Integer durationInSeconds, String name) {
-        super(name);
+    public TimedExercise (Integer durationInSeconds, String name, String id) {
+        super(id, name);
         this.durationInSeconds = durationInSeconds;
     }
 

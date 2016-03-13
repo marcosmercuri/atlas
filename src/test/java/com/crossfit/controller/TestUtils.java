@@ -2,10 +2,7 @@ package com.crossfit.controller;
 
 import static com.crossfit.controller.ExerciseType.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class TestUtils {
     private TestUtils () {
@@ -13,6 +10,7 @@ public class TestUtils {
 
     public static ProposedWorkoutDTO givenValidAmrapProposedWorkout (Integer numberOfExercises) {
         ProposedWorkoutDTO proposedWorkoutDTO = new ProposedWorkoutDTO();
+        proposedWorkoutDTO.setId(UUID.randomUUID().toString());
         proposedWorkoutDTO.setType(WorkoutType.AMRAP.name());
         proposedWorkoutDTO.setDurationInSeconds(10);
         proposedWorkoutDTO.setExercises(givenListOfExercises(numberOfExercises));
@@ -34,6 +32,7 @@ public class TestUtils {
 
     public static ProposedWorkoutDTO givenValidForTimeProposedWorkout (Integer numberOfExercises) {
         ProposedWorkoutDTO proposedWorkoutDTO = new ProposedWorkoutDTO();
+        proposedWorkoutDTO.setId(UUID.randomUUID().toString());
         proposedWorkoutDTO.setType(WorkoutType.FOR_TIME.name());
         proposedWorkoutDTO.setNumberOfRounds(10);
         proposedWorkoutDTO.setMaxAllowedSeconds(15);
@@ -76,6 +75,7 @@ public class TestUtils {
     public static ProposedExerciseDTO createRandomValidExercise () {
         // For the time being, it's random enough
         ProposedExerciseDTO proposedExerciseDTO = new ProposedExerciseDTO();
+        proposedExerciseDTO.setId(UUID.randomUUID().toString());
         Random random = new Random();
         proposedExerciseDTO.setName("Burpees"+ random.ints(1, 10));
         proposedExerciseDTO.setDescription("Burpees description");
@@ -133,6 +133,7 @@ public class TestUtils {
 
     public static ProposedExerciseDTO createValidDistanceExercise () {
         ProposedExerciseDTO proposedExerciseDTO = new ProposedExerciseDTO();
+        proposedExerciseDTO.setId(UUID.randomUUID().toString());
         proposedExerciseDTO.setType(DISTANCE.toString());
         proposedExerciseDTO.setName("Run");
         proposedExerciseDTO.setDescription("Run description");
@@ -150,6 +151,7 @@ public class TestUtils {
 
     public static ProposedExerciseDTO createValidTimedExercise () {
         ProposedExerciseDTO proposedExerciseDTO = new ProposedExerciseDTO();
+        proposedExerciseDTO.setId(UUID.randomUUID().toString());
         proposedExerciseDTO.setType(TIMED.toString());
         proposedExerciseDTO.setName("burpees");
         proposedExerciseDTO.setDescription("Burpees description");
@@ -166,6 +168,7 @@ public class TestUtils {
 
     public static ProposedExerciseDTO createValidRepetitionExercise () {
         ProposedExerciseDTO proposedExerciseDTO = new ProposedExerciseDTO();
+        proposedExerciseDTO.setId(UUID.randomUUID().toString());
         proposedExerciseDTO.setType(REPETITION.toString());
         proposedExerciseDTO.setName("burpees");
         proposedExerciseDTO.setDescription("Burpees description");

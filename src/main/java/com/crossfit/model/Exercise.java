@@ -1,15 +1,20 @@
 package com.crossfit.model;
 
+import org.springframework.data.annotation.Id;
+
 /**
- * Represents a possible physical exercise, with it's restriction.
+ * Represents a physical exercise, with it's restrictions.
  */
 public abstract class Exercise {
+    @Id
+    private final String id;
     private final String name;
     private Double maleRxInKilograms;
     private Double femaleRxInKilograms;
     private String description;
 
-    public Exercise (String name) {
+    public Exercise (String id, String name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -39,5 +44,9 @@ public abstract class Exercise {
 
     public void setDescription (String description) {
         this.description = description;
+    }
+
+    public String getId () {
+        return id;
     }
 }

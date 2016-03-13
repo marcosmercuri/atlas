@@ -9,8 +9,8 @@ import java.util.List;
 public class Amrap extends Workout {
     private Integer durationInSeconds;
 
-    public Amrap (List<Exercise> exercises, Integer durationInSeconds) {
-        super(exercises);
+    public Amrap (List<Exercise> exercises, Integer durationInSeconds, String id) {
+        super(id, exercises);
         this.durationInSeconds = durationInSeconds;
     }
 

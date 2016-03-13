@@ -7,8 +7,8 @@ package com.crossfit.model;
 public class RepetitionExercise extends Exercise {
     private final Integer repetitions;
 
-    public RepetitionExercise (Integer repetitions, String name) {
-        super(name);
+    public RepetitionExercise (Integer repetitions, String name, String id) {
+        super(id, name);
         this.repetitions = repetitions;
     }
 
