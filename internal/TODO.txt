@@ -1,4 +1,4 @@
-* Add mongodb in rakuten.
+* Add mongodb in heroku.
 * Document the API.
 * Add javadoc where it's important.
 * Add code quality analysis on push.
