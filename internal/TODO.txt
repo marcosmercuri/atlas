@@ -1,5 +1,4 @@
-* Finish mappers
-* Save the proposed exercise.
+* Add mongodb in rakuten.
 * Document the API.
 * Add javadoc where it's important.
 * Add code quality analysis on push.
