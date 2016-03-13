@@ -254,7 +254,6 @@ public class AtlasApplicationTest {
         assertThat(apiResponse.get("code"), is(40001));
         String errorMessage = (String)apiResponse.get("message");
 
-        //TODO After commit extract all this to methods
         assertThat(errorMessage, containsString("The number of repetitions of the proposed exercise has to be above zero"));
         assertThat(errorMessage, containsString("The male Rx of the proposed exercise has to be above zero"));
         assertThat(errorMessage, containsString("The female Rx of the proposed exercise has to be above zero"));
