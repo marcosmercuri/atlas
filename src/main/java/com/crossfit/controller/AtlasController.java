@@ -36,8 +36,6 @@ public class AtlasController {
 
     @RequestMapping (value = "/proposedWorkouts/{id}/exercises", method = POST)
     public ProposedWorkoutDTO proposedWorkout(@PathVariable("id") Long proposedWorkoutId, @Valid @RequestBody Exercise proposedExercise) {
-
-//        Greeter greeter = new Greeter(counter.getAndIncrement(), String.format(GREETER_TEMPLATE, name));
         return new ProposedWorkoutDTO();
     }
 }
