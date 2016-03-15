@@ -1,6 +1,7 @@
-* Add mongodb in heroku.
+* Add rest authentication
+* Finish get ProposedWorkout
+* Complete readme
 * Document the API.
 * Add javadoc where it's important.
 * Add code quality analysis on push.
-* Add rest authentication
 * Move all the translation things in DefaultErrorResponseAttributes to a class of its own
