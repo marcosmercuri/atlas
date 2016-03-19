@@ -69,10 +69,9 @@ public class ProposedWorkoutMapperImplTest {
     }
 
     /**
-     * I'm comparing by name, based on the assumption that the names of each exercise within a workout
-     * are unique.
+     * I'm comparing by id, which is unique for each exercise within a workout.
      */
     private boolean areEquals (Exercise exercise, ProposedExerciseDTO proposedExerciseDto) {
-        return exercise.getName().equals(proposedExerciseDto.getName());
+        return exercise.getId().equals(proposedExerciseDto.getId());
     }
 }
