@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 import com.crossfit.controller.ProposedExerciseDTO;
 import com.crossfit.controller.ProposedWorkoutDTO;
-import com.crossfit.controller.TestUtils;
+import com.crossfit.controller.DtoCreatorUtil;
 import com.crossfit.model.Amrap;
 import com.crossfit.model.Exercise;
 import com.crossfit.model.ForTimeWorkout;
@@ -24,7 +24,7 @@ public class ProposedWorkoutMapperImplTest {
 
     @Test
     public void given_an_amrap_workout_when_map_then_the_entity_has_all_fields_set() {
-        ProposedWorkoutDTO amrapDto = TestUtils.givenValidAmrapProposedWorkout(3);
+        ProposedWorkoutDTO amrapDto = DtoCreatorUtil.givenValidAmrapProposedWorkout(3);
 
         Workout workout = mapper.mapToEntity(amrapDto);
 
@@ -39,7 +39,7 @@ public class ProposedWorkoutMapperImplTest {
 
     @Test
     public void given_a_for_time_workout_when_map_then_the_entity_has_all_fields_set() {
-        ProposedWorkoutDTO forTimeWorkoutDto = TestUtils.givenValidForTimeProposedWorkout(2);
+        ProposedWorkoutDTO forTimeWorkoutDto = DtoCreatorUtil.givenValidForTimeProposedWorkout(2);
 
         Workout workout = mapper.mapToEntity(forTimeWorkoutDto);
 

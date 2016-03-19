@@ -1,6 +1,6 @@
 package com.crossfit.controller;
 
-import static com.crossfit.controller.TestUtils.*;
+import static com.crossfit.controller.DtoCreatorUtil.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
@@ -62,7 +62,7 @@ public class ProposedWorkoutValidatorTest {
 
     @Test
     public void given_a_forTime_without_numberOfRounds_when_validated_then_the_validation_fails() {
-        ProposedWorkoutDTO proposedWorkoutDTO = TestUtils.givenForTimeWithoutNumberOfRounds();
+        ProposedWorkoutDTO proposedWorkoutDTO = DtoCreatorUtil.givenForTimeWithoutNumberOfRounds();
         Errors errors = createEmptyErrors(proposedWorkoutDTO);
 
         validator.validate(proposedWorkoutDTO, errors);
@@ -72,7 +72,7 @@ public class ProposedWorkoutValidatorTest {
 
     @Test
     public void given_a_forTime_without_maxAllowedSeconds_when_validated_then_the_validation_fails() {
-        ProposedWorkoutDTO proposedWorkoutDTO = TestUtils.givenForTimeWithoutMaxAllowedSeconds();
+        ProposedWorkoutDTO proposedWorkoutDTO = DtoCreatorUtil.givenForTimeWithoutMaxAllowedSeconds();
         Errors errors = createEmptyErrors(proposedWorkoutDTO);
 
         validator.validate(proposedWorkoutDTO, errors);

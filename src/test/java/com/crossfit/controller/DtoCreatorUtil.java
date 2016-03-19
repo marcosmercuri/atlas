@@ -4,8 +4,8 @@ import static com.crossfit.controller.ExerciseType.*;
 
 import java.util.*;
 
-public class TestUtils {
-    private TestUtils () {
+public class DtoCreatorUtil {
+    private DtoCreatorUtil () {
     }
 
     public static ProposedWorkoutDTO givenValidAmrapProposedWorkout (Integer numberOfExercises) {

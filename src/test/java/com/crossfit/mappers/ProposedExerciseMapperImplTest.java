@@ -5,7 +5,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 import com.crossfit.controller.ProposedExerciseDTO;
-import com.crossfit.controller.TestUtils;
+import com.crossfit.controller.DtoCreatorUtil;
 import com.crossfit.model.DistanceExercise;
 import com.crossfit.model.Exercise;
 import com.crossfit.model.RepetitionExercise;
@@ -23,7 +23,7 @@ public class ProposedExerciseMapperImplTest {
 
     @Test
     public void given_a_distance_proposedExerciseDTO_when_map_then_the_entity_has_all_fields_set() {
-        ProposedExerciseDTO distanceExerciseDto = TestUtils.createValidDistanceExercise();
+        ProposedExerciseDTO distanceExerciseDto = DtoCreatorUtil.createValidDistanceExercise();
 
         Exercise exercise = exerciseMapper.mapToEntity(distanceExerciseDto);
 
@@ -46,7 +46,7 @@ public class ProposedExerciseMapperImplTest {
 
     @Test
     public void given_a_timed_proposedExerciseDTO_when_map_then_the_entity_has_all_fields_set() {
-        ProposedExerciseDTO timedExerciseDto = TestUtils.createValidTimedExercise();
+        ProposedExerciseDTO timedExerciseDto = DtoCreatorUtil.createValidTimedExercise();
 
         Exercise exercise = exerciseMapper.mapToEntity(timedExerciseDto);
 
@@ -61,7 +61,7 @@ public class ProposedExerciseMapperImplTest {
 
     @Test
     public void given_a_repetition_proposedExerciseDTO_when_map_then_the_entity_has_all_fields_set() {
-        ProposedExerciseDTO repetitionExerciseDto = TestUtils.createValidRepetitionExercise();
+        ProposedExerciseDTO repetitionExerciseDto = DtoCreatorUtil.createValidRepetitionExercise();
 
         Exercise exercise = exerciseMapper.mapToEntity(repetitionExerciseDto);
 
