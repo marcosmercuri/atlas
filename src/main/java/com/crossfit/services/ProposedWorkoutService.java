@@ -10,4 +10,9 @@ public interface ProposedWorkoutService {
      * @return saved workout with an id.
      */
     ProposedWorkoutDTO saveProposedWorkout(ProposedWorkoutDTO proposedWorkoutDTO);
+
+    /**
+     * Retrieves a proposed workout by its id
+     */
+    ProposedWorkoutDTO getProposedWorkoutById(String proposedWorkoutId);
 }

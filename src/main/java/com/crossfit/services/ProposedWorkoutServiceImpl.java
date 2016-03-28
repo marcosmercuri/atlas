@@ -32,4 +32,9 @@ class ProposedWorkoutServiceImpl implements ProposedWorkoutService {
               .stream()
               .forEach(proposedExercise -> proposedExercise.setId(UUID.randomUUID().toString()));
     }
+
+    @Override
+    public ProposedWorkoutDTO getProposedWorkoutById (String proposedWorkoutId) {
+        return proposedWorkoutMapper.mapToDto(proposedWorkoutRepository.findOne(proposedWorkoutId));
+    }
 }

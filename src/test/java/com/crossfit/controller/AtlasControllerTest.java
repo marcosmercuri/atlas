@@ -7,10 +7,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
+import java.io.IOException;
 import java.nio.charset.Charset;
 
 import com.crossfit.AtlasApplication;
 import com.crossfit.util.Utils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -132,5 +134,27 @@ public class AtlasControllerTest {
 
     private String createRequestWithMissingDurationInSecondsForAmrap () {
         return Utils.loadResource("proposed_amrap_workout_request_without_duration_in_seconds.json");
+    }
+
+    @Test
+    public void test_successful_get_proposed_workout () throws Exception {
+        ResultActions result = mockMvc.perform(
+              post("/proposedWorkouts")
+                    .content(createValidForTimeRequest())
+                    .contentType(jsonContentType)
+        )
+              .andExpect(status().isCreated());
+        String proposedWorkoutId = getResponseId(result);
+        mockMvc.perform(get("/proposedWorkouts/{id}", proposedWorkoutId))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id", is(proposedWorkoutId)));
+    }
+
+    private String getResponseId (ResultActions result) throws IOException {
+        //I'm sure there's a better way than this one, but couldn' find it.
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonResponse = result.andReturn().getResponse().getContentAsString();
+        ProposedWorkoutDTO proposedWorkoutDTO = objectMapper.readValue(jsonResponse, ProposedWorkoutDTO.class);
+        return proposedWorkoutDTO.getId();
     }
 }

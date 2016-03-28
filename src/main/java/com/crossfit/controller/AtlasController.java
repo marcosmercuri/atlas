@@ -36,8 +36,8 @@ public class AtlasController {
         return proposedWorkoutService.saveProposedWorkout(proposedWorkout);
     }
 
-    @RequestMapping (value = "/proposedWorkouts/{id}/exercises", method = POST)
-    public ProposedWorkoutDTO proposedWorkout(@PathVariable("id") Long proposedWorkoutId, @Valid @RequestBody Exercise proposedExercise) {
-        return new ProposedWorkoutDTO();
+    @RequestMapping (value = "/proposedWorkouts/{id}", method = GET)
+    public ProposedWorkoutDTO proposedWorkout(@PathVariable("id") String proposedWorkoutId) {
+        return proposedWorkoutService.getProposedWorkoutById(proposedWorkoutId);
     }
 }
