@@ -1,9 +1,11 @@
 package com.crossfit.mappers;
 
+import static com.crossfit.controller.EntityCreatorUtil.givenValidAmrap;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
 
+import com.crossfit.controller.EntityCreatorUtil;
 import com.crossfit.controller.ProposedExerciseDTO;
 import com.crossfit.controller.ProposedWorkoutDTO;
 import com.crossfit.controller.DtoCreatorUtil;
@@ -73,5 +75,23 @@ public class ProposedWorkoutMapperImplTest {
      */
     private boolean areEquals (Exercise exercise, ProposedExerciseDTO proposedExerciseDto) {
         return exercise.getId().equals(proposedExerciseDto.getId());
+    }
+
+    @Test
+    public void given_an_amrap_workout_when_map_then_the_DTO_has_all_fields_set(){
+        Amrap amrap = givenValidAmrap();
+
+        ProposedWorkoutDTO proposedWorkoutDTO = mapper.mapToDto(amrap);
+
+        verifyEquality(amrap, proposedWorkoutDTO);
+    }
+
+    @Test
+    public void given_an_forTime_workout_when_map_then_the_DTO_has_all_fields_set(){
+        ForTimeWorkout forTimeWorkout = EntityCreatorUtil.givenValidForTimeWorkout();
+
+        ProposedWorkoutDTO proposedWorkoutDTO = mapper.mapToDto(forTimeWorkout);
+
+        verifyEquality(forTimeWorkout, proposedWorkoutDTO);
     }
 }

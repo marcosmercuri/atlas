@@ -1,5 +1,7 @@
 package com.crossfit.mappers;
 
+import static com.crossfit.controller.WorkoutType.*;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,8 +39,44 @@ class ProposedWorkoutMapperImpl implements ProposedWorkoutMapper {
         }
     }
 
+    @Override
+    public ProposedWorkoutDTO mapToDto (Workout workout) {
+        if (workout instanceof Amrap) {
+            return mapAmrapToDto((Amrap) workout);
+        } else if (workout instanceof ForTimeWorkout) {
+            return mapForTimeToDto((ForTimeWorkout) workout);
+        }
+        throw new DtoMapperNotAvailableForWorkoutException(workout.getClass().toString());
+    }
+
+    private ProposedWorkoutDTO mapForTimeToDto (ForTimeWorkout forTimeWorkout) {
+        ProposedWorkoutDTO proposedWorkoutDTO = mapWorkoutCommonFieldsToDto(forTimeWorkout);
+        proposedWorkoutDTO.setType(AMRAP.toString());
+        proposedWorkoutDTO.setMaxAllowedSeconds(forTimeWorkout.getMaxAllowedSeconds());
+        proposedWorkoutDTO.setNumberOfRounds(forTimeWorkout.getNumberOfRounds());
+        return proposedWorkoutDTO;
+    }
+
+    private ProposedWorkoutDTO mapAmrapToDto (Amrap amrap) {
+        ProposedWorkoutDTO proposedWorkoutDTO = mapWorkoutCommonFieldsToDto(amrap);
+        proposedWorkoutDTO.setType(AMRAP.toString());
+        proposedWorkoutDTO.setDurationInSeconds(amrap.getDurationInSeconds());
+        return proposedWorkoutDTO;
+    }
+
+    /**
+     * Maps the workout fields (which are, obviously, common to all workouts) to a dto.
+     * The workoutType and it's specific fields are should be set after calling this method.
+     */
+    private ProposedWorkoutDTO mapWorkoutCommonFieldsToDto (Workout workout) {
+        ProposedWorkoutDTO proposedWorkoutDTO = new ProposedWorkoutDTO();
+        proposedWorkoutDTO.setId(workout.getId());
+        proposedWorkoutDTO.setExercises(mapExercisesToDto(workout.getExercises()));
+        return proposedWorkoutDTO;
+    }
+
     private ForTimeWorkout mapToForTime (ProposedWorkoutDTO proposedWorkoutDTO) {
-        List<Exercise> exercises = mapExercises(proposedWorkoutDTO.getExercises());
+        List<Exercise> exercises = mapExercisesToEntity(proposedWorkoutDTO.getExercises());
         return new ForTimeWorkout(
               exercises,
               proposedWorkoutDTO.getMaxAllowedSeconds(),
@@ -47,15 +85,21 @@ class ProposedWorkoutMapperImpl implements ProposedWorkoutMapper {
     }
 
     private Amrap mapToAmrap (ProposedWorkoutDTO proposedWorkoutDTO) {
-        List<Exercise> exercises = mapExercises(proposedWorkoutDTO.getExercises());
+        List<Exercise> exercises = mapExercisesToEntity(proposedWorkoutDTO.getExercises());
         return new Amrap(exercises,
               proposedWorkoutDTO.getDurationInSeconds(),
               proposedWorkoutDTO.getId());
     }
 
-    private List<Exercise> mapExercises (List<ProposedExerciseDTO> exercises) {
+    private List<Exercise> mapExercisesToEntity (List<ProposedExerciseDTO> exercises) {
         return exercises.stream()
         .map(exerciseMapper::mapToEntity)
         .collect(Collectors.toList());
+    }
+
+    private List<ProposedExerciseDTO> mapExercisesToDto (List<Exercise> exercises) {
+        return exercises.stream()
+              .map(exerciseMapper::mapToDto)
+              .collect(Collectors.toList());
     }
 }
