@@ -1,5 +1,7 @@
 package com.crossfit.mappers;
 
+import static com.crossfit.controller.ExerciseType.*;
+
 import com.crossfit.controller.ProposedExerciseDTO;
 import com.crossfit.model.DistanceExercise;
 import com.crossfit.model.Exercise;
@@ -13,6 +15,50 @@ class ProposedExerciseMapperImpl implements ProposedExerciseMapper {
     @Override
     public Exercise mapToEntity (ProposedExerciseDTO proposedExerciseDTO) {
         return mapByType(proposedExerciseDTO);
+    }
+
+    @Override
+    public ProposedExerciseDTO mapToDto (Exercise exercise) {
+        if (exercise instanceof RepetitionExercise) {
+            return mapRepetitionToDto((RepetitionExercise)exercise);
+        } else if (exercise instanceof TimedExercise) {
+            return mapTimedToDto((TimedExercise) exercise);
+        } else if (exercise instanceof DistanceExercise) {
+            return mapDistanceToDto((DistanceExercise) exercise);
+        }
+
+        throw new DtoMapperNotAvailableForExerciseException(exercise.getClass().toString());
+    }
+
+    private ProposedExerciseDTO mapDistanceToDto (DistanceExercise exercise) {
+        ProposedExerciseDTO proposedExerciseDTO = mapCommonFieldsToDto(exercise);
+        proposedExerciseDTO.setType(DISTANCE.toString());
+        proposedExerciseDTO.setDistanceInMeters(exercise.getDistanceInMeters());
+        return proposedExerciseDTO;
+    }
+
+    private ProposedExerciseDTO mapTimedToDto (TimedExercise exercise) {
+        ProposedExerciseDTO proposedExerciseDTO = mapCommonFieldsToDto(exercise);
+        proposedExerciseDTO.setType(TIMED.toString());
+        proposedExerciseDTO.setDurationInSeconds(exercise.getDurationInSeconds());
+        return proposedExerciseDTO;
+    }
+
+    private ProposedExerciseDTO mapRepetitionToDto (RepetitionExercise exercise) {
+        ProposedExerciseDTO proposedExerciseDTO = mapCommonFieldsToDto(exercise);
+        proposedExerciseDTO.setType(REPETITION.toString());
+        proposedExerciseDTO.setNumberOfRepetitions(exercise.getRepetitions());
+        return proposedExerciseDTO;
+    }
+
+    private ProposedExerciseDTO mapCommonFieldsToDto (Exercise exercise) {
+        ProposedExerciseDTO proposedExerciseDTO = new ProposedExerciseDTO();
+        proposedExerciseDTO.setId(exercise.getId());
+        proposedExerciseDTO.setDescription(exercise.getDescription());
+        proposedExerciseDTO.setName(exercise.getName());
+        proposedExerciseDTO.setFemaleRxInKilograms(exercise.getFemaleRxInKilograms());
+        proposedExerciseDTO.setMaleRxInKilograms(exercise.getMaleRxInKilograms());
+        return proposedExerciseDTO;
     }
 
     private Exercise mapByType (ProposedExerciseDTO proposedExerciseDTO) {

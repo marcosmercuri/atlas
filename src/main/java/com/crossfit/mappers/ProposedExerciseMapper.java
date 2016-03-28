@@ -11,4 +11,9 @@ public interface ProposedExerciseMapper {
      * @return the model entity with the same values as proposedExerciseDTO.
      */
     Exercise mapToEntity (ProposedExerciseDTO proposedExerciseDTO);
+
+    /**
+     * Maps the entity (TimedExercise, RepetitionExercise, etc) to the DTO with the corresponding Type.
+     */
+    ProposedExerciseDTO mapToDto (Exercise exercise);
 }

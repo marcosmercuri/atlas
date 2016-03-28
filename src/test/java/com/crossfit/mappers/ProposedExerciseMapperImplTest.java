@@ -1,11 +1,13 @@
 package com.crossfit.mappers;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
+import static com.crossfit.controller.ExerciseType.*;
+import static junit.framework.TestCase.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.core.Is.*;
 
-import com.crossfit.controller.ProposedExerciseDTO;
 import com.crossfit.controller.DtoCreatorUtil;
+import com.crossfit.controller.EntityCreatorUtil;
+import com.crossfit.controller.ProposedExerciseDTO;
 import com.crossfit.model.DistanceExercise;
 import com.crossfit.model.Exercise;
 import com.crossfit.model.RepetitionExercise;
@@ -72,5 +74,35 @@ public class ProposedExerciseMapperImplTest {
     private void verifyEquality (RepetitionExercise exercise, ProposedExerciseDTO dto) {
         verifyExerciseCommonFields(exercise, dto);
         assertThat(exercise.getRepetitions(), is(dto.getNumberOfRepetitions()));
+    }
+
+    @Test
+    public void given_a_repetitionExercise_when_map_then_the_dto_has_all_fields_set() {
+        RepetitionExercise repetitionExercise = EntityCreatorUtil.createValidRepetitionExercise();
+
+        ProposedExerciseDTO proposedExerciseDTO = exerciseMapper.mapToDto(repetitionExercise);
+
+        assertThat(proposedExerciseDTO.getTypeEnum(), is(REPETITION));
+        verifyEquality(repetitionExercise, proposedExerciseDTO);
+    }
+
+    @Test
+    public void given_a_timedExercise_when_map_then_the_dto_has_all_fields_set() {
+        TimedExercise timedExercise = EntityCreatorUtil.createValidTimedExercise();
+
+        ProposedExerciseDTO proposedExerciseDTO = exerciseMapper.mapToDto(timedExercise);
+
+        assertThat(proposedExerciseDTO.getTypeEnum(), is(TIMED));
+        verifyEquality(timedExercise, proposedExerciseDTO);
+    }
+
+    @Test
+    public void given_a_distanceExercise_when_map_then_the_dto_has_all_fields_set() {
+        DistanceExercise distanceExercise = EntityCreatorUtil.createValidDistanceExercise();
+
+        ProposedExerciseDTO proposedExerciseDTO = exerciseMapper.mapToDto(distanceExercise);
+
+        assertThat(proposedExerciseDTO.getTypeEnum(), is(DISTANCE));
+        verifyEquality(distanceExercise, proposedExerciseDTO);
     }
 }
