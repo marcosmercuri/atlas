@@ -8,6 +8,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import com.crossfit.exceptions.BasicException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -102,6 +103,7 @@ public class ProposedExerciseDTO {
         return type != null ? type.toString() : null;
     }
 
+    @JsonIgnore
     public ExerciseType getTypeEnum () {
         return type;
     }
