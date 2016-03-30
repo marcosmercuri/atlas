@@ -1,6 +1,6 @@
 package com.crossfit.controller;
 
-import static com.crossfit.controller.RequestErrorCodes.*;
+import static com.crossfit.util.RequestErrorCodes.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

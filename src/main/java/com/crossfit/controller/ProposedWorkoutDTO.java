@@ -1,6 +1,6 @@
 package com.crossfit.controller;
 
-import static com.crossfit.controller.RequestErrorCodes.*;
+import static com.crossfit.util.RequestErrorCodes.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +9,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import com.crossfit.exceptions.BasicException;
-import com.crossfit.model.Workout;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
