@@ -151,7 +151,7 @@ public class AtlasControllerTest {
     }
 
     private String getResponseId (ResultActions result) throws IOException {
-        //I'm sure there's a better way than this one, but couldn' find it.
+        //I'm sure there's a better way than this one, but couldn't find it.
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonResponse = result.andReturn().getResponse().getContentAsString();
         ProposedWorkoutDTO proposedWorkoutDTO = objectMapper.readValue(jsonResponse, ProposedWorkoutDTO.class);

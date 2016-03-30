@@ -14,7 +14,6 @@ import org.springframework.boot.autoconfigure.web.DefaultErrorAttributes;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.context.request.RequestAttributes;
@@ -110,7 +109,7 @@ public class DefaultErrorResponseAttributes extends DefaultErrorAttributes {
     }
 
     //TODO Move all the translation things to a class of its own.
-    //TODO if no tranlsation is found, return one of the codes
+    //TODO if no translation is found, return one of the codes
     private String translateMessages (Stream<String> messages) {
         return messages
               .map(this::translateMessage)
