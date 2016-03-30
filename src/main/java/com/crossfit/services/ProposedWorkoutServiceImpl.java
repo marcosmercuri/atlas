@@ -1,9 +1,12 @@
 package com.crossfit.services;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import com.crossfit.controller.ProposedWorkoutDTO;
+import com.crossfit.exceptions.ProposedWorkoutNotFound;
 import com.crossfit.mappers.ProposedWorkoutMapper;
+import com.crossfit.model.Workout;
 import com.crossfit.repositories.ProposedWorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +38,9 @@ class ProposedWorkoutServiceImpl implements ProposedWorkoutService {
 
     @Override
     public ProposedWorkoutDTO getProposedWorkoutById (String proposedWorkoutId) {
-        return proposedWorkoutMapper.mapToDto(proposedWorkoutRepository.findOne(proposedWorkoutId));
+        Optional<Workout> foundProposedWorkout = Optional.ofNullable(proposedWorkoutRepository.findOne(proposedWorkoutId));
+        return foundProposedWorkout
+              .map(proposedWorkoutMapper::mapToDto)
+              .orElseThrow(() -> new ProposedWorkoutNotFound(proposedWorkoutId));
     }
 }

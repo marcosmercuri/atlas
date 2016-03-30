@@ -150,6 +150,12 @@ public class AtlasControllerTest {
         .andExpect(jsonPath("$.id", is(proposedWorkoutId)));
     }
 
+    @Test
+    public void test_nonexistent_id_for_get_proposed_workout () throws Exception {
+        mockMvc.perform(get("/proposedWorkouts/{id}", "nonexistent_id"))
+        .andExpect(status().isNotFound());
+    }
+
     private String getResponseId (ResultActions result) throws IOException {
         //I'm sure there's a better way than this one, but couldn't find it.
         ObjectMapper objectMapper = new ObjectMapper();
