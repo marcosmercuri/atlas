@@ -27,6 +27,13 @@ public class BasicException extends RuntimeException {
         this.originalException = originalException;
     }
 
+    public BasicException (String userMessage, Integer code, Optional<Exception> originalException) {
+        this.userMessage = userMessage;
+        this.developerMessage = userMessage;
+        this.code = code;
+        this.originalException = originalException;
+    }
+
     /**
      * @see #BasicException(String, String, Integer, Optional)
      */
