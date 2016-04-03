@@ -51,7 +51,7 @@ class ProposedWorkoutMapperImpl implements ProposedWorkoutMapper {
 
     private ProposedWorkoutDTO mapForTimeToDto (ForTimeWorkout forTimeWorkout) {
         ProposedWorkoutDTO proposedWorkoutDTO = mapWorkoutCommonFieldsToDto(forTimeWorkout);
-        proposedWorkoutDTO.setType(AMRAP.toString());
+        proposedWorkoutDTO.setType(FOR_TIME.toString());
         proposedWorkoutDTO.setMaxAllowedSeconds(forTimeWorkout.getMaxAllowedSeconds());
         proposedWorkoutDTO.setNumberOfRounds(forTimeWorkout.getNumberOfRounds());
         return proposedWorkoutDTO;

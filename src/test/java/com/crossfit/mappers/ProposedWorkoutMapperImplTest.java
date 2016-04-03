@@ -1,14 +1,12 @@
 package com.crossfit.mappers;
 
 import static com.crossfit.controller.EntityCreatorUtil.givenValidAmrap;
+import static com.crossfit.controller.WorkoutType.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
 
-import com.crossfit.controller.EntityCreatorUtil;
-import com.crossfit.controller.ProposedExerciseDTO;
-import com.crossfit.controller.ProposedWorkoutDTO;
-import com.crossfit.controller.DtoCreatorUtil;
+import com.crossfit.controller.*;
 import com.crossfit.model.Amrap;
 import com.crossfit.model.Exercise;
 import com.crossfit.model.ForTimeWorkout;
@@ -83,6 +81,7 @@ public class ProposedWorkoutMapperImplTest {
 
         ProposedWorkoutDTO proposedWorkoutDTO = mapper.mapToDto(amrap);
 
+        assertThat(proposedWorkoutDTO.getTypeEnum(), is(AMRAP));
         verifyEquality(amrap, proposedWorkoutDTO);
     }
 
@@ -92,6 +91,7 @@ public class ProposedWorkoutMapperImplTest {
 
         ProposedWorkoutDTO proposedWorkoutDTO = mapper.mapToDto(forTimeWorkout);
 
+        assertThat(proposedWorkoutDTO.getTypeEnum(), is(FOR_TIME));
         verifyEquality(forTimeWorkout, proposedWorkoutDTO);
     }
 }
