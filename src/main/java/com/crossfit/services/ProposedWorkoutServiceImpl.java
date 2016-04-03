@@ -3,9 +3,7 @@ package com.crossfit.services;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.crossfit.controller.ProposedWorkoutDTO;
 import com.crossfit.exceptions.ProposedWorkoutNotFound;
-import com.crossfit.mappers.ProposedWorkoutMapper;
 import com.crossfit.model.Workout;
 import com.crossfit.repositories.ProposedWorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,32 +12,28 @@ import org.springframework.stereotype.Service;
 @Service
 class ProposedWorkoutServiceImpl implements ProposedWorkoutService {
     private final ProposedWorkoutRepository proposedWorkoutRepository;
-    private final ProposedWorkoutMapper proposedWorkoutMapper;
 
     @Autowired
-    ProposedWorkoutServiceImpl (ProposedWorkoutRepository proposedWorkoutRepository, ProposedWorkoutMapper proposedWorkoutMapper) {
+    ProposedWorkoutServiceImpl (ProposedWorkoutRepository proposedWorkoutRepository) {
         this.proposedWorkoutRepository = proposedWorkoutRepository;
-        this.proposedWorkoutMapper = proposedWorkoutMapper;
     }
 
     @Override
-    public ProposedWorkoutDTO saveProposedWorkout (ProposedWorkoutDTO proposedWorkoutDto) {
-        generateIds(proposedWorkoutDto);
-        proposedWorkoutRepository.save(proposedWorkoutMapper.mapToEntity(proposedWorkoutDto));
-        return proposedWorkoutDto;
+    public Workout saveProposedWorkout (Workout proposedWorkout) {
+        generateIds(proposedWorkout);
+        return proposedWorkoutRepository.save(proposedWorkout);
     }
 
-    private void generateIds (ProposedWorkoutDTO proposedWorkoutDto) {
-        proposedWorkoutDto.setId(UUID.randomUUID().toString());
-        proposedWorkoutDto.getExercises()
+    private void generateIds (Workout proposedWorkout) {
+        proposedWorkout.setId(UUID.randomUUID().toString());
+        proposedWorkout.getExercises()
               .stream()
               .forEach(proposedExercise -> proposedExercise.setId(UUID.randomUUID().toString()));
     }
 
     @Override
-    public ProposedWorkoutDTO getProposedWorkoutById (String proposedWorkoutId) {
+    public Workout getProposedWorkoutById (String proposedWorkoutId) {
         return findProposedWorkoutById(proposedWorkoutId)
-              .map(proposedWorkoutMapper::mapToDto)
               .orElseThrow(() -> new ProposedWorkoutNotFound(proposedWorkoutId));
     }
 
@@ -48,11 +42,11 @@ class ProposedWorkoutServiceImpl implements ProposedWorkoutService {
     }
 
     @Override
-    public void updateProposedWorkout (String proposedWorkoutId, ProposedWorkoutDTO proposedWorkoutDTO) {
+    public void updateProposedWorkout (String proposedWorkoutId, Workout proposedWorkout) {
         findProposedWorkoutById(proposedWorkoutId)
               .orElseThrow(() -> new ProposedWorkoutNotFound(proposedWorkoutId));
 
-        proposedWorkoutRepository.save(proposedWorkoutMapper.mapToEntity(proposedWorkoutDTO));
+        proposedWorkoutRepository.save(proposedWorkout);
     }
 
     @Override public void deleteProposedWorkout (String proposedWorkoutId) {

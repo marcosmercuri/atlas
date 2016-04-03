@@ -2,11 +2,10 @@ package com.crossfit.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
-import java.util.UUID;
 import javax.validation.Valid;
 
 import com.crossfit.mappers.ProposedWorkoutMapper;
-import com.crossfit.model.Exercise;
+import com.crossfit.model.Workout;
 import com.crossfit.services.ProposedWorkoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +24,10 @@ public class AtlasController {
     @Autowired
     private ProposedWorkoutService proposedWorkoutService;
 
+    @Autowired
+    private ProposedWorkoutMapper proposedWorkoutMapper;
+
+
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         binder.addValidators(proposedWorkoutValidator);
@@ -32,20 +35,23 @@ public class AtlasController {
 
     @RequestMapping (value = "/proposedWorkouts", method = POST, produces = "application/json; charset=utf-8")
     @ResponseStatus(HttpStatus.CREATED)
-    public ProposedWorkoutDTO createProposedWorkout(@Valid @RequestBody ProposedWorkoutDTO proposedWorkout) {
-        return proposedWorkoutService.saveProposedWorkout(proposedWorkout);
+    public ProposedWorkoutDTO createProposedWorkout(@Valid @RequestBody ProposedWorkoutDTO proposedWorkoutDto) {
+        Workout saveProposedWorkout = proposedWorkoutService.saveProposedWorkout(proposedWorkoutMapper.mapToEntity(proposedWorkoutDto));
+        return proposedWorkoutMapper.mapToDto(saveProposedWorkout);
     }
 
     @RequestMapping (value = "/proposedWorkouts/{id}", method = GET)
     public ProposedWorkoutDTO getProposedWorkout(@PathVariable("id") String proposedWorkoutId) {
-        return proposedWorkoutService.getProposedWorkoutById(proposedWorkoutId);
+        Workout retrievedProposedWorkout = proposedWorkoutService.getProposedWorkoutById(proposedWorkoutId);
+        return proposedWorkoutMapper.mapToDto(retrievedProposedWorkout);
     }
 
     @RequestMapping (value = "/proposedWorkouts/{id}", method = PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateProposedWorkout(@PathVariable("id") String proposedWorkoutId,
-          @Valid @RequestBody ProposedWorkoutDTO proposedWorkoutDTO) {
-        proposedWorkoutService.updateProposedWorkout(proposedWorkoutId, proposedWorkoutDTO);
+          @Valid @RequestBody ProposedWorkoutDTO proposedWorkoutDto) {
+        Workout proposedWorkoutEntity = proposedWorkoutMapper.mapToEntity(proposedWorkoutDto);
+        proposedWorkoutService.updateProposedWorkout(proposedWorkoutId, proposedWorkoutEntity);
     }
 
     @RequestMapping (value = "/proposedWorkouts/{id}", method = DELETE)
