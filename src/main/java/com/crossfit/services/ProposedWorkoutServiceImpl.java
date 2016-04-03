@@ -38,9 +38,20 @@ class ProposedWorkoutServiceImpl implements ProposedWorkoutService {
 
     @Override
     public ProposedWorkoutDTO getProposedWorkoutById (String proposedWorkoutId) {
-        Optional<Workout> foundProposedWorkout = Optional.ofNullable(proposedWorkoutRepository.findOne(proposedWorkoutId));
-        return foundProposedWorkout
+        return findProposedWorkoutById(proposedWorkoutId)
               .map(proposedWorkoutMapper::mapToDto)
               .orElseThrow(() -> new ProposedWorkoutNotFound(proposedWorkoutId));
+    }
+
+    private Optional<Workout> findProposedWorkoutById (String proposedWorkoutId) {
+        return Optional.ofNullable(proposedWorkoutRepository.findOne(proposedWorkoutId));
+    }
+
+    @Override
+    public void updateProposedWorkout (String proposedWorkoutId, ProposedWorkoutDTO proposedWorkoutDTO) {
+        findProposedWorkoutById(proposedWorkoutId)
+              .orElseThrow(() -> new ProposedWorkoutNotFound(proposedWorkoutId));
+
+        proposedWorkoutRepository.save(proposedWorkoutMapper.mapToEntity(proposedWorkoutDTO));
     }
 }

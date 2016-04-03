@@ -40,4 +40,11 @@ public class AtlasController {
     public ProposedWorkoutDTO getProposedWorkout(@PathVariable("id") String proposedWorkoutId) {
         return proposedWorkoutService.getProposedWorkoutById(proposedWorkoutId);
     }
+
+    @RequestMapping (value = "/proposedWorkouts/{id}", method = PUT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateProposedWorkout(@PathVariable("id") String proposedWorkoutId,
+          @Valid @RequestBody ProposedWorkoutDTO proposedWorkoutDTO) {
+        proposedWorkoutService.updateProposedWorkout(proposedWorkoutId, proposedWorkoutDTO);
+    }
 }

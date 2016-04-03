@@ -15,4 +15,9 @@ public interface ProposedWorkoutService {
      * Retrieves a proposed workout by its id
      */
     ProposedWorkoutDTO getProposedWorkoutById(String proposedWorkoutId);
+
+    /**
+     * Updates the proposedWorkout that has the proposedWorkoutId.
+     */
+    void updateProposedWorkout (String proposedWorkoutId, ProposedWorkoutDTO proposedWorkoutDTO);
 }

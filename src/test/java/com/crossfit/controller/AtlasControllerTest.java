@@ -1,6 +1,7 @@
 package com.crossfit.controller;
 
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -12,6 +13,7 @@ import java.nio.charset.Charset;
 
 import com.crossfit.AtlasApplication;
 import com.crossfit.util.Utils;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,6 +35,7 @@ public class AtlasControllerTest {
     private MockMvc mockMvc;
     private MediaType jsonContentType;
     private MediaType xmlContentType;
+    private ObjectMapper objectMapper;
     @Autowired
     private WebApplicationContext webApplicationContext;
 
@@ -45,6 +48,7 @@ public class AtlasControllerTest {
               MediaType.APPLICATION_XML.getSubtype(),
               Charset.forName("utf8"));
         mockMvc = webAppContextSetup(webApplicationContext).build();
+        objectMapper = new ObjectMapper();
     }
 
     @Test
@@ -93,7 +97,7 @@ public class AtlasControllerTest {
     }
 
     @Test
-    public void test_missing_type_in_new_proposed_workout_request() throws Exception {
+    public void test_missing_type_in_new_proposed_workout_request () throws Exception {
         ResultActions result = mockMvc.perform(
               post("/proposedWorkouts")
                     .content(createRequestWithMissingType())
@@ -102,12 +106,12 @@ public class AtlasControllerTest {
         result.andExpect(status().isBadRequest());
     }
 
-    private String createRequestWithMissingType() {
+    private String createRequestWithMissingType () {
         return Utils.loadResource("proposed_workout_request_with_missing_type.json");
     }
 
     @Test
-    public void test_invalid_workout_type_in_new_proposed_workout_request() throws Exception {
+    public void test_invalid_workout_type_in_new_proposed_workout_request () throws Exception {
         ResultActions result = mockMvc.perform(
               post("/proposedWorkouts")
                     .content(createRequestWithInvalidWorkoutType())
@@ -122,7 +126,7 @@ public class AtlasControllerTest {
     }
 
     @Test
-    public void test_missing_DurationInSeconds_field_in_amrap_proposed_workout_request() throws Exception {
+    public void test_missing_DurationInSeconds_field_in_amrap_proposed_workout_request () throws Exception {
         ResultActions result = mockMvc.perform(
               post("/proposedWorkouts")
                     .content(createRequestWithMissingDurationInSecondsForAmrap())
@@ -146,21 +150,87 @@ public class AtlasControllerTest {
               .andExpect(status().isCreated());
         String proposedWorkoutId = getResponseId(result);
         mockMvc.perform(get("/proposedWorkouts/{id}", proposedWorkoutId))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$.id", is(proposedWorkoutId)));
+              .andExpect(status().isOk())
+              .andExpect(jsonPath("$.id", is(proposedWorkoutId)));
     }
 
     @Test
     public void test_nonexistent_id_for_get_proposed_workout () throws Exception {
         mockMvc.perform(get("/proposedWorkouts/{id}", "nonexistent_id"))
-        .andExpect(status().isNotFound());
+              .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void test_nonexistent_id_for_put_proposed_workout () throws Exception {
+        mockMvc.perform(get("/proposedWorkouts/{id}", "nonexistent_id"))
+              .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void test_successful_update_proposed_workout () throws Exception {
+        ResultActions result = createForTimeProposedWorkout();
+
+        ProposedWorkoutDTO modifiedProposedWorkout = modifyMaxAllowed(result);
+
+        mockMvc.perform(put("/proposedWorkouts/{id}", modifiedProposedWorkout.getId())
+              .content(convertToJson(modifiedProposedWorkout))
+              .contentType(jsonContentType)
+        )
+        .andExpect(status().isNoContent());
+
+        verifyThatProposedWorkoutWasModified(modifiedProposedWorkout);
+    }
+
+    @Test
+    public void test_validation_on_update_proposed_workout() throws Exception {
+        ResultActions result = createForTimeProposedWorkout();
+
+        ProposedWorkoutDTO modifiedProposedWorkout = deleteMaxAllowed(result);
+
+        mockMvc.perform(put("/proposedWorkouts/{id}", modifiedProposedWorkout.getId())
+              .content(convertToJson(modifiedProposedWorkout))
+              .contentType(jsonContentType)
+        ).andExpect(status().isBadRequest());
+    }
+
+    private void verifyThatProposedWorkoutWasModified (ProposedWorkoutDTO modifiedProposedWorkout) throws Exception {
+        ResultActions result = mockMvc.perform(get("/proposedWorkouts/{id}", modifiedProposedWorkout.getId()));
+        ProposedWorkoutDTO proposedWorkoutLatestVersion = convertResponseToProposedWorkoutDto(result);
+        assertThat(proposedWorkoutLatestVersion.getMaxAllowedSeconds(), is(modifiedProposedWorkout.getMaxAllowedSeconds()));
+    }
+
+    private ResultActions createForTimeProposedWorkout () throws Exception {
+        return mockMvc.perform(
+                  post("/proposedWorkouts")
+                        .content(createValidForTimeRequest())
+                        .contentType(jsonContentType)
+            );
+    }
+
+    private String convertToJson (ProposedWorkoutDTO modifiedProposedWorkout) throws JsonProcessingException {
+        return objectMapper.writeValueAsString(modifiedProposedWorkout);
+    }
+
+    private ProposedWorkoutDTO modifyMaxAllowed (ResultActions result) throws IOException {
+        ProposedWorkoutDTO modifiedProposedWorkout = convertResponseToProposedWorkoutDto(result);
+        modifiedProposedWorkout.setMaxAllowedSeconds(modifiedProposedWorkout.getMaxAllowedSeconds() + 10);
+        return modifiedProposedWorkout;
+    }
+
+    private ProposedWorkoutDTO deleteMaxAllowed (ResultActions result) throws IOException {
+        ProposedWorkoutDTO modifiedProposedWorkout = convertResponseToProposedWorkoutDto(result);
+        modifiedProposedWorkout.setMaxAllowedSeconds(null);
+        return modifiedProposedWorkout;
     }
 
     private String getResponseId (ResultActions result) throws IOException {
         //I'm sure there's a better way than this one, but couldn't find it.
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonResponse = result.andReturn().getResponse().getContentAsString();
-        ProposedWorkoutDTO proposedWorkoutDTO = objectMapper.readValue(jsonResponse, ProposedWorkoutDTO.class);
+        ProposedWorkoutDTO proposedWorkoutDTO = convertResponseToProposedWorkoutDto(result);
         return proposedWorkoutDTO.getId();
+    }
+
+    private ProposedWorkoutDTO convertResponseToProposedWorkoutDto (ResultActions result) throws IOException {
+        String jsonResponse = result.andReturn().getResponse().getContentAsString();
+        return objectMapper.readValue(jsonResponse, ProposedWorkoutDTO.class);
     }
 }
