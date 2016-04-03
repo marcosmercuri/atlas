@@ -37,7 +37,7 @@ public class AtlasController {
     }
 
     @RequestMapping (value = "/proposedWorkouts/{id}", method = GET)
-    public ProposedWorkoutDTO proposedWorkout(@PathVariable("id") String proposedWorkoutId) {
+    public ProposedWorkoutDTO getProposedWorkout(@PathVariable("id") String proposedWorkoutId) {
         return proposedWorkoutService.getProposedWorkoutById(proposedWorkoutId);
     }
 }
