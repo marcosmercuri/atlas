@@ -47,4 +47,10 @@ public class AtlasController {
           @Valid @RequestBody ProposedWorkoutDTO proposedWorkoutDTO) {
         proposedWorkoutService.updateProposedWorkout(proposedWorkoutId, proposedWorkoutDTO);
     }
+
+    @RequestMapping (value = "/proposedWorkouts/{id}", method = DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProposedWorkout(@PathVariable("id") String proposedWorkoutId) {
+        proposedWorkoutService.deleteProposedWorkout(proposedWorkoutId);
+    }
 }

@@ -199,6 +199,28 @@ public class AtlasControllerTest {
         assertThat(proposedWorkoutLatestVersion.getMaxAllowedSeconds(), is(modifiedProposedWorkout.getMaxAllowedSeconds()));
     }
 
+    @Test
+    public void test_delete_proposed_workout() throws Exception {
+        ResultActions result = createForTimeProposedWorkout();
+
+        String proposedWorkoutId = getResponseId(result);
+        mockMvc.perform(delete("/proposedWorkouts/{id}", proposedWorkoutId))
+              .andExpect(status().isNoContent());
+
+        verifyThatProposedWorkoutWasDeleted(proposedWorkoutId);
+    }
+
+    private void verifyThatProposedWorkoutWasDeleted (String proposedWorkoutId) throws Exception {
+        mockMvc.perform(get("/proposedWorkouts/{id}", proposedWorkoutId))
+              .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void test_non_existent_id_on_delete_proposed_workout() throws Exception {
+        mockMvc.perform(delete("/proposedWorkouts/{id}", "nonexistent_id"))
+              .andExpect(status().isNotFound());
+    }
+
     private ResultActions createForTimeProposedWorkout () throws Exception {
         return mockMvc.perform(
                   post("/proposedWorkouts")

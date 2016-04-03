@@ -20,4 +20,9 @@ public interface ProposedWorkoutService {
      * Updates the proposedWorkout that has the proposedWorkoutId.
      */
     void updateProposedWorkout (String proposedWorkoutId, ProposedWorkoutDTO proposedWorkoutDTO);
+
+    /**
+     * Deletes the proposedWorkout with the given id.
+     */
+    void deleteProposedWorkout (String proposedWorkoutId);
 }

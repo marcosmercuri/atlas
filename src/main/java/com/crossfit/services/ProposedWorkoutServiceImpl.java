@@ -54,4 +54,11 @@ class ProposedWorkoutServiceImpl implements ProposedWorkoutService {
 
         proposedWorkoutRepository.save(proposedWorkoutMapper.mapToEntity(proposedWorkoutDTO));
     }
+
+    @Override public void deleteProposedWorkout (String proposedWorkoutId) {
+        findProposedWorkoutById(proposedWorkoutId)
+              .orElseThrow(() -> new ProposedWorkoutNotFound(proposedWorkoutId));
+
+        proposedWorkoutRepository.delete(proposedWorkoutId);
+    }
 }
