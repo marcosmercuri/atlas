@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * Main controller of the application rest calls
  */
 @RestController
-public class AtlasController {
+public class ProposedWorkoutController {
 
     @Autowired
     private ProposedWorkoutValidator proposedWorkoutValidator;

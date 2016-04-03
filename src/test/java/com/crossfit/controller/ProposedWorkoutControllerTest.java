@@ -31,7 +31,7 @@ import org.springframework.web.context.WebApplicationContext;
 @RunWith (SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration (classes = AtlasApplication.class)
 @WebAppConfiguration
-public class AtlasControllerTest {
+public class ProposedWorkoutControllerTest {
     private MockMvc mockMvc;
     private MediaType jsonContentType;
     private MediaType xmlContentType;
