@@ -50,3 +50,9 @@ A: so it might be appropriate to define three internal representations which map
    class Bookmark represents a full, created, bookmark
    class BookmarkUpdates represents updates to a bookmark
 Use DTOs
+
+Nested proposedWorkout in the resultWorkout:
+* http://venkat.io/posts/expanding-your-rest-api/
+* http://stackoverflow.com/questions/20250409/should-post-request-return-404-if-reference-to-other-entity-fails
+* http://stackoverflow.com/questions/3867344/how-should-i-deal-with-object-hierarchies-in-a-restful-api
+* http://programmers.stackexchange.com/questions/274998/nested-rest-urls-and-parent-id-which-is-better-design
