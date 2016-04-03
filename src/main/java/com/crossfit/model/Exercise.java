@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
  */
 public abstract class Exercise {
     @Id
-    private final String id;
+    private String id;
     private final String name;
     private Double maleRxInKilograms;
     private Double femaleRxInKilograms;
@@ -15,6 +15,10 @@ public abstract class Exercise {
 
     public Exercise (String id, String name) {
         this.id = id;
+        this.name = name;
+    }
+
+    public Exercise (String name) {
         this.name = name;
     }
 
@@ -48,5 +52,9 @@ public abstract class Exercise {
 
     public String getId () {
         return id;
+    }
+
+    public void setId (String id) {
+        this.id = id;
     }
 }

@@ -12,11 +12,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "proposedworkouts")
 public class Workout {
     @Id
-    private final String id;
+    private String id;
     private final List<Exercise> exercises;
 
     public Workout (String id, List<Exercise> exercises) {
         this.id = id;
+        this.exercises = exercises;
+    }
+
+    public Workout (List<Exercise> exercises) {
         this.exercises = exercises;
     }
 
@@ -26,5 +30,9 @@ public class Workout {
 
     public String getId () {
         return id;
+    }
+
+    public void setId (String id) {
+        this.id = id;
     }
 }
