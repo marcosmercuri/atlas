@@ -31,7 +31,6 @@ public enum WorkoutType {
     }
 
     private static BasicException createInvalidTypeException () {
-        //I couldn't find a way to get the messageSource injected, to pass the type as argument to the message
         return new BasicException("error.proposedWorkout.type.invalid",
               "error.proposedWorkout.type.invalid.developerMessage",
               INVALID_FIELDS_IN_REQUEST_ERROR_CODE,

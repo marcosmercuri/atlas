@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /**
  * Represents a full workout (or WOD)
  */
-//TODO Find out how to store the same entity in different collections
 @Document(collection = "proposedworkouts")
 public class Workout {
     @Id
