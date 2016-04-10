@@ -1,13 +1,9 @@
 package com.crossfit.controller;
 
-import static com.crossfit.util.RequestErrorCodes.*;
-
-import java.util.Optional;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import com.crossfit.exceptions.BasicException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -109,20 +105,7 @@ public class ProposedExerciseDTO {
     }
 
     public void setType (String type) {
-        try {
-            //TODO Move this into the enum
-            this.type = ExerciseType.valueOf(type);
-        } catch (IllegalArgumentException exception) {
-            throw createInvalidTypeException(exception);
-        }
-    }
-
-    private BasicException createInvalidTypeException (IllegalArgumentException exception) {
-        //I couldn't find a way to get the messageSource injected, to pass the type as argument to the message
-        return new BasicException("error.proposedExercise.type.invalid",
-              "error.proposedExercise.type.invalid.developerMessage",
-              INVALID_FIELDS_IN_REQUEST_ERROR_CODE,
-              Optional.of(exception));
+        this.type = ExerciseType.getExerciseType(type);
     }
 
     public String getId () {
