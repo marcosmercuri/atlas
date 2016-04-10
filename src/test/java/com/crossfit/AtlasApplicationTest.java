@@ -100,7 +100,7 @@ public class AtlasApplicationTest {
         assertThat(errorMessage, containsString("The list of exercises cannot be empty"));
         assertThat(errorMessage, containsString("The type of the workout cannot be null"));
         assertThat(errorMessage, containsString("The list of exercises cannot be null"));
-        assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.AtlasController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 3 error(s)"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.ProposedWorkoutController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 3 error(s)"));
     }
 
     private HttpEntity<String> createRequestWithVariousMissingFields () {
@@ -235,7 +235,7 @@ public class AtlasApplicationTest {
         assertThat(errorMessage, containsString("The name of the proposed exercise cannot be null"));
         assertThat(errorMessage, containsString("The name of the proposed exercise cannot be blank"));
         assertThat(errorMessage, containsString("The type of the proposed exercise cannot be null"));
-        assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.AtlasController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 4 error(s)"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.ProposedWorkoutController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 4 error(s)"));
     }
 
     private HttpEntity<String> createRequestWithAllRequiredFieldsMissingInProposedExercise () {
@@ -259,7 +259,7 @@ public class AtlasApplicationTest {
         assertThat(errorMessage, containsString("The female Rx of the proposed exercise has to be above zero"));
         assertThat(errorMessage, containsString("The distance in meters of the proposed exercise has to be above zero"));
         assertThat(errorMessage, containsString("The duration of the proposed exercise has to be above zero"));
-        assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.AtlasController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 5 error(s)"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.ProposedWorkoutController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 5 error(s)"));
     }
 
     private HttpEntity<String> createRequestWithAllIntegerFieldsInvalidInProposedExercise () {
@@ -279,7 +279,7 @@ public class AtlasApplicationTest {
         String errorMessage = (String)apiResponse.get("message");
 
         assertThat(errorMessage, containsString("Either both rx fields are set, or non can"));
-        assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.AtlasController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 1 error(s)"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.ProposedWorkoutController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 1 error(s)"));
     }
 
     private HttpEntity<String> createRequestWithOnlyMaleRxInProposedExercise () {
@@ -301,7 +301,7 @@ public class AtlasApplicationTest {
         assertThat(errorMessage, containsString("The male Rx can have two decimals at the most"));
         assertThat(errorMessage, containsString("The female Rx can have two decimals at the most"));
         assertThat(errorMessage, containsString("The distance in meters can have two decimals at the most"));
-        assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.AtlasController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 3 error(s)"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.ProposedWorkoutController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 3 error(s)"));
     }
 
     private HttpEntity<String> createRequestWithAllDoubleFieldsExceedingDecimalLengthInProposedExercise () {
@@ -323,7 +323,7 @@ public class AtlasApplicationTest {
         assertThat(errorMessage, containsString("For REPETITION exercise, the numberOfRepetitions cannot be null nor empty"));
         assertThat(errorMessage, containsString("For TIMED exercise, the durationInSeconds cannot be null nor empty"));
         assertThat(errorMessage, containsString("For DISTANCE exercise, the distanceInMeters cannot be null nor empty"));
-        assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.AtlasController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 3 error(s)"));
+        assertThat((String)apiResponse.get("developerMessage"), containsString("org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public com.crossfit.controller.ProposedWorkoutDTO com.crossfit.controller.ProposedWorkoutController.createProposedWorkout(com.crossfit.controller.ProposedWorkoutDTO), with 3 error(s)"));
     }
 
     private HttpEntity<String> createRequestWithAllRequiredFieldsMissingInProposedExerciseForEachType() {
