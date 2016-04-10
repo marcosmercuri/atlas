@@ -109,13 +109,20 @@ public class DefaultErrorResponseAttributes extends DefaultErrorAttributes {
     }
 
     //TODO Move all the translation things to a class of its own.
-    //TODO if no translation is found, return one of the codes
     private String translateMessages (Stream<String> messages) {
-        return messages
+        List<String> messagesList = messages.collect(Collectors.toList());
+        List<String> collect = messagesList
+              .stream()
               .map(this::translateMessage)
               .filter(Optional::isPresent)
               .map(Optional::get)
-              .collect(Collectors.joining(". "));
+              .collect(Collectors.toList());
+
+        if (collect.isEmpty() && !messagesList.isEmpty()) {
+            return messagesList.get(messagesList.size()-1);
+        } else {
+            return collect.stream().collect(Collectors.joining(". "));
+        }
     }
 
     private Optional<String> translateMessage (String errorMessageKey) {
