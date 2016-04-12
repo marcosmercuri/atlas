@@ -1,55 +1,27 @@
 package com.crossfit.controller;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.core.Is.is;
+import static org.springframework.http.MediaType.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import com.crossfit.AtlasApplication;
 import com.crossfit.util.Utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.web.context.WebApplicationContext;
 
 @RunWith (SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration (classes = AtlasApplication.class)
-@WebAppConfiguration
-public class ProposedWorkoutControllerTest {
-    private MockMvc mockMvc;
-    private MediaType jsonContentType;
-    private MediaType xmlContentType;
-    private ObjectMapper objectMapper;
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-
-    @Before
-    public void setUp () {
-        jsonContentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
-              MediaType.APPLICATION_JSON.getSubtype(),
-              Charset.forName("utf8"));
-        xmlContentType = new MediaType(MediaType.APPLICATION_XML.getType(),
-              MediaType.APPLICATION_XML.getSubtype(),
-              Charset.forName("utf8"));
-        mockMvc = webAppContextSetup(webApplicationContext).build();
-        objectMapper = new ObjectMapper();
-    }
+public class ProposedWorkoutControllerTest extends AbstractIntegrationTest {
 
     @Test
     public void test_successful_new_proposed_workout () throws Exception {
@@ -87,6 +59,8 @@ public class ProposedWorkoutControllerTest {
 
     @Test
     public void test_invalid_content_type_in_request_new_proposed_workout () throws Exception {
+        MediaType xmlContentType = createXmlContentType();
+
         ResultActions result = mockMvc.perform(
               post("/proposedWorkouts")
                     .content(createValidForTimeRequest())
@@ -94,6 +68,10 @@ public class ProposedWorkoutControllerTest {
         );
         result.andDo(print());
         result.andExpect(MockMvcResultMatchers.status().isUnsupportedMediaType());
+    }
+
+    private MediaType createXmlContentType () {
+        return new MediaType(APPLICATION_XML.getType(), APPLICATION_XML.getSubtype(), Charset.forName("utf8"));
     }
 
     @Test
