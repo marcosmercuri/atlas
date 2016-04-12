@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class ResultWorkoutDTO {
     private String id;
+    private String userId;
     private String proposedWorkoutId;
     private Boolean rx;
     private Boolean finished;
@@ -77,5 +78,13 @@ public class ResultWorkoutDTO {
 
     public void setComments (String comments) {
         this.comments = comments;
+    }
+
+    public String getUserId () {
+        return userId;
+    }
+
+    public void setUserId (String userId) {
+        this.userId = userId;
     }
 }
