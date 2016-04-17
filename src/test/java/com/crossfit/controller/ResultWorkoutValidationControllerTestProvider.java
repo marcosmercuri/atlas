@@ -29,8 +29,6 @@ class ResultWorkoutValidationControllerTestProvider {
               createWorkoutWithEmptyFinishTimeInSeconds(provider),
               createWorkoutWithZeroValueInFinishTimeInSeconds(provider),
               createWorkoutWithEmptyDate(),
-              createWorkoutWithEmptyExercises(),
-              createWorkoutWithNullExercises()
         );
     }
 

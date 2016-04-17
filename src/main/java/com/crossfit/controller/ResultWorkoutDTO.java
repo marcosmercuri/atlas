@@ -34,7 +34,6 @@ public class ResultWorkoutDTO {
     @Min(value = 1, message = "error.resultWorkout.finishTimeInSeconds.belowMinimum")
     private Integer finishTimeInSeconds;
 
-    @NotEmpty (message = "error.resultWorkout.resultExercises.notEmpty")
     @Valid
     private List<ResultExerciseDTO> resultExercises;
     private String comments;
