@@ -1,0 +1,22 @@
+{
+    "userId" : "user",
+    "proposedWorkoutId": "proposed-id",
+    "rx": true,
+    "finished": false,
+    "finishTimeInSeconds": "100",
+    "date": null,
+    "resultExercises": [
+        {
+            "id": "fadf-322-fafa",
+            "proposedExerciseId": "reference-id",
+            "rx": true,
+            "completedRounds": "2",
+            "repetitionsOnUnfinishedRound": "3",
+            "comments": "comment",
+            "type": "REPETITION",
+            "weightInKilograms": "32",
+            "replaceExercise": null
+
+        }
+    ]
+}

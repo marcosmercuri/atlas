@@ -3,10 +3,13 @@ package com.crossfit.controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * POJO for a done workout.
@@ -20,13 +23,24 @@ public class ResultWorkoutDTO {
 
     @NotBlank (message="error.resultWorkout.proposedWorkoutId.notBlank")
     private String proposedWorkoutId;
+
+    @NotNull (message = "error.resultWorkout.rx.notNull")
     private Boolean rx;
+
+    @NotNull (message = "error.resultWorkout.finished.notNull")
     private Boolean finished;
+
+    @NotNull (message = "error.resultWorkout.finishTimeInSeconds.notNull")
+    @Min(value = 1, message = "error.resultWorkout.finishTimeInSeconds.belowMinimum")
     private Integer finishTimeInSeconds;
+
+    @NotEmpty (message = "error.resultWorkout.resultExercises.notEmpty")
+    @Valid
     private List<ResultExerciseDTO> resultExercises;
     private String comments;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    @NotNull (message = "error.resultWorkout.date.notNull")
     private LocalDate date;
 
     public String getId () {
