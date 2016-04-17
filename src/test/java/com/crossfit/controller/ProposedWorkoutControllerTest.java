@@ -63,10 +63,9 @@ public class ProposedWorkoutControllerTest extends AbstractControllerTest {
 
         ResultActions result = mockMvc.perform(
               post("/proposedWorkouts")
-                    .content(createValidForTimeRequest())
+                    .content("{\"invalid\": \"json\"}")
                     .contentType(xmlContentType)
         );
-        result.andDo(print());
         result.andExpect(MockMvcResultMatchers.status().isUnsupportedMediaType());
     }
 
