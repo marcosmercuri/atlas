@@ -6,32 +6,14 @@ import static org.junit.Assert.*;
 import java.util.Map;
 
 import com.crossfit.util.Utils;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.TestRestTemplate;
-import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration (classes = AtlasApplication.class)
-@WebIntegrationTest("server.port:0")
-public class AtlasApplicationTest {
-    //In this way I can get the port dynamically without hardcoding it
-    @Value ("${local.server.port}")
-    int applicationPort;
-
-    private TestRestTemplate restTemplate;
-
-    @Before
-    public void setUp() {
-        restTemplate = new TestRestTemplate();
-    }
+public class AtlasApplicationTest extends AbstractIntegrationTest {
 
     @Test
     public void test_successful_new_proposed_workout() {
@@ -45,23 +27,11 @@ public class AtlasApplicationTest {
     }
 
     private Map postRequest (HttpEntity<String> httpRequest) {
-        return restTemplate.postForObject(getApplicationUrl() +"/proposedWorkouts", httpRequest, Map.class);
-    }
-
-    private String getApplicationUrl () {
-        return "http://localhost:"+ applicationPort;
+        return postRequest(httpRequest, "/proposedWorkouts");
     }
 
     private HttpEntity<String> createValidForTimeRequest () {
         return createRequestFromFile("new_valid_proposed_for_time_request.json");
-    }
-
-    private HttpEntity<String> createRequestWithBody (String requestBody, MediaType mediaType) {
-        HttpHeaders requestHeaders = new HttpHeaders();
-        requestHeaders.setContentType(mediaType);
-
-        //Creating http entity object with request body and headers
-        return new HttpEntity<>(requestBody, requestHeaders);
     }
 
     @Test
@@ -107,8 +77,6 @@ public class AtlasApplicationTest {
         return createRequestFromFile("proposed_workout_request_with_exercises_and_type_fields_missing.json");
     }
 
-    private HttpEntity<String> createJsonRequestWithBody (String requestBody) {return createRequestWithBody(requestBody, MediaType.APPLICATION_JSON);}
-
     @Test
     public void test_invalid_workout_type_in_new_proposed_workout() {
         HttpEntity<String> httpRequest = createRequestWithInvalidWorkoutType();
@@ -120,8 +88,6 @@ public class AtlasApplicationTest {
         assertThat((String)apiResponse.get("message"), containsString("The workout type is not a valid value"));
         assertThat((String)apiResponse.get("developerMessage"), containsString("Check the allow workout types"));
     }
-
-    private void verifyBadRequestStatus (Map apiResponse) {assertThat(apiResponse.get("status"), is(400));}
 
     private HttpEntity<String> createRequestWithInvalidWorkoutType () {
         return createRequestFromFile("proposed_workout_request_with_invalid_workout_type.json");
@@ -157,11 +123,6 @@ public class AtlasApplicationTest {
 
     private HttpEntity<String> createRequestWithMissingDurationInSecondsForAmrap () {
         return createRequestFromFile("proposed_amrap_workout_request_without_duration_in_seconds.json");
-    }
-
-    private HttpEntity<String> createRequestFromFile (String fileName) {
-        String requestBody = Utils.loadResource(fileName);
-        return createJsonRequestWithBody(requestBody);
     }
 
     @Test
