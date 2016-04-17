@@ -29,23 +29,17 @@ class ResultWorkoutValidationControllerTestProvider {
               createWithEmptyFinishTimeInSeconds(provider),
               createWithZeroValueInFinishTimeInSeconds(provider),
               createWithEmptyDate(),
-              createWithEmptyExercises(provider),
-              createWithNullExercises(provider)
+              createWithEmptyExercises(),
+              createWithNullExercises()
         );
     }
 
-    private static String createWithEmptyExercises (ResultWorkoutValidationControllerTestProvider provider) {
-        Map<String, String> keyAndValues = new HashMap<String, String>() {{
-                put("resultExercises", "[]");
-            }};
-        return provider.loadRequest(keyAndValues, loadResource("new_result_workout_request_with_templated_exercises.json.tmpl"));
+    private static String createWithEmptyExercises () {
+        return loadResource("new_result_workout_request_with_empty_exercise.json");
     }
 
-    private static String createWithNullExercises (ResultWorkoutValidationControllerTestProvider provider) {
-        Map<String, String> keyAndValues = new HashMap<String, String>() {{
-                put("resultExercises", "null");
-            }};
-        return provider.loadRequest(keyAndValues, loadResource("new_result_workout_request_with_templated_exercises.json.tmpl"));
+    private static String createWithNullExercises () {
+        return loadResource("new_result_workout_request_with_null_exercise.json");
     }
 
     private static String createWithEmptyDate () {
@@ -95,7 +89,4 @@ class ResultWorkoutValidationControllerTestProvider {
         return new StrSubstitutor(keyAndValues, "$(", ")").replace(template);
     }
 
-    private String loadRequest(Map<String, String> keyAndValues, String jsonTemplate) {
-        return new StrSubstitutor(keyAndValues, "$(", ")").replace(jsonTemplate);
-    }
 }
