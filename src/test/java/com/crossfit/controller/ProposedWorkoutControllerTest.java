@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @RunWith (SpringJUnit4ClassRunner.class)
-public class ProposedWorkoutControllerTest extends AbstractIntegrationTest {
+public class ProposedWorkoutControllerTest extends AbstractControllerTest {
 
     @Test
     public void test_successful_new_proposed_workout () throws Exception {
