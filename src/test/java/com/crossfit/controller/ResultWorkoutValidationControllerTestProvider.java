@@ -28,14 +28,14 @@ class ResultWorkoutValidationControllerTestProvider {
     }
 
     private static String createWithEmptyProposedWorkoutId (ResultWorkoutValidationControllerTestProvider provider) {
-        return provider.getRequest("userId", "", "true", "true", "AMRAP", "100", "non", "2015-12-03");
+        return provider.getRequest("userId", "", "true", "true", "100", "non", "2015-12-03");
     }
 
     private static String createWithEmptyUserId (ResultWorkoutValidationControllerTestProvider provider) {
-        return provider.getRequest("", "wod1", "true", "true", "AMRAP", "100", "non", "2015-12-03");
+        return provider.getRequest("", "wod1", "true", "true", "100", "non", "2015-12-03");
     }
 
-    private String getRequest (String userId, String proposedWorkoutId, String rx, String finished, String workoutType, String finishTimeInSeconds, String comments, String date) {
+    private String getRequest (String userId, String proposedWorkoutId, String rx, String finished, String finishTimeInSeconds, String comments, String date) {
         return loadRequest(
               new HashMap<String, String>() {
                   {
@@ -43,7 +43,6 @@ class ResultWorkoutValidationControllerTestProvider {
                       put("proposedWorkoutId", proposedWorkoutId);
                       put("rx", rx);
                       put("finished", finished);
-                      put("workoutType", workoutType);
                       put("finishTimeInSeconds", finishTimeInSeconds);
                       put("comments", comments);
                       put("date", date);

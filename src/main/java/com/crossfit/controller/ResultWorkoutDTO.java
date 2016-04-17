@@ -22,7 +22,6 @@ public class ResultWorkoutDTO {
     private String proposedWorkoutId;
     private Boolean rx;
     private Boolean finished;
-    private WorkoutType workoutType;
     private Integer finishTimeInSeconds;
     private List<ResultExerciseDTO> resultExercises;
     private String comments;
@@ -60,14 +59,6 @@ public class ResultWorkoutDTO {
 
     public void setFinished (Boolean finished) {
         this.finished = finished;
-    }
-
-    public WorkoutType getWorkoutType () {
-        return workoutType;
-    }
-
-    public void setWorkoutType (WorkoutType workoutType) {
-        this.workoutType = workoutType;
     }
 
     public Integer getFinishTimeInSeconds () {
