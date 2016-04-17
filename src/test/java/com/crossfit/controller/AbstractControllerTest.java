@@ -14,9 +14,14 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
+/**
+ * Based class with annotations to load the context.
+ * Mainly used to test controllers.
+ * For real end-to-end test use AtlasApplicationTest
+ */
 @SpringApplicationConfiguration (classes = AtlasApplication.class)
 @WebAppConfiguration
-public abstract class AbstractIntegrationTest {
+public abstract class AbstractControllerTest {
     protected MockMvc mockMvc;
     protected MediaType jsonContentType;
     protected ObjectMapper objectMapper;
