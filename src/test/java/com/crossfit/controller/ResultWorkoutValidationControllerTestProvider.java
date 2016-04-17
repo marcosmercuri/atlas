@@ -10,68 +10,68 @@ import java.util.Map;
 import org.apache.commons.lang3.text.StrSubstitutor;
 
 class ResultWorkoutValidationControllerTestProvider {
-    private static final String TEMPLATE_NAME = "new_result_workout_request.json.tmpl";
+    private static final String ROOT_WORKOUT_TEMPLATE_NAME = "new_result_workout_request.json.tmpl";
 
-    private String template;
+    private String workoutTemplate;
 
     private ResultWorkoutValidationControllerTestProvider() {
-        template = loadResource(TEMPLATE_NAME);
+        workoutTemplate = loadResource(ROOT_WORKOUT_TEMPLATE_NAME);
     }
 
     public static List<String> data() {
         ResultWorkoutValidationControllerTestProvider provider = new ResultWorkoutValidationControllerTestProvider();
 
         return Arrays.asList(
-              createWithEmptyUserId(provider),
-              createWithEmptyProposedWorkoutId(provider),
-              createWithEmptyRx(provider),
-              createWithEmptyFinished(provider),
-              createWithEmptyFinishTimeInSeconds(provider),
-              createWithZeroValueInFinishTimeInSeconds(provider),
-              createWithEmptyDate(),
-              createWithEmptyExercises(),
-              createWithNullExercises()
+              createWorkoutWithEmptyUserId(provider),
+              createWorkoutWithEmptyProposedWorkoutId(provider),
+              createWorkoutWithEmptyRx(provider),
+              createWorkoutWithEmptyFinished(provider),
+              createWorkoutWithEmptyFinishTimeInSeconds(provider),
+              createWorkoutWithZeroValueInFinishTimeInSeconds(provider),
+              createWorkoutWithEmptyDate(),
+              createWorkoutWithEmptyExercises(),
+              createWorkoutWithNullExercises()
         );
     }
 
-    private static String createWithEmptyExercises () {
+    private static String createWorkoutWithEmptyExercises () {
         return loadResource("new_result_workout_request_with_empty_exercise.json");
     }
 
-    private static String createWithNullExercises () {
+    private static String createWorkoutWithNullExercises () {
         return loadResource("new_result_workout_request_with_null_exercise.json");
     }
 
-    private static String createWithEmptyDate () {
+    private static String createWorkoutWithEmptyDate () {
         return loadResource("new_result_workout_request_without_date.json");
     }
 
-    private static String createWithZeroValueInFinishTimeInSeconds (ResultWorkoutValidationControllerTestProvider provider) {
-        return provider.getRequest("userId", "wod1", "true", "false", "0", "non", "2015-12-03");
+    private static String createWorkoutWithZeroValueInFinishTimeInSeconds (ResultWorkoutValidationControllerTestProvider provider) {
+        return provider.createWorkoutWith("userId", "wod1", "true", "false", "0", "non", "2015-12-03");
     }
 
-    private static String createWithEmptyFinishTimeInSeconds (ResultWorkoutValidationControllerTestProvider provider) {
-        return provider.getRequest("userId", "wod1", "true", "false", "", "non", "2015-12-03");
+    private static String createWorkoutWithEmptyFinishTimeInSeconds (ResultWorkoutValidationControllerTestProvider provider) {
+        return provider.createWorkoutWith("userId", "wod1", "true", "false", "", "non", "2015-12-03");
     }
 
-    private static String createWithEmptyFinished (ResultWorkoutValidationControllerTestProvider provider) {
-        return provider.getRequest("userId", "wod1", "true", "null", "100", "non", "2015-12-03");
+    private static String createWorkoutWithEmptyFinished (ResultWorkoutValidationControllerTestProvider provider) {
+        return provider.createWorkoutWith("userId", "wod1", "true", "null", "100", "non", "2015-12-03");
     }
 
-    private static String createWithEmptyRx (ResultWorkoutValidationControllerTestProvider provider) {
-        return provider.getRequest("userId", "wod1", "null", "true", "100", "non", "2015-12-03");
+    private static String createWorkoutWithEmptyRx (ResultWorkoutValidationControllerTestProvider provider) {
+        return provider.createWorkoutWith("userId", "wod1", "null", "true", "100", "non", "2015-12-03");
     }
 
-    private static String createWithEmptyProposedWorkoutId (ResultWorkoutValidationControllerTestProvider provider) {
-        return provider.getRequest("userId", "", "true", "true", "100", "non", "2015-12-03");
+    private static String createWorkoutWithEmptyProposedWorkoutId (ResultWorkoutValidationControllerTestProvider provider) {
+        return provider.createWorkoutWith("userId", "", "true", "true", "100", "non", "2015-12-03");
     }
 
-    private static String createWithEmptyUserId (ResultWorkoutValidationControllerTestProvider provider) {
-        return provider.getRequest("", "wod1", "true", "true", "100", "non", "2015-12-03");
+    private static String createWorkoutWithEmptyUserId (ResultWorkoutValidationControllerTestProvider provider) {
+        return provider.createWorkoutWith("", "wod1", "true", "true", "100", "non", "2015-12-03");
     }
 
-    private String getRequest (String userId, String proposedWorkoutId, String rx, String finished, String finishTimeInSeconds, String comments, String date) {
-        return loadRequest(
+    private String createWorkoutWith (String userId, String proposedWorkoutId, String rx, String finished, String finishTimeInSeconds, String comments, String date) {
+        return generateWorkoutRequest(
               new HashMap<String, String>() {
                   {
                       put("userId", userId);
@@ -85,8 +85,8 @@ class ResultWorkoutValidationControllerTestProvider {
               });
     }
 
-    private String loadRequest(Map<String, String> keyAndValues) {
-        return new StrSubstitutor(keyAndValues, "$(", ")").replace(template);
+    private String generateWorkoutRequest (Map<String, String> keyAndValues) {
+        return new StrSubstitutor(keyAndValues, "$(", ")").replace(workoutTemplate);
     }
 
 }
