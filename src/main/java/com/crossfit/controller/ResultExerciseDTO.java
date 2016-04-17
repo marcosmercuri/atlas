@@ -1,5 +1,10 @@
 package com.crossfit.controller;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * POJO for a done exercise.
  */
@@ -10,23 +15,33 @@ public class ResultExerciseDTO {
      * This field can be null if the proposed exercise couldn't be done.
      * See also replaceExercise.
      */
+    @NotBlank (message="error.resultExercise.proposedExerciseId.notBlank")
     private String proposedExerciseId;
+
+    @NotNull (message = "error.resultExercise.rx.notNull")
     private Boolean rx;
 
     /**
      * Number of full completed rounds. Eg, 3 rounds of 5 burpees.
      * See also repetitionsOnUnfinishedRound
      */
+    @NotNull (message = "error.resultExercise.completedRounds.notNull")
+    @Min (value = 1, message = "error.resultExercise.completedRounds.belowMinimum")
     private Integer completedRounds;
 
     /**
      * If time was up when in the middle of a round, this field
      * indicates the number of repetitions done in that round.
      */
+    @Min (value = 1, message = "error.resultExercise.repetitionsOnUnfinishedRound.belowMinimum")
     private Integer repetitionsOnUnfinishedRound;
     private String comments;
+
+    @NotNull (message = "error.resultExercise.type.notNull")
     private ExerciseType type;
-    private Integer weightInKilograms;
+
+    @Min (value = 1, message = "error.resultExercise.weightInKilograms.belowMinimum")
+    private Float weightInKilograms;
 
     /**
      * If the proposed exercise couldn't be done, this field
@@ -34,11 +49,11 @@ public class ResultExerciseDTO {
      */
     private String replaceExercise;
 
-    public Integer getWeightInKilograms () {
+    public Float getWeightInKilograms () {
         return weightInKilograms;
     }
 
-    public void setWeightInKilograms (Integer weightInKilograms) {
+    public void setWeightInKilograms (Float weightInKilograms) {
         this.weightInKilograms = weightInKilograms;
     }
 

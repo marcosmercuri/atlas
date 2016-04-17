@@ -11,11 +11,14 @@ import org.apache.commons.lang3.text.StrSubstitutor;
 
 class ResultWorkoutValidationControllerTestProvider {
     private static final String ROOT_WORKOUT_TEMPLATE_NAME = "new_result_workout_request.json.tmpl";
+    private static final String EXERCISE_TEMPLATE_NAME = "new_result_workout_request_with_template_exercises.json.tmpl";
 
     private String workoutTemplate;
+    private String exerciseTemplate;
 
     private ResultWorkoutValidationControllerTestProvider() {
         workoutTemplate = loadResource(ROOT_WORKOUT_TEMPLATE_NAME);
+        exerciseTemplate = loadResource(EXERCISE_TEMPLATE_NAME);
     }
 
     public static List<String> data() {
@@ -29,15 +32,61 @@ class ResultWorkoutValidationControllerTestProvider {
               createWorkoutWithEmptyFinishTimeInSeconds(provider),
               createWorkoutWithZeroValueInFinishTimeInSeconds(provider),
               createWorkoutWithEmptyDate(),
+
+              createExerciseWithEmptyProposedExerciseId(provider),
+              createExerciseWithNullRx(provider),
+              createExerciseWithEmptyCompletedRounds(provider),
+              createExerciseWithNegativeCompletedRounds(provider),
+              createExerciseWithNegativeRepetitionsOnUnfinishedRound(provider),
+              createExerciseWithNullType(),
+              createExerciseWithNegativeWeightInKilograms(provider)
         );
     }
 
-    private static String createWorkoutWithEmptyExercises () {
-        return loadResource("new_result_workout_request_with_empty_exercise.json");
+    private static String createExerciseWithNegativeWeightInKilograms (ResultWorkoutValidationControllerTestProvider provider) {
+        return provider.createExerciseWith("id", "false", "21", "10", "REPETITION", "-20");
     }
 
-    private static String createWorkoutWithNullExercises () {
-        return loadResource("new_result_workout_request_with_null_exercise.json");
+    private static String createExerciseWithNullType () {
+        return loadResource("new_result_workout_request_with_null_exercise_type.json");
+    }
+
+    private static String createExerciseWithNegativeRepetitionsOnUnfinishedRound (ResultWorkoutValidationControllerTestProvider provider) {
+        return provider.createExerciseWith("id", "false", "21", "-1", "REPETITION", "20");
+    }
+
+    private static String createExerciseWithNegativeCompletedRounds (ResultWorkoutValidationControllerTestProvider provider) {
+        return provider.createExerciseWith("id", "false", "-1", "9", "REPETITION", "20");
+    }
+
+    private static String createExerciseWithEmptyCompletedRounds (ResultWorkoutValidationControllerTestProvider provider) {
+        return provider.createExerciseWith("id", "false", "", "9", "REPETITION", "20");
+    }
+
+    private static String createExerciseWithNullRx (ResultWorkoutValidationControllerTestProvider provider) {
+        return provider.createExerciseWith("id", "null", "2", "9", "REPETITION", "20");
+    }
+
+    private static String createExerciseWithEmptyProposedExerciseId (ResultWorkoutValidationControllerTestProvider provider) {
+        return provider.createExerciseWith("", "true", "2", "9", "REPETITION", "20");
+    }
+
+    private String createExerciseWith (String proposedExerciseId, String rx, String completedRounds, String repetitionsOnUnfinishedRound, String type, String weightInKilograms) {
+        return generateExerciseRequest(
+              new HashMap<String, String>() {
+                  {
+                      put("proposedExerciseId", proposedExerciseId);
+                      put("rx", rx);
+                      put("completedRounds", completedRounds);
+                      put("repetitionsOnUnfinishedRound", repetitionsOnUnfinishedRound);
+                      put("type", type);
+                      put("weightInKilograms", weightInKilograms);
+                  }
+              });
+    }
+
+    private String generateExerciseRequest (Map<String, String> keyAndValues) {
+        return new StrSubstitutor(keyAndValues, "$(", ")").replace(exerciseTemplate);
     }
 
     private static String createWorkoutWithEmptyDate () {
