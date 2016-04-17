@@ -26,21 +26,21 @@ public class ResultExerciseDTO {
      * See also repetitionsOnUnfinishedRound
      */
     @NotNull (message = "error.resultExercise.completedRounds.notNull")
-    @Min (value = 1, message = "error.resultExercise.completedRounds.belowMinimum")
+    @Min (value = 1, message = "error.resultExercise.completedRounds.belowMinimumOne")
     private Integer completedRounds;
 
     /**
      * If time was up when in the middle of a round, this field
      * indicates the number of repetitions done in that round.
      */
-    @Min (value = 1, message = "error.resultExercise.repetitionsOnUnfinishedRound.belowMinimum")
+    @Min (value = 1, message = "error.resultExercise.repetitionsOnUnfinishedRound.belowMinimumOne")
     private Integer repetitionsOnUnfinishedRound;
     private String comments;
 
     @NotNull (message = "error.resultExercise.type.notNull")
     private ExerciseType type;
 
-    @Min (value = 1, message = "error.resultExercise.weightInKilograms.belowMinimum")
+    @Min (value = 1, message = "error.resultExercise.weightInKilograms.belowMinimumOne")
     private Float weightInKilograms;
 
     /**

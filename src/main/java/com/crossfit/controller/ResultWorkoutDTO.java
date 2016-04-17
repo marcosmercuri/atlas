@@ -9,14 +9,13 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * POJO for a done workout.
  */
 public class ResultWorkoutDTO {
-
     private static final String DATE_FORMAT = "yyyy-MM-dd";
+
     private String id;
     @NotBlank (message="error.resultWorkout.userId.notBlank")
     private String userId;
@@ -31,7 +30,7 @@ public class ResultWorkoutDTO {
     private Boolean finished;
 
     @NotNull (message = "error.resultWorkout.finishTimeInSeconds.notNull")
-    @Min(value = 1, message = "error.resultWorkout.finishTimeInSeconds.belowMinimum")
+    @Min(value = 1, message = "error.resultWorkout.finishTimeInSeconds.belowMinimumOne")
     private Integer finishTimeInSeconds;
 
     @Valid
