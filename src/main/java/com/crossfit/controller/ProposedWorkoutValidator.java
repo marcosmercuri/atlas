@@ -8,7 +8,6 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * Validator for the ProposedWorkoutDTO.
