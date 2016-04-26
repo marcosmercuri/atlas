@@ -13,7 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class AtlasApplicationTest extends AbstractIntegrationTest {
+public class ProposedWorkoutIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     public void test_successful_new_proposed_workout() {
