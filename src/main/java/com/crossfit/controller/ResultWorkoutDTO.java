@@ -109,10 +109,6 @@ public class ResultWorkoutDTO {
         return date;
     }
 
-    public void setDate (String date) {
-        this.date = LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
-    }
-
     public void setDate (LocalDate date) {
         this.date = date;
     }

@@ -192,7 +192,7 @@ public class DtoCreatorUtil {
     public static ResultWorkoutDTO createUnfinishedRxResultWorkoutDto() {
         ResultWorkoutDTO resultWorkout = new ResultWorkoutDTO();
         resultWorkout.setComments("this is a comment");
-        resultWorkout.setDate(LocalDate.now().format(DateTimeFormatter.ISO_DATE));
+        resultWorkout.setDate(LocalDate.now());
         resultWorkout.setFinished(false);
         resultWorkout.setFinishTimeInSeconds(1200);
         resultWorkout.setProposedWorkoutId("proposed workout id");
