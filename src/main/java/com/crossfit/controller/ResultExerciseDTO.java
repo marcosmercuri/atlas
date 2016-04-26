@@ -11,10 +11,6 @@ import org.hibernate.validator.constraints.NotBlank;
 public class ResultExerciseDTO {
     private String Id;
 
-    /**
-     * This field can be null if the proposed exercise couldn't be done.
-     * See also replaceExercise.
-     */
     @NotBlank (message="error.resultExercise.proposedExerciseId.notBlank")
     private String proposedExerciseId;
 
