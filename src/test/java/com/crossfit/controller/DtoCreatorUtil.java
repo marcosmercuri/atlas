@@ -2,6 +2,9 @@ package com.crossfit.controller;
 
 import static com.crossfit.controller.ExerciseType.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class DtoCreatorUtil {
@@ -176,5 +179,37 @@ public class DtoCreatorUtil {
         proposedExerciseDTO.setFemaleRxInKilograms(100D);
         proposedExerciseDTO.setMaleRxInKilograms(100D);
         return proposedExerciseDTO;
+    }
+
+    public static ResultWorkoutDTO createFinishedRxResultWorkoutDto() {
+        ResultWorkoutDTO resultWorkoutDTO = createUnfinishedRxResultWorkoutDto();
+        resultWorkoutDTO.setFinished(true);
+        resultWorkoutDTO.setResultExercises(Collections.emptyList());
+
+        return resultWorkoutDTO;
+    }
+
+    public static ResultWorkoutDTO createUnfinishedRxResultWorkoutDto() {
+        ResultWorkoutDTO resultWorkout = new ResultWorkoutDTO();
+        resultWorkout.setComments("this is a comment");
+        resultWorkout.setDate(LocalDate.now().format(DateTimeFormatter.ISO_DATE));
+        resultWorkout.setFinished(false);
+        resultWorkout.setFinishTimeInSeconds(1200);
+        resultWorkout.setProposedWorkoutId("proposed workout id");
+        resultWorkout.setRx(true);
+        resultWorkout.setUserId("userId");
+        resultWorkout.setResultExercises(Collections.singletonList(createUnfinishedRxRepetitionResultExerciseDto()));
+
+        return resultWorkout;
+    }
+
+    public static ResultExerciseDTO createUnfinishedRxRepetitionResultExerciseDto() {
+        ResultExerciseDTO resultExercise = new ResultExerciseDTO();
+        resultExercise.setRx(true);
+        resultExercise.setProposedExerciseId("proposed exercise id");
+        resultExercise.setCompletedRounds(5);
+        resultExercise.setRepetitionsOnUnfinishedRound(3);
+        resultExercise.setType(ExerciseType.REPETITION);
+        return resultExercise;
     }
 }
