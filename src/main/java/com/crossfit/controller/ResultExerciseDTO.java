@@ -33,9 +33,6 @@ public class ResultExerciseDTO {
     private Integer repetitionsOnUnfinishedRound;
     private String comments;
 
-    @NotNull (message = "error.resultExercise.type.notNull")
-    private ExerciseType type;
-
     @Min (value = 1, message = "error.resultExercise.weightInKilograms.belowMinimumOne")
     private Float weightInKilograms;
 
@@ -59,14 +56,6 @@ public class ResultExerciseDTO {
 
     public void setReplaceExercise (String replaceExercise) {
         this.replaceExercise = replaceExercise;
-    }
-
-    public ExerciseType getType () {
-        return type;
-    }
-
-    public void setType (ExerciseType type) {
-        this.type = type;
     }
 
     public String getComments () {

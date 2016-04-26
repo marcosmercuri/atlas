@@ -38,40 +38,35 @@ class ResultWorkoutValidationControllerTestProvider {
               createExerciseWithEmptyCompletedRounds(provider),
               createExerciseWithNegativeCompletedRounds(provider),
               createExerciseWithNegativeRepetitionsOnUnfinishedRound(provider),
-              createExerciseWithNullType(),
               createExerciseWithNegativeWeightInKilograms(provider)
         );
     }
 
     private static String createExerciseWithNegativeWeightInKilograms (ResultWorkoutValidationControllerTestProvider provider) {
-        return provider.createExerciseWith("id", "false", "21", "10", "REPETITION", "-20");
-    }
-
-    private static String createExerciseWithNullType () {
-        return loadResource("new_result_workout_request_with_null_exercise_type.json");
+        return provider.createExerciseWith("id", "false", "21", "10", "-20");
     }
 
     private static String createExerciseWithNegativeRepetitionsOnUnfinishedRound (ResultWorkoutValidationControllerTestProvider provider) {
-        return provider.createExerciseWith("id", "false", "21", "-1", "REPETITION", "20");
+        return provider.createExerciseWith("id", "false", "21", "-1", "20");
     }
 
     private static String createExerciseWithNegativeCompletedRounds (ResultWorkoutValidationControllerTestProvider provider) {
-        return provider.createExerciseWith("id", "false", "-1", "9", "REPETITION", "20");
+        return provider.createExerciseWith("id", "false", "-1", "9", "20");
     }
 
     private static String createExerciseWithEmptyCompletedRounds (ResultWorkoutValidationControllerTestProvider provider) {
-        return provider.createExerciseWith("id", "false", "", "9", "REPETITION", "20");
+        return provider.createExerciseWith("id", "false", "", "9", "20");
     }
 
     private static String createExerciseWithNullRx (ResultWorkoutValidationControllerTestProvider provider) {
-        return provider.createExerciseWith("id", "null", "2", "9", "REPETITION", "20");
+        return provider.createExerciseWith("id", "null", "2", "9", "20");
     }
 
     private static String createExerciseWithEmptyProposedExerciseId (ResultWorkoutValidationControllerTestProvider provider) {
-        return provider.createExerciseWith("", "true", "2", "9", "REPETITION", "20");
+        return provider.createExerciseWith("", "true", "2", "9", "20");
     }
 
-    private String createExerciseWith (String proposedExerciseId, String rx, String completedRounds, String repetitionsOnUnfinishedRound, String type, String weightInKilograms) {
+    private String createExerciseWith (String proposedExerciseId, String rx, String completedRounds, String repetitionsOnUnfinishedRound, String weightInKilograms) {
         return generateExerciseRequest(
               new HashMap<String, String>() {
                   {
@@ -79,7 +74,6 @@ class ResultWorkoutValidationControllerTestProvider {
                       put("rx", rx);
                       put("completedRounds", completedRounds);
                       put("repetitionsOnUnfinishedRound", repetitionsOnUnfinishedRound);
-                      put("type", type);
                       put("weightInKilograms", weightInKilograms);
                   }
               });

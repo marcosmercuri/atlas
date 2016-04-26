@@ -209,7 +209,6 @@ public class DtoCreatorUtil {
         resultExercise.setProposedExerciseId("proposed exercise id");
         resultExercise.setCompletedRounds(5);
         resultExercise.setRepetitionsOnUnfinishedRound(3);
-        resultExercise.setType(ExerciseType.REPETITION);
         return resultExercise;
     }
 }
