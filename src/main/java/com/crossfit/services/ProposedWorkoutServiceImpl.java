@@ -3,7 +3,7 @@ package com.crossfit.services;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.crossfit.exceptions.ProposedWorkoutNotFound;
+import com.crossfit.exceptions.ProposedWorkoutNotFoundException;
 import com.crossfit.model.Workout;
 import com.crossfit.repositories.ProposedWorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ class ProposedWorkoutServiceImpl implements ProposedWorkoutService {
     @Override
     public Workout getProposedWorkoutById (String proposedWorkoutId) {
         return findProposedWorkoutById(proposedWorkoutId)
-              .orElseThrow(() -> new ProposedWorkoutNotFound(proposedWorkoutId));
+              .orElseThrow(() -> new ProposedWorkoutNotFoundException(proposedWorkoutId));
     }
 
     private Optional<Workout> findProposedWorkoutById (String proposedWorkoutId) {
@@ -44,14 +44,14 @@ class ProposedWorkoutServiceImpl implements ProposedWorkoutService {
     @Override
     public void updateProposedWorkout (String proposedWorkoutId, Workout proposedWorkout) {
         findProposedWorkoutById(proposedWorkoutId)
-              .orElseThrow(() -> new ProposedWorkoutNotFound(proposedWorkoutId));
+              .orElseThrow(() -> new ProposedWorkoutNotFoundException(proposedWorkoutId));
 
         proposedWorkoutRepository.save(proposedWorkout);
     }
 
     @Override public void deleteProposedWorkout (String proposedWorkoutId) {
         findProposedWorkoutById(proposedWorkoutId)
-              .orElseThrow(() -> new ProposedWorkoutNotFound(proposedWorkoutId));
+              .orElseThrow(() -> new ProposedWorkoutNotFoundException(proposedWorkoutId));
 
         proposedWorkoutRepository.delete(proposedWorkoutId);
     }
