@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * POJO for a done exercise.
  */
 public class ResultExerciseDTO {
-    private String Id;
+    private String id;
 
     @NotBlank (message="error.resultExercise.proposedExerciseId.notBlank")
     private String proposedExerciseId;
@@ -99,11 +99,11 @@ public class ResultExerciseDTO {
     }
 
     public String getId () {
-        return Id;
+        return id;
     }
 
     public void setId (String id) {
-        Id = id;
+        this.id = id;
     }
 
 
