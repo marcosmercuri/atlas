@@ -31,4 +31,16 @@ public class EntityCreatorUtil {
         TimedExercise exercise = new TimedExercise(60, "toes to bar", "id toes to bar");
         return exercise;
     }
+
+    public static RxResultExercise createFinishedRxResultExercise () {
+        return new RxResultExercise("random-id", "proposed-exercise-id", createRoundsCounter(), "comment");
+    }
+
+    private static RoundsCounter createRoundsCounter () {
+        return new RoundsCounter(10, 0);
+    }
+
+    public static NonRxResultExercise createUnFinishedNonRxResultExercise () {
+        return new NonRxResultExercise("id", "exercise-id", createRoundsCounter(), "commenting", 35.5f, null);
+    }
 }

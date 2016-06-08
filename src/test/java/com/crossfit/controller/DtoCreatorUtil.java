@@ -198,9 +198,23 @@ public class DtoCreatorUtil {
         resultWorkout.setProposedWorkoutId("proposed workout id");
         resultWorkout.setRx(true);
         resultWorkout.setUserId("userId");
-        resultWorkout.setResultExercises(Collections.singletonList(createUnfinishedRxRepetitionResultExerciseDto()));
 
+        resultWorkout.setResultExercises(Arrays.asList(
+              createUnfinishedRxRepetitionResultExerciseDto(),
+              createFinishedNonRxResultExerciseDto())
+        );
         return resultWorkout;
+    }
+
+    public static ResultExerciseDTO createFinishedNonRxResultExerciseDto () {
+        ResultExerciseDTO resultExercise = new ResultExerciseDTO();
+        resultExercise.setId("my-id");
+        resultExercise.setCompletedRounds(5);
+        resultExercise.setRx(false);
+        resultExercise.setProposedExerciseId("proposed exercise id");
+        resultExercise.setComments("this is a comment");
+        resultExercise.setWeightInKilograms(60.5f);
+        return resultExercise;
     }
 
     public static ResultExerciseDTO createUnfinishedRxRepetitionResultExerciseDto() {
