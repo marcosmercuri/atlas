@@ -1,4 +1,4 @@
-package com.crossfit.controller;
+package com.crossfit.util;
 
 import static com.crossfit.controller.ExerciseType.*;
 
@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+import com.crossfit.controller.*;
 
 public class DtoCreatorUtil {
     private DtoCreatorUtil () {

@@ -1,6 +1,6 @@
 package com.crossfit.mappers;
 
-import static com.crossfit.controller.EntityCreatorUtil.givenValidAmrap;
+import static com.crossfit.util.EntityCreatorUtil.givenValidAmrap;
 import static com.crossfit.controller.WorkoutType.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.*;
@@ -11,6 +11,8 @@ import com.crossfit.model.Amrap;
 import com.crossfit.model.Exercise;
 import com.crossfit.model.ForTimeWorkout;
 import com.crossfit.model.Workout;
+import com.crossfit.util.DtoCreatorUtil;
+import com.crossfit.util.EntityCreatorUtil;
 import org.junit.Before;
 import org.junit.Test;
 

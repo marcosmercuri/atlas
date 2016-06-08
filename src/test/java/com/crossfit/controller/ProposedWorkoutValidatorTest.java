@@ -1,12 +1,13 @@
 package com.crossfit.controller;
 
-import static com.crossfit.controller.DtoCreatorUtil.*;
+import static com.crossfit.util.DtoCreatorUtil.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
+import com.crossfit.util.DtoCreatorUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

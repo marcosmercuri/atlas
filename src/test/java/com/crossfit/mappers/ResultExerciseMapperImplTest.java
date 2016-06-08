@@ -3,8 +3,8 @@ package com.crossfit.mappers;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
-import com.crossfit.controller.DtoCreatorUtil;
-import com.crossfit.controller.EntityCreatorUtil;
+import com.crossfit.util.DtoCreatorUtil;
+import com.crossfit.util.EntityCreatorUtil;
 import com.crossfit.controller.ResultExerciseDTO;
 import com.crossfit.model.NonRxResultExercise;
 import com.crossfit.model.ResultExercise;

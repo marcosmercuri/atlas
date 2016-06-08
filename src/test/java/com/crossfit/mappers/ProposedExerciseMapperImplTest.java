@@ -5,8 +5,8 @@ import static junit.framework.TestCase.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.core.Is.*;
 
-import com.crossfit.controller.DtoCreatorUtil;
-import com.crossfit.controller.EntityCreatorUtil;
+import com.crossfit.util.DtoCreatorUtil;
+import com.crossfit.util.EntityCreatorUtil;
 import com.crossfit.controller.ProposedExerciseDTO;
 import com.crossfit.model.DistanceExercise;
 import com.crossfit.model.Exercise;

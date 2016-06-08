@@ -1,6 +1,6 @@
 package com.crossfit.controller;
 
-import static com.crossfit.controller.DtoCreatorUtil.createUnfinishedRxRepetitionResultExerciseDto;
+import static com.crossfit.util.DtoCreatorUtil.createUnfinishedRxRepetitionResultExerciseDto;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;

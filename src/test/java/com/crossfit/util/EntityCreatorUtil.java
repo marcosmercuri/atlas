@@ -1,4 +1,4 @@
-package com.crossfit.controller;
+package com.crossfit.util;
 
 import static java.util.Arrays.*;
 
