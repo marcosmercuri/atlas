@@ -3,8 +3,6 @@ package com.crossfit.util;
 import static com.crossfit.controller.ExerciseType.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import com.crossfit.controller.*;
@@ -203,9 +201,16 @@ public class DtoCreatorUtil {
 
         resultWorkout.setResultExercises(Arrays.asList(
               createUnfinishedRxRepetitionResultExerciseDto(),
-              createFinishedNonRxResultExerciseDto())
+              createFinishedRxResultExerciseDto())
         );
         return resultWorkout;
+    }
+
+    private static ResultExerciseDTO createFinishedRxResultExerciseDto() {
+        ResultExerciseDTO resultExerciseDto = createFinishedNonRxResultExerciseDto();
+        resultExerciseDto.setRx(true);
+        resultExerciseDto.setWeightInKilograms(null);
+        return resultExerciseDto;
     }
 
     public static ResultExerciseDTO createFinishedNonRxResultExerciseDto () {
