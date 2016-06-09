@@ -115,7 +115,7 @@ public class ResultWorkoutValidatorTest {
 
     private ResultWorkoutValidator createResultWorkoutValidatorWithFailingExerciseValidator () {
         ResultExerciseValidator resultExerciseValidator = mock(ResultExerciseValidator.class);
-        doAnswer(this::rejectValidationMockedAnswer).when(resultExerciseValidator).validate(any(), any());
+        doAnswer(this::rejectValidationMockedAnswer).doNothing().when(resultExerciseValidator).validate(any(), any());
         when(resultExerciseValidator.supports(any())).thenReturn(true);
 
         return new ResultWorkoutValidator(resultExerciseValidator);
