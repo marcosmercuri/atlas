@@ -10,7 +10,7 @@ public class TestHelper {
     private static final String EXERCISE_TEMPLATE_NAME = "new_result_workout_request_with_template_exercises.json.tmpl";
 
 
-    public static String createWorkoutWith (String userId, String proposedWorkoutId, String rx, String finished, String finishTimeInSeconds, String comments, String date) {
+    public static String createRequestResultWorkoutWith(String userId, String proposedWorkoutId, String rx, String finished, String finishTimeInSeconds, String comments, String date) {
         return generateWorkoutRequest(
               new HashMap<String, String>() {
                   {
@@ -29,7 +29,7 @@ public class TestHelper {
         return new StrSubstitutor(keyAndValues, "$(", ")").replace(ROOT_WORKOUT_TEMPLATE_NAME);
     }
 
-    public static String createExerciseWith (String proposedExerciseId, String rx, String completedRounds, String repetitionsOnUnfinishedRound, String weightInKilograms) {
+    public static String createRequestResultExerciseWith(String proposedExerciseId, String rx, String completedRounds, String repetitionsOnUnfinishedRound, String weightInKilograms) {
         return generateExerciseRequest(
               new HashMap<String, String>() {
                   {
