@@ -18,6 +18,7 @@ import com.crossfit.model.ResultWorkout;
 import com.crossfit.model.ResultWorkoutDetails;
 import com.crossfit.model.Workout;
 import com.crossfit.repositories.ProposedWorkoutRepository;
+import com.crossfit.util.EntityCreatorUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -85,5 +86,14 @@ public class ResultWorkoutMapperImplTest {
 
     private void givenProposedRepositoryReturnNullForId () {
         when(mockProposedWorkoutRepository.findOne(any())).thenReturn(null);
+    }
+
+    @Test
+    public void given_a_result_workout_when_mapped_to_dto_all_fields_are_set() {
+        ResultWorkout resultWorkout = EntityCreatorUtil.createUnFinishedNonRxResultWorkout();
+
+        ResultWorkoutDTO resultWorkoutDto = resultWorkoutMapper.mapToDto(resultWorkout);
+
+        verifyEquality(resultWorkout, resultWorkoutDto);
     }
 }

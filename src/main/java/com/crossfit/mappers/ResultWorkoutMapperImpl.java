@@ -3,6 +3,7 @@ package com.crossfit.mappers;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.crossfit.controller.ResultExerciseDTO;
 import com.crossfit.controller.ResultWorkoutDTO;
 import com.crossfit.exceptions.ProposedWorkoutNotFoundException;
 import com.crossfit.model.ResultExercise;
@@ -52,6 +53,20 @@ class ResultWorkoutMapperImpl implements ResultWorkoutMapper {
 
     @Override
     public ResultWorkoutDTO mapToDto (ResultWorkout resultWorkout) {
-        return null;
+        ResultWorkoutDTO dto = new ResultWorkoutDTO();
+        dto.setRx(resultWorkout.getDetails().getRx());
+        dto.setComments(resultWorkout.getDetails().getComments());
+        dto.setDate(resultWorkout.getDetails().getDate());
+        dto.setFinished(resultWorkout.getDetails().getFinished());
+        dto.setFinishTimeInSeconds(resultWorkout.getDetails().getFinishTimeInSeconds());
+        dto.setId(resultWorkout.getId());
+        dto.setProposedWorkoutId(resultWorkout.getProposedWorkout().getId());
+        dto.setResultExercises(mapExercisesToDto(resultWorkout.getResultExercises()));
+        dto.setUserId(resultWorkout.getUserId());
+        return dto;
+    }
+
+    private List<ResultExerciseDTO> mapExercisesToDto(List<ResultExercise> resultExercises) {
+        return resultExercises.stream().map(resultExerciseMapper::mapToDto).collect(Collectors.toList());
     }
 }

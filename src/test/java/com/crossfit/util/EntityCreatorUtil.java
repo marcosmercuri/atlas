@@ -2,6 +2,10 @@ package com.crossfit.util;
 
 import static java.util.Arrays.*;
 
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Collections;
+
 import com.crossfit.model.*;
 
 public class EntityCreatorUtil {
@@ -28,8 +32,7 @@ public class EntityCreatorUtil {
     }
 
     public static TimedExercise createValidTimedExercise () {
-        TimedExercise exercise = new TimedExercise(60, "toes to bar", "id toes to bar");
-        return exercise;
+        return new TimedExercise(60, "toes to bar", "id toes to bar");
     }
 
     public static RxResultExercise createFinishedRxResultExercise () {
@@ -42,5 +45,13 @@ public class EntityCreatorUtil {
 
     public static NonRxResultExercise createUnFinishedNonRxResultExercise () {
         return new NonRxResultExercise("id", "exercise-id", createRoundsCounter(), "commenting", 35.5f, null);
+    }
+
+    public static ResultWorkout createUnFinishedNonRxResultWorkout() {
+        ResultWorkoutDetails details = new ResultWorkoutDetails(false, false, 360, "no comment", LocalDate.now());
+        return new ResultWorkout("workout-id", "user_id",
+              EntityCreatorUtil.givenValidForTimeWorkout(),
+              Collections.singletonList(createUnFinishedNonRxResultExercise()),
+              details);
     }
 }
