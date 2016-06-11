@@ -21,7 +21,7 @@ class ResultWorkoutValidationControllerTestProvider {
         exerciseTemplate = loadResource(EXERCISE_TEMPLATE_NAME);
     }
 
-    public static List<String> data() {
+    static List<String> data() {
         ResultWorkoutValidationControllerTestProvider provider = new ResultWorkoutValidationControllerTestProvider();
 
         return Arrays.asList(
