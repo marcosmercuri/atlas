@@ -49,7 +49,8 @@ class ProposedWorkoutServiceImpl implements ProposedWorkoutService {
         proposedWorkoutRepository.save(proposedWorkout);
     }
 
-    @Override public void deleteProposedWorkout (String proposedWorkoutId) {
+    @Override
+    public void deleteProposedWorkout (String proposedWorkoutId) {
         findProposedWorkoutById(proposedWorkoutId)
               .orElseThrow(() -> new ProposedWorkoutNotFoundException(proposedWorkoutId));
 
