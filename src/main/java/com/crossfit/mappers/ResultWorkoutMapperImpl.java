@@ -27,7 +27,7 @@ class ResultWorkoutMapperImpl implements ResultWorkoutMapper {
     @Override
     public ResultWorkout mapToEntity (ResultWorkoutDTO dto) {
         Workout proposedWorkout = findProposedRepository(dto.getProposedWorkoutId());
-        return new ResultWorkout(dto.getId(), dto.getUserId(), proposedWorkout, mapExercises(dto), mapDetails(dto));
+        return new ResultWorkout(dto.getId(), dto.getUserId(), proposedWorkout, mapExercisesToEntity(dto), mapDetails(dto));
     }
 
     private Workout findProposedRepository (String proposedWorkoutId) {
@@ -43,7 +43,7 @@ class ResultWorkoutMapperImpl implements ResultWorkoutMapper {
               dto.getFinishTimeInSeconds(), dto.getComments(), dto.getDate());
     }
 
-    private List<ResultExercise> mapExercises (ResultWorkoutDTO dto) {
+    private List<ResultExercise> mapExercisesToEntity(ResultWorkoutDTO dto) {
         return dto.getResultExercises()
               .stream()
               .map(resultExerciseMapper::mapToEntity)
