@@ -40,7 +40,7 @@ public class ProposedWorkoutController {
         return proposedWorkoutMapper.mapToDto(saveProposedWorkout);
     }
 
-    @RequestMapping (value = "/proposedWorkouts/{id}", method = GET)
+    @RequestMapping (value = "/proposedWorkouts/{id}", method = GET, produces = "application/json; charset=utf-8")
     public ProposedWorkoutDTO getProposedWorkout(@PathVariable("id") String proposedWorkoutId) {
         Workout retrievedProposedWorkout = proposedWorkoutService.getProposedWorkoutById(proposedWorkoutId);
         return proposedWorkoutMapper.mapToDto(retrievedProposedWorkout);
