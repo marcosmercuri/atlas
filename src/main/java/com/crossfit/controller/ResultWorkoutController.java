@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping (value = "/resultWorkouts")
+@RequestMapping (value = "/resultWorkouts", produces = "application/json; charset=utf-8", consumes = "application/json; charset=utf-8")
 class ResultWorkoutController {
 
-    @RequestMapping (method = POST, produces = "application/json; charset=utf-8")
+    @RequestMapping (method = POST)
     @ResponseStatus (HttpStatus.CREATED)
     public ResultWorkoutDTO createResultWorkout(@Valid @RequestBody ResultWorkoutDTO resultWorkoutDTO) {
         return resultWorkoutDTO;
