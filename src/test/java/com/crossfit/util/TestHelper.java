@@ -1,5 +1,7 @@
 package com.crossfit.util;
 
+import static com.crossfit.util.Utils.loadResource;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +28,7 @@ public class TestHelper {
     }
 
     private static String generateWorkoutRequest (Map<String, String> keyAndValues) {
-        return new StrSubstitutor(keyAndValues, "$(", ")").replace(ROOT_WORKOUT_TEMPLATE_NAME);
+        return new StrSubstitutor(keyAndValues, "$(", ")").replace(loadResource(ROOT_WORKOUT_TEMPLATE_NAME));
     }
 
     public static String createRequestResultExerciseWith(String proposedExerciseId, String rx, String completedRounds, String repetitionsOnUnfinishedRound, String weightInKilograms) {
@@ -43,6 +45,6 @@ public class TestHelper {
     }
 
     private static String generateExerciseRequest (Map<String, String> keyAndValues) {
-        return new StrSubstitutor(keyAndValues, "$(", ")").replace(EXERCISE_TEMPLATE_NAME);
+        return new StrSubstitutor(keyAndValues, "$(", ")").replace(loadResource(EXERCISE_TEMPLATE_NAME));
     }
 }

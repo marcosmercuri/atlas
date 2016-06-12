@@ -1,6 +1,8 @@
 package com.crossfit.controller;
 
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.TestContextManager;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -25,10 +28,12 @@ public class ResultWorkoutValidationControllerTest {
     @Autowired
     protected WebApplicationContext wac;
     private MockMvc mockMvc;
-    private String invalidRequest;
+    private final String invalidRequest;
+    private final String expectedErrorMessage;
 
-    public ResultWorkoutValidationControllerTest(String invalidRequest) {
-        this.invalidRequest = invalidRequest;
+    public ResultWorkoutValidationControllerTest(ParametrizedTestData parametrizedTestData) {
+        this.invalidRequest = parametrizedTestData.getInvalidRequest();
+        this.expectedErrorMessage = parametrizedTestData.getExpectedErrorMessage();
     }
 
     @Before
@@ -40,18 +45,20 @@ public class ResultWorkoutValidationControllerTest {
     }
 
     @Parameterized.Parameters
-    public static List<String> data() {
+    public static List<ParametrizedTestData> data() {
         return ResultWorkoutValidationControllerTestProvider.data();
     }
 
     @Test
     public void givenInvalidRequestValuesWhenPostIsSentThenAnErrorIsGiven() throws Exception {
-        mockMvc.perform(
+        MvcResult result = mockMvc.perform(
               post("/resultWorkouts")
                     .contentType("application/json")
                     .content(invalidRequest)
         )
-              .andExpect(status().isBadRequest());
+              .andExpect(status().isBadRequest())
+              .andReturn();
 
+        assertTrue(result.getResolvedException().getMessage().contains(expectedErrorMessage));
     }
 }

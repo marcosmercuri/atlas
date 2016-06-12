@@ -13,7 +13,6 @@
             "completedRounds": "2",
             "repetitionsOnUnfinishedRound": "3",
             "comments": "comment",
-            "type": "REPETITION",
             "weightInKilograms": "32",
             "replaceExercise": null
 
