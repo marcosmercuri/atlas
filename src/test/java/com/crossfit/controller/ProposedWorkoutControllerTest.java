@@ -37,10 +37,6 @@ public class ProposedWorkoutControllerTest extends AbstractControllerTest {
         ;
     }
 
-    private String createValidForTimeRequest () {
-        return Utils.loadResource("new_valid_proposed_for_time_request.json");
-    }
-
     @Test
     public void test_successful_new_proposed_workout_with_type_in_lower_case () throws Exception {
         mockMvc.perform(
@@ -198,14 +194,6 @@ public class ProposedWorkoutControllerTest extends AbstractControllerTest {
               .andExpect(status().isNotFound());
     }
 
-    private ResultActions createForTimeProposedWorkout () throws Exception {
-        return mockMvc.perform(
-                  post("/proposedWorkouts")
-                        .content(createValidForTimeRequest())
-                        .contentType(jsonContentType)
-            );
-    }
-
     private String convertToJson (ProposedWorkoutDTO modifiedProposedWorkout) throws JsonProcessingException {
         return objectMapper.writeValueAsString(modifiedProposedWorkout);
     }
@@ -222,14 +210,4 @@ public class ProposedWorkoutControllerTest extends AbstractControllerTest {
         return modifiedProposedWorkout;
     }
 
-    private String getResponseId (ResultActions result) throws IOException {
-        //I'm sure there's a better way than this one, but couldn't find it.
-        ProposedWorkoutDTO proposedWorkoutDTO = convertResponseToProposedWorkoutDto(result);
-        return proposedWorkoutDTO.getId();
-    }
-
-    private ProposedWorkoutDTO convertResponseToProposedWorkoutDto (ResultActions result) throws IOException {
-        String jsonResponse = result.andReturn().getResponse().getContentAsString();
-        return objectMapper.readValue(jsonResponse, ProposedWorkoutDTO.class);
-    }
 }
