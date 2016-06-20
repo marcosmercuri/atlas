@@ -1,12 +1,16 @@
 package com.crossfit.services;
 
+import java.util.Optional;
+
+import com.crossfit.exceptions.CannotChangeFieldException;
+import com.crossfit.exceptions.ResultWorkoutNotFoundException;
 import com.crossfit.model.ResultWorkout;
 import com.crossfit.repositories.ResultWorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ResultWorkoutServiceImpl implements ResultWorkoutService {
+class ResultWorkoutServiceImpl implements ResultWorkoutService {
     private final ResultWorkoutRepository resultWorkoutRepository;
 
     @Autowired
@@ -17,5 +21,27 @@ public class ResultWorkoutServiceImpl implements ResultWorkoutService {
     @Override
     public ResultWorkout saveResultWorkout(ResultWorkout resultWorkout) {
         return resultWorkoutRepository.save(resultWorkout);
+    }
+
+    @Override
+    public ResultWorkout getResultWorkout(String resultWorkoutId) {
+        return Optional.ofNullable(resultWorkoutRepository.findOne(resultWorkoutId))
+              .orElseThrow(() -> new ResultWorkoutNotFoundException(resultWorkoutId));
+    }
+
+    @Override
+    public void deleteResultWorkout(String resultWorkoutId) {
+        resultWorkoutRepository.delete(resultWorkoutId);
+    }
+
+    @Override
+    public void updateResultWorkout(String resultWorkoutId, ResultWorkout resultWorkout) {
+        Optional.ofNullable(resultWorkoutRepository.findOne(resultWorkoutId))
+              .orElseThrow(() -> new ResultWorkoutNotFoundException(resultWorkoutId));
+
+        if ( ! resultWorkoutId.equals(resultWorkout.getId())) {
+            throw new CannotChangeFieldException("id", resultWorkout.getId());
+        }
+        resultWorkoutRepository.save(resultWorkout);
     }
 }
