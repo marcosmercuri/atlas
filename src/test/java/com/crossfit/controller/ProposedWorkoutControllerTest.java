@@ -121,7 +121,7 @@ public class ProposedWorkoutControllerTest extends AbstractControllerTest {
                     .contentType(jsonContentType)
         )
               .andExpect(status().isCreated());
-        String proposedWorkoutId = getResponseId(result);
+        String proposedWorkoutId = getResponseIdFromProposedDto(result);
         mockMvc.perform(get("/proposedWorkouts/{id}", proposedWorkoutId))
               .andExpect(status().isOk())
               .andExpect(jsonPath("$.id", is(proposedWorkoutId)));
@@ -168,7 +168,7 @@ public class ProposedWorkoutControllerTest extends AbstractControllerTest {
 
     private void verifyThatProposedWorkoutWasModified (ProposedWorkoutDTO modifiedProposedWorkout) throws Exception {
         ResultActions result = mockMvc.perform(get("/proposedWorkouts/{id}", modifiedProposedWorkout.getId()));
-        ProposedWorkoutDTO proposedWorkoutLatestVersion = convertResponseToProposedWorkoutDto(result);
+        ProposedWorkoutDTO proposedWorkoutLatestVersion = convertResponseToDtoClass(result, ProposedWorkoutDTO.class);
         assertThat(proposedWorkoutLatestVersion.getMaxAllowedSeconds(), is(modifiedProposedWorkout.getMaxAllowedSeconds()));
     }
 
@@ -176,7 +176,7 @@ public class ProposedWorkoutControllerTest extends AbstractControllerTest {
     public void test_delete_proposed_workout() throws Exception {
         ResultActions result = createForTimeProposedWorkout();
 
-        String proposedWorkoutId = getResponseId(result);
+        String proposedWorkoutId = getResponseIdFromProposedDto(result);
         mockMvc.perform(delete("/proposedWorkouts/{id}", proposedWorkoutId))
               .andExpect(status().isNoContent());
 
@@ -194,18 +194,14 @@ public class ProposedWorkoutControllerTest extends AbstractControllerTest {
               .andExpect(status().isNotFound());
     }
 
-    private String convertToJson (ProposedWorkoutDTO modifiedProposedWorkout) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(modifiedProposedWorkout);
-    }
-
     private ProposedWorkoutDTO modifyMaxAllowed (ResultActions result) throws IOException {
-        ProposedWorkoutDTO modifiedProposedWorkout = convertResponseToProposedWorkoutDto(result);
+        ProposedWorkoutDTO modifiedProposedWorkout = convertResponseToDtoClass(result, ProposedWorkoutDTO.class);
         modifiedProposedWorkout.setMaxAllowedSeconds(modifiedProposedWorkout.getMaxAllowedSeconds() + 10);
         return modifiedProposedWorkout;
     }
 
     private ProposedWorkoutDTO deleteMaxAllowed (ResultActions result) throws IOException {
-        ProposedWorkoutDTO modifiedProposedWorkout = convertResponseToProposedWorkoutDto(result);
+        ProposedWorkoutDTO modifiedProposedWorkout = convertResponseToDtoClass(result, ProposedWorkoutDTO.class);
         modifiedProposedWorkout.setMaxAllowedSeconds(null);
         return modifiedProposedWorkout;
     }

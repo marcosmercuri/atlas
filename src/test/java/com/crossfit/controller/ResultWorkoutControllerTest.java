@@ -17,8 +17,7 @@ public class ResultWorkoutControllerTest extends AbstractControllerTest {
     @Test
     public void test_successful_new_result_workout() throws Exception {
         ResultActions result = createForTimeProposedWorkout();
-
-        String proposedWorkoutId = getResponseId(result);
+        String proposedWorkoutId = getResponseIdFromProposedDto(result);
 
         mockMvc.perform(
               post("/resultWorkouts")

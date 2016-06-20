@@ -1,5 +1,6 @@
 package com.crossfit.controller;
 
+import static com.crossfit.util.TestHelper.createObjectMapper;
 import static java.nio.charset.Charset.*;
 import static org.springframework.http.MediaType.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -8,7 +9,9 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 import java.io.IOException;
 
 import com.crossfit.AtlasApplication;
+import com.crossfit.util.TestHelper;
 import com.crossfit.util.Utils;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +39,7 @@ public abstract class AbstractControllerTest {
     @Before
     public void setUp () {
         jsonContentType = new MediaType(APPLICATION_JSON.getType(),APPLICATION_JSON.getSubtype(),forName("utf8"));
-        objectMapper = new ObjectMapper();
+        objectMapper = createObjectMapper();
         mockMvc = webAppContextSetup(webApplicationContext).build();
     }
 
@@ -52,14 +55,28 @@ public abstract class AbstractControllerTest {
         return Utils.loadResource("new_valid_proposed_for_time_request.json");
     }
 
-    protected ProposedWorkoutDTO convertResponseToProposedWorkoutDto (ResultActions result) throws IOException {
+    protected <T> T convertResponseToDtoClass(ResultActions result, Class<T> resultDtoClass) throws IOException {
         String jsonResponse = result.andReturn().getResponse().getContentAsString();
-        return objectMapper.readValue(jsonResponse, ProposedWorkoutDTO.class);
+        return objectMapper.readValue(jsonResponse, resultDtoClass);
     }
 
-    protected String getResponseId (ResultActions result) throws IOException {
-        //I'm sure there's a better way than this one, but couldn't find it.
-        ProposedWorkoutDTO proposedWorkoutDTO = convertResponseToProposedWorkoutDto(result);
+    protected String getResponseIdFromProposedDto(ResultActions result) throws IOException {
+        ProposedWorkoutDTO proposedWorkoutDTO = convertResponseToDtoClass(result, ProposedWorkoutDTO.class);
         return proposedWorkoutDTO.getId();
     }
+
+    protected String getResponseIdFromResultDto(ResultActions result) throws IOException {
+        ResultWorkoutDTO resultWorkoutDTO = convertResponseToDtoClass(result, ResultWorkoutDTO.class);
+        return resultWorkoutDTO.getId();
+    }
+
+    protected  <T> String convertToJson (T modifiedProposedWorkout) {
+        try {
+            return objectMapper.writeValueAsString(modifiedProposedWorkout);
+        }
+        catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
