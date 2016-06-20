@@ -173,6 +173,20 @@ public class ProposedWorkoutControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    public void test_fail_update_proposed_workout_with_different_ids () throws Exception {
+        ResultActions result = createForTimeProposedWorkout();
+
+        ProposedWorkoutDTO modifiedProposedWorkout = convertResponseToDtoClass(result, ProposedWorkoutDTO.class);
+        String originalId = modifiedProposedWorkout.getId();
+        modifiedProposedWorkout.setId("another-id");
+
+        mockMvc.perform(put("/proposedWorkouts/{id}", originalId)
+              .content(convertToJson(modifiedProposedWorkout))
+              .contentType(jsonContentType)
+        ).andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void test_delete_proposed_workout() throws Exception {
         ResultActions result = createForTimeProposedWorkout();
 
