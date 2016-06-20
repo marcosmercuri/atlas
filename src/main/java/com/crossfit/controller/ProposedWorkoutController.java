@@ -4,6 +4,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 import javax.validation.Valid;
 
+import com.crossfit.exceptions.CannotChangeFieldException;
+import com.crossfit.exceptions.ProposedWorkoutNotFoundException;
 import com.crossfit.mappers.ProposedWorkoutMapper;
 import com.crossfit.model.Workout;
 import com.crossfit.services.ProposedWorkoutService;
@@ -58,5 +60,25 @@ public class ProposedWorkoutController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProposedWorkout(@PathVariable("id") String proposedWorkoutId) {
         proposedWorkoutService.deleteProposedWorkout(proposedWorkoutId);
+    }
+
+    /**
+     * The exception is catch and marked as NotFound, and rethrown automagically.
+     * The reason is needed (although never shown) so DefaultErrorResponseAttributes can process it.
+     */
+    @ExceptionHandler(ProposedWorkoutNotFoundException.class)
+    @ResponseStatus(value=HttpStatus.NOT_FOUND, reason = "Proposed workout not found")
+    public void proposedWorkoutInResultWorkoutNotFound() {
+        // Do nothing
+    }
+
+    /**
+     * The exception is catch and marked as BadRequest, and rethrown automagically.
+     * The reason is needed (although never shown) so DefaultErrorResponseAttributes can process it.
+     */
+    @ExceptionHandler(CannotChangeFieldException.class)
+    @ResponseStatus(value=HttpStatus.BAD_REQUEST, reason = "Cannot change field value")
+    public void cannotChangeFieldValue() {
+        // Do nothing
     }
 }
