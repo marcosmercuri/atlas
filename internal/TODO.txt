@@ -1,7 +1,7 @@
 * Add rest authentication
-* Finish get ProposedWorkout
+* Move the translation to each class.
+* Add equals/hashcode
 * Complete readme
 * Document the API.
 * Add javadoc where it's important.
 * Add code quality analysis on push.
-* Move all the translation things in DefaultErrorResponseAttributes to a class of its own
