@@ -5,6 +5,9 @@ import static com.crossfit.util.Utils.loadResource;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.commons.lang3.text.StrSubstitutor;
 
 public class TestHelper {
@@ -46,5 +49,12 @@ public class TestHelper {
 
     private static String generateExerciseRequest (Map<String, String> keyAndValues) {
         return new StrSubstitutor(keyAndValues, "$(", ")").replace(loadResource(EXERCISE_TEMPLATE_NAME));
+    }
+
+    public static ObjectMapper createObjectMapper() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.registerModule(new Jdk8Module());
+        return mapper;
     }
 }
