@@ -46,6 +46,10 @@ public class DefaultErrorResponseAttributes extends DefaultErrorAttributes {
         Map<String, Object> defaultErrorAttributes = super.getErrorAttributes(requestAttributes, includeStackTrace);
         Throwable error = getError(requestAttributes);
 
+        if (error == null) {
+            return defaultErrorAttributes;
+        }
+
         ErrorInformation errorInformation = processError(error, defaultErrorAttributes);
 
         Map<String, Object> customErrorAttributes = new HashMap<>();
