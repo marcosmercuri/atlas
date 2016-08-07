@@ -1,6 +1,7 @@
 package com.crossfit.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UsersConnectionRepository;
@@ -9,7 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 
-@Controller
+@Controller //TODO Can be restcontroller?
+@Profile("!test")
 public class SignupController {
     private final ProviderSignInUtils signInUtils;
 

@@ -1,7 +1,10 @@
 package com.crossfit.security;
 
+import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -10,6 +13,10 @@ import org.springframework.security.web.savedrequest.NullRequestCache;
 
 @Configuration
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+// Excluded in AtlasApplication, and included here, so is it not included in the classpath when the P
+// profile is test.
+@Import(SecurityAutoConfiguration.class)
+@Profile("!test")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override

@@ -1,6 +1,8 @@
-* Add rest authentication
-* Move the translation to each class.
+* Arrange files to make a commit with the security thing, and check deploy on heroku.
 * Add equals/hashcode
+* Move mongo persistence to mysql
+* Get the use from session and put it in the resultWorkout DTO.
+* Move the translation to each class.
 * Complete readme
 * Document the API.
 * Add javadoc where it's important.

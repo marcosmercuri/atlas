@@ -8,12 +8,15 @@ import java.util.Map;
 import com.crossfit.util.Utils;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 
 /**
  * This class loads the entire application, so it can be used for real end-to-end test.
@@ -22,6 +25,8 @@ import org.springframework.http.MediaType;
  */
 @SpringApplicationConfiguration (classes = AtlasApplication.class)
 @WebIntegrationTest ("server.port:0")
+// Profile activated to disable spring security features.
+@ActiveProfiles("test")
 public class AbstractIntegrationTest {
     //In this way I can get the port dynamically without hardcoding it
     @Value ("${local.server.port}")
