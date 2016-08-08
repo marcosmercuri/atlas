@@ -1,6 +1,11 @@
-* Add rest authentication
-* Move the translation to each class.
 * Add equals/hashcode
+* Improve the SignupController, to save the user in a user table.
+* Move mongo persistence to mysql
+* In AuthenticationResource return the user from the database.
+* Get the use from session and put it in the resultWorkout DTO.
+* Review the structure of the UserConnection table
+* Move all endpoints to /api/ and restrict /api/**
+* Move the translation to each class.
 * Complete readme
 * Document the API.
 * Add javadoc where it's important.
