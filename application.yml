@@ -1,3 +1,5 @@
+#logging.level.org.springframework.web: DEBUG
+
 spring:
   application:
     name: atlas
@@ -6,3 +8,12 @@ spring:
       mongodb:
         database: atlas
         uri: mongodb://localhost:27017
+  datasource:
+      url: jdbc:mysql://localhost:3306/atlas
+      username: XXXX
+      password: YYYY
+
+  social:
+      twitter:
+        appId: WWWWWW
+        appSecret: VVVVVV
