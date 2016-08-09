@@ -3,6 +3,7 @@ package com.crossfit;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Map;
 
 import com.crossfit.util.Utils;
@@ -23,7 +24,7 @@ public class ProposedWorkoutIntegrationTest extends AbstractIntegrationTest {
 
         assertNotNull(apiResponse);
         assertNotNull(apiResponse.get("id"));
-        assertThat(apiResponse.get("id"), is(not("")));
+        assertThat((String)apiResponse.get("id"), not(isEmptyOrNullString()));
     }
 
     private Map postRequest (HttpEntity<String> httpRequest) {
