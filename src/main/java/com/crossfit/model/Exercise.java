@@ -3,7 +3,7 @@ package com.crossfit.model;
 import org.springframework.data.annotation.Id;
 
 /**
- * Represents a physical exercise, with it's restrictions.
+ * Represents a physical exercise, with its restrictions.
  */
 public abstract class Exercise {
     @Id
