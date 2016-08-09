@@ -1,10 +1,8 @@
 package com.crossfit.util;
 
-import static java.util.Arrays.*;
+import static java.util.Collections.*;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
 
 import com.crossfit.model.*;
 
@@ -12,27 +10,23 @@ public class EntityCreatorUtil {
     private EntityCreatorUtil() { }
 
     public static Amrap givenValidAmrap() {
-        return new Amrap(asList(createValidDistanceExercise()), 120, "id");
+        return new Amrap(singletonList(createValidDistanceExercise()), 120, "id");
     }
 
     public static ForTimeWorkout givenValidForTimeWorkout () {
-        return new ForTimeWorkout(asList(createValidRepetitionExercise()), 120, 4, "id for time");
+        return new ForTimeWorkout(singletonList(createValidRepetitionExercise()), 120, 4, "id for time");
     }
 
     public static DistanceExercise createValidDistanceExercise() {
-        DistanceExercise exercise = new DistanceExercise(200D, "running", "id running");
-        exercise.setDescription("You must run like hell!");
-        return exercise;
+        return new DistanceExercise(200D, "running", "id running", 0.0, 0.0, "You must run like hell!");
     }
 
     public static RepetitionExercise createValidRepetitionExercise() {
-        RepetitionExercise exercise = new RepetitionExercise(10, "burpees", "id burpees");
-        exercise.setDescription("Burpees!!!");
-        return exercise;
+        return new RepetitionExercise(10, "burpees", "id burpees", 0.0, 0.0, "Burpees!!!");
     }
 
     public static TimedExercise createValidTimedExercise () {
-        return new TimedExercise(60, "toes to bar", "id toes to bar");
+        return new TimedExercise(60, "toes to bar", "id toes to bar", 0.0, 0.0, "toes to bar, man");
     }
 
     public static RxResultExercise createFinishedRxResultExercise () {
@@ -51,7 +45,7 @@ public class EntityCreatorUtil {
         ResultWorkoutDetails details = new ResultWorkoutDetails(false, false, 360, "no comment", LocalDate.now());
         return new ResultWorkout("workout-id", "user_id",
               EntityCreatorUtil.givenValidForTimeWorkout(),
-              Collections.singletonList(createUnFinishedNonRxResultExercise()),
+              singletonList(createUnFinishedNonRxResultExercise()),
               details);
     }
 }

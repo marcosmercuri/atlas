@@ -17,4 +17,25 @@ public class NonRxResultExercise extends ResultExercise {
     public String getReplaceExercise () {
         return replaceExercise;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+        if(!super.equals(o)) return false;
+
+        NonRxResultExercise that = (NonRxResultExercise)o;
+
+        if(weightInKilograms != null? !weightInKilograms.equals(that.weightInKilograms) : that.weightInKilograms != null)
+            return false;
+        return replaceExercise != null? replaceExercise.equals(that.replaceExercise) : that.replaceExercise == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (weightInKilograms != null? weightInKilograms.hashCode() : 0);
+        result = 31 * result + (replaceExercise != null? replaceExercise.hashCode() : 0);
+        return result;
+    }
 }

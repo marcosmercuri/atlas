@@ -46,4 +46,30 @@ public class ResultWorkout {
     public ResultWorkoutDetails getDetails () {
         return details;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+
+        ResultWorkout that = (ResultWorkout)o;
+
+        if(id != null? !id.equals(that.id) : that.id != null) return false;
+        if(userId != null? !userId.equals(that.userId) : that.userId != null) return false;
+        if(proposedWorkout != null? !proposedWorkout.equals(that.proposedWorkout) : that.proposedWorkout != null)
+            return false;
+        if(resultExercises != null? !resultExercises.equals(that.resultExercises) : that.resultExercises != null)
+            return false;
+        return details != null? details.equals(that.details) : that.details == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null? id.hashCode() : 0;
+        result = 31 * result + (userId != null? userId.hashCode() : 0);
+        result = 31 * result + (proposedWorkout != null? proposedWorkout.hashCode() : 0);
+        result = 31 * result + (resultExercises != null? resultExercises.hashCode() : 0);
+        result = 31 * result + (details != null? details.hashCode() : 0);
+        return result;
+    }
 }

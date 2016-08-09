@@ -75,35 +75,32 @@ class ProposedExerciseMapperImpl implements ProposedExerciseMapper {
     }
 
     private RepetitionExercise mapToRepetitionExercise (ProposedExerciseDTO proposedExerciseDTO) {
-        RepetitionExercise repetitionExercise = new RepetitionExercise(
+        return new RepetitionExercise(
               proposedExerciseDTO.getNumberOfRepetitions(),
               proposedExerciseDTO.getName(),
-              proposedExerciseDTO.getId());
-        mapCommonExerciseFields(proposedExerciseDTO, repetitionExercise);
-        return repetitionExercise;
+              proposedExerciseDTO.getId(),
+              proposedExerciseDTO.getMaleRxInKilograms(),
+              proposedExerciseDTO.getFemaleRxInKilograms(),
+              proposedExerciseDTO.getDescription());
     }
 
     private TimedExercise mapToTimedExercise (ProposedExerciseDTO proposedExerciseDTO) {
-        TimedExercise timedExercise = new TimedExercise(
+        return new TimedExercise(
               proposedExerciseDTO.getDurationInSeconds(),
               proposedExerciseDTO.getName(),
-              proposedExerciseDTO.getId());
-        mapCommonExerciseFields(proposedExerciseDTO, timedExercise);
-        return timedExercise;
+              proposedExerciseDTO.getId(),
+              proposedExerciseDTO.getMaleRxInKilograms(),
+              proposedExerciseDTO.getFemaleRxInKilograms(),
+              proposedExerciseDTO.getDescription());
     }
 
     private DistanceExercise mapToDistanceExercise (ProposedExerciseDTO proposedExerciseDTO) {
-        DistanceExercise distanceExercise = new DistanceExercise(
+        return new DistanceExercise(
               proposedExerciseDTO.getDistanceInMeters(),
               proposedExerciseDTO.getName(),
-              proposedExerciseDTO.getId());
-        mapCommonExerciseFields(proposedExerciseDTO, distanceExercise);
-        return distanceExercise;
-    }
-
-    private void mapCommonExerciseFields (ProposedExerciseDTO sourceDto, Exercise targetEntity) {
-        targetEntity.setDescription(sourceDto.getDescription());
-        targetEntity.setFemaleRxInKilograms(sourceDto.getFemaleRxInKilograms());
-        targetEntity.setMaleRxInKilograms(sourceDto.getMaleRxInKilograms());
+              proposedExerciseDTO.getId(),
+              proposedExerciseDTO.getMaleRxInKilograms(),
+              proposedExerciseDTO.getFemaleRxInKilograms(),
+              proposedExerciseDTO.getDescription());
     }
 }

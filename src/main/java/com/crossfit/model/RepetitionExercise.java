@@ -7,8 +7,8 @@ package com.crossfit.model;
 public class RepetitionExercise extends Exercise {
     private final Integer repetitions;
 
-    public RepetitionExercise (Integer repetitions, String name, String id) {
-        super(id, name);
+    public RepetitionExercise (Integer repetitions, String name, String id, Double maleRxInKilograms, Double femaleRxInKilograms, String description) {
+        super(id, name, maleRxInKilograms, femaleRxInKilograms, description);
         this.repetitions = repetitions;
     }
 
@@ -16,21 +16,19 @@ public class RepetitionExercise extends Exercise {
         return repetitions;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+    @Override public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+        if(!super.equals(o)) return false;
 
-        RepetitionExercise that = (RepetitionExercise) o;
+        RepetitionExercise that = (RepetitionExercise)o;
 
-        return !(repetitions != null ? !repetitions.equals(that.repetitions) : that.repetitions != null);
+        return repetitions != null? repetitions.equals(that.repetitions) : that.repetitions == null;
     }
 
-    @Override
-    public int hashCode() {
+    @Override public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (repetitions != null ? repetitions.hashCode() : 0);
+        result = 31 * result + (repetitions != null? repetitions.hashCode() : 0);
         return result;
     }
 }

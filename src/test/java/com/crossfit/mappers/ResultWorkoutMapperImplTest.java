@@ -9,14 +9,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.crossfit.model.*;
 import com.crossfit.util.DtoCreatorUtil;
 import com.crossfit.controller.ResultExerciseDTO;
 import com.crossfit.controller.ResultWorkoutDTO;
 import com.crossfit.exceptions.ProposedWorkoutNotFoundException;
-import com.crossfit.model.ResultExercise;
-import com.crossfit.model.ResultWorkout;
-import com.crossfit.model.ResultWorkoutDetails;
-import com.crossfit.model.Workout;
 import com.crossfit.repositories.ProposedWorkoutRepository;
 import com.crossfit.util.EntityCreatorUtil;
 import org.junit.Before;
@@ -44,7 +41,7 @@ public class ResultWorkoutMapperImplTest {
     }
 
     private void givenProposedRepositoryReturnWorkoutForId (String proposedWorkoutId) {
-        Workout workout = new Workout(proposedWorkoutId, Collections.emptyList());
+        Workout workout = new Amrap(Collections.emptyList(), 10, proposedWorkoutId);
         when(mockProposedWorkoutRepository.findOne(eq(proposedWorkoutId))).thenReturn(workout);
     }
 
