@@ -1,7 +1,6 @@
 package com.crossfit.services;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import com.crossfit.exceptions.CannotChangeFieldException;
 import com.crossfit.exceptions.ProposedWorkoutNotFoundException;
@@ -21,15 +20,7 @@ class ProposedWorkoutServiceImpl implements ProposedWorkoutService {
 
     @Override
     public Workout saveProposedWorkout (Workout proposedWorkout) {
-        generateIds(proposedWorkout);
         return proposedWorkoutRepository.save(proposedWorkout);
-    }
-
-    private void generateIds (Workout proposedWorkout) {
-        proposedWorkout.setId(UUID.randomUUID().toString());
-        proposedWorkout.getExercises()
-              .stream()
-              .forEach(proposedExercise -> proposedExercise.setId(UUID.randomUUID().toString()));
     }
 
     @Override
