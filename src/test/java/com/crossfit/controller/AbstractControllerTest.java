@@ -1,15 +1,14 @@
 package com.crossfit.controller;
 
-import static com.crossfit.util.TestHelper.createObjectMapper;
+import static com.crossfit.util.TestHelper.*;
 import static java.nio.charset.Charset.*;
 import static org.springframework.http.MediaType.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
 import java.io.IOException;
 
 import com.crossfit.AtlasApplication;
-import com.crossfit.util.TestHelper;
 import com.crossfit.util.Utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,6 +16,7 @@ import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -29,6 +29,7 @@ import org.springframework.web.context.WebApplicationContext;
  */
 @SpringApplicationConfiguration (classes = AtlasApplication.class)
 @WebAppConfiguration
+@ActiveProfiles("test")
 public abstract class AbstractControllerTest {
     protected MockMvc mockMvc;
     protected MediaType jsonContentType;

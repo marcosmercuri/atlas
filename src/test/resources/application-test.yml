@@ -1,0 +1,7 @@
+# Property for the embedded mongo. It picks up a random free port
+spring:
+  data:
+      mongodb:
+        port: 0
+  datasource:
+      url: jdbc:h2:mem:atlas-test
