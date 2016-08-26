@@ -1,12 +1,13 @@
-* Add equals/hashcode
+* Add a validation that a proposed workout cannot be deleted if a result workout is related to it
+* Put the exercise entity in resultExercise and remove proposedExerciseId
+
+* Remove dependencies from mongo
 * Improve the SignupController, to save the user in a user table.
-* Move mongo persistence to mysql
 * In AuthenticationResource return the user from the database.
 * Get the use from session and put it in the resultWorkout DTO.
-* Review the structure of the UserConnection table
+* Update README.
+* Review session duration
 * Move all endpoints to /api/ and restrict /api/**
 * Move the translation to each class.
-* Complete readme
 * Document the API.
-* Add javadoc where it's important.
 * Add code quality analysis on push.
