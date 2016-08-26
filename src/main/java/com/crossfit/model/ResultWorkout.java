@@ -1,17 +1,19 @@
 package com.crossfit.model;
 
 import java.util.List;
+import java.util.UUID;
+import javax.persistence.*;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document
+@Entity
 public class ResultWorkout {
     @Id
-    private final String id;
+    private String id;
     private final String userId;
+    @ManyToOne
     private final Workout proposedWorkout;
+    @OneToMany(cascade = CascadeType.ALL)
     private final List<ResultExercise> resultExercises;
+    @Embedded
     private final ResultWorkoutDetails details;
 
     // This is needed for spring to hydrate the object
@@ -25,6 +27,14 @@ public class ResultWorkout {
         this.proposedWorkout = proposedWorkout;
         this.resultExercises = resultExercises;
         this.details = details;
+    }
+
+    /**
+     * It is only executed on insert, and generates an UUID for the entity
+     */
+    @PrePersist
+    private void autoGenerateId(){
+        this.id = UUID.randomUUID().toString();
     }
 
     public String getId () {

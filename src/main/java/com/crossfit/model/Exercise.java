@@ -1,17 +1,27 @@
 package com.crossfit.model;
 
-import org.springframework.data.annotation.Id;
+import java.util.UUID;
+import javax.persistence.*;
 
 /**
  * Represents a physical exercise, with its restrictions.
  */
+@Entity
+@Table(name = "proposedExercises")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="type")
 public abstract class Exercise {
     @Id
-    private final String id;
+    private String id;
     private final String name;
     private final Double maleRxInKilograms;
     private final Double femaleRxInKilograms;
     private final String description;
+
+    // This is needed for spring to hydrate the object
+    protected Exercise() {
+        this(null, null, null, null);
+    }
 
     public Exercise(String id, String name, Double maleRxInKilograms, Double femaleRxInKilograms, String description) {
         this.id = id;
@@ -23,6 +33,14 @@ public abstract class Exercise {
 
     public Exercise(String name, Double maleRxInKilograms, Double femaleRxInKilograms, String description) {
         this(null, name, maleRxInKilograms, femaleRxInKilograms, description);
+    }
+
+    /**
+     * It is only executed on insert, and generates an UUID for the entity
+     */
+    @PrePersist
+    private void autoGenerateId(){
+        this.id = UUID.randomUUID().toString();
     }
 
     public String getId() {

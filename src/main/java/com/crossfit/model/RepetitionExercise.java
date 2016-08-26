@@ -1,11 +1,20 @@
 package com.crossfit.model;
 
+import javax.persistence.Entity;
+
 /**
  * Represent a physical exercise that has to be repeated
  * repetitions-times.
  */
+@Entity
 public class RepetitionExercise extends Exercise {
     private final Integer repetitions;
+
+    // This is needed for spring to hydrate the object
+    private RepetitionExercise() {
+        super();
+        repetitions = null;
+    }
 
     public RepetitionExercise (Integer repetitions, String name, String id, Double maleRxInKilograms, Double femaleRxInKilograms, String description) {
         super(id, name, maleRxInKilograms, femaleRxInKilograms, description);

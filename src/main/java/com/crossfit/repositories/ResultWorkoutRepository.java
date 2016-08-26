@@ -1,7 +1,9 @@
 package com.crossfit.repositories;
 
 import com.crossfit.model.ResultWorkout;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ResultWorkoutRepository extends MongoRepository<ResultWorkout, String> {
+@Repository
+public interface ResultWorkoutRepository extends CrudRepository<ResultWorkout, String> {
 }

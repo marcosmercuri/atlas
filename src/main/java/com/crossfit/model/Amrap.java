@@ -1,13 +1,20 @@
 package com.crossfit.model;
 
 import java.util.List;
+import javax.persistence.Entity;
 
 /**
  * A type of workout in which a list of exercises must be repeated
  * for durationInSeconds seconds.
  */
+@Entity
 public class Amrap extends Workout {
     private final Integer durationInSeconds;
+
+    // This is needed for spring to hydrate the object
+    private Amrap() {
+        this(null, null, null);
+    }
 
     public Amrap (List<Exercise> exercises, Integer durationInSeconds, String id) {
         super(id, exercises);

@@ -1,19 +1,37 @@
 package com.crossfit.model;
 
-import org.springframework.data.annotation.Id;
+import java.util.UUID;
+import javax.persistence.*;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="type")
 public abstract class ResultExercise {
     @Id
-    private final String id;
+    private String id;
     private final String proposedExerciseId;
+    @Embedded
     private final RoundsCounter roundsCounter;
     private final String comments;
+
+    // This is needed for spring to hydrate the object
+    protected ResultExercise() {
+        this(null, null, null, null);
+    }
 
     protected ResultExercise (String id, String proposedExerciseId, RoundsCounter roundsCounter, String comments) {
         this.id = id;
         this.proposedExerciseId = proposedExerciseId;
         this.roundsCounter = roundsCounter;
         this.comments = comments;
+    }
+
+    /**
+     * It is only executed on insert, and generates an UUID for the entity
+     */
+    @PrePersist
+    private void autoGenerateId(){
+        this.id = UUID.randomUUID().toString();
     }
 
     public String getId () {

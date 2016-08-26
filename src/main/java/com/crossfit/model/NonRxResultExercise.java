@@ -1,8 +1,16 @@
 package com.crossfit.model;
 
+import javax.persistence.Entity;
+
+@Entity
 public class NonRxResultExercise extends ResultExercise {
     private final Float weightInKilograms;
     private final String replaceExercise;
+
+    // This is needed for spring to hydrate the object
+    private NonRxResultExercise() {
+        this(null, null, null, null, null, null);
+    }
 
     public NonRxResultExercise (String id, String proposedExerciseId, RoundsCounter roundsCounter, String comments, Float weightInKilograms, String replaceExercise) {
         super(id, proposedExerciseId, roundsCounter, comments);

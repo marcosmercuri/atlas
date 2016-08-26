@@ -1,13 +1,20 @@
 package com.crossfit.model;
 
 import java.time.LocalDate;
+import javax.persistence.Embeddable;
 
+@Embeddable
 public class ResultWorkoutDetails {
     private final Boolean rx;
     private final Boolean finished;
     private final Integer finishTimeInSeconds;
     private final String comments;
     private final LocalDate date;
+
+    // This is needed for spring to hydrate the object
+    private ResultWorkoutDetails() {
+        this(null, null, null, null, null);
+    }
 
     public ResultWorkoutDetails (Boolean rx, Boolean finished, Integer finishTimeInSeconds, String comments, LocalDate date) {
         this.rx = rx;

@@ -1,14 +1,21 @@
 package com.crossfit.model;
 
 import java.util.List;
+import javax.persistence.Entity;
 
 /**
  * A type of workout in which a list of exercises must be repeated
  * numberOfRounds times, in a max time of maxAllowedSeconds seconds.
  */
+@Entity
 public class ForTimeWorkout extends Workout {
     private final Integer maxAllowedSeconds;
     private final Integer numberOfRounds;
+
+    // This is needed for spring to hydrate the object
+    private ForTimeWorkout() {
+        this(null, null, null, null);
+    }
 
     public ForTimeWorkout (List<Exercise> exercises, Integer maxAllowedSeconds, Integer numberOfRounds, String id) {
         super(id, exercises);

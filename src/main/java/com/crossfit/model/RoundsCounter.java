@@ -1,8 +1,16 @@
 package com.crossfit.model;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class RoundsCounter {
     private final Integer completedRounds;
     private final Integer repetitionsOnUnfinishedRound;
+
+    // This is needed for spring to hydrate the object
+    private RoundsCounter() {
+        this(null, null);
+    }
 
     public RoundsCounter (Integer completedRounds, Integer repetitionsOnUnfinishedRound) {
         this.completedRounds = completedRounds;
