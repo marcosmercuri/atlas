@@ -17,3 +17,9 @@ spring:
       twitter:
         appId: WWWWWW
         appSecret: VVVVVV
+
+# For development only. It generates the tables, deleting existing data.
+#  jpa:
+#    database: MYSQL
+#    show-sql: true
+#    hibernate.ddl-auto: create
