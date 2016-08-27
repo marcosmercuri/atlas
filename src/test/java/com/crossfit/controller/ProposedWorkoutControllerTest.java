@@ -11,8 +11,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.io.IOException;
 import java.nio.charset.Charset;
 
+import com.crossfit.util.TestHelper;
 import com.crossfit.util.Utils;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.http.MediaType;
@@ -220,4 +220,26 @@ public class ProposedWorkoutControllerTest extends AbstractControllerTest {
         return modifiedProposedWorkout;
     }
 
+
+    @Test
+    public void test_cannot_delete_proposed_workout_being_used() throws Exception {
+        ResultActions result = createForTimeProposedWorkout();
+        String proposedWorkoutId = getResponseIdFromProposedDto(result);
+        createResultWorkout(proposedWorkoutId);
+
+        mockMvc.perform(delete("/proposedWorkouts/{id}", proposedWorkoutId))
+              .andExpect(status().isBadRequest());
+    }
+
+    private void createResultWorkout(String proposedWorkoutId) throws Exception {
+        mockMvc.perform(
+              post("/resultWorkouts")
+                    .content(createValidResultWorkout(proposedWorkoutId))
+                    .contentType(jsonContentType)
+        ).andExpect(status().isCreated());
+    }
+
+    private String createValidResultWorkout(String proposedWorkoutId) {
+        return TestHelper.createRequestResultWorkoutWith("user-id", proposedWorkoutId, "true", "true", "100", "", "2015-03-03");
+    }
 }

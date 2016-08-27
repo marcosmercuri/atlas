@@ -5,6 +5,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 import javax.validation.Valid;
 
 import com.crossfit.exceptions.CannotChangeFieldException;
+import com.crossfit.exceptions.ProposedWorkoutBeingUsedException;
 import com.crossfit.exceptions.ProposedWorkoutNotFoundException;
 import com.crossfit.mappers.ProposedWorkoutMapper;
 import com.crossfit.model.Workout;
@@ -79,6 +80,17 @@ public class ProposedWorkoutController {
     @ExceptionHandler(CannotChangeFieldException.class)
     @ResponseStatus(value=HttpStatus.BAD_REQUEST, reason = "Cannot change field value")
     public void cannotChangeFieldValue() {
+        // Do nothing
+    }
+
+
+    /**
+     * The exception is catch and marked as BadRequest, and rethrown automagically.
+     * The reason is needed (although never shown) so DefaultErrorResponseAttributes can process it.
+     */
+    @ExceptionHandler(ProposedWorkoutBeingUsedException.class)
+    @ResponseStatus(value=HttpStatus.BAD_REQUEST, reason = "Cannot delete proposed workout, as it being used")
+    void cannotDeleteProposedWorkoutBeingUsed() {
         // Do nothing
     }
 }

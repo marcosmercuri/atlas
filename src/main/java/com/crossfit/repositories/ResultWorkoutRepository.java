@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ResultWorkoutRepository extends CrudRepository<ResultWorkout, String> {
+    Long countByProposedWorkoutId(String proposedWorkoutId);
 }

@@ -5,6 +5,7 @@ public class RequestErrorCodes {
     public static final int RESULT_WORKOUT_NOT_FOUND = 40402;
     public static final int INVALID_FIELDS_IN_REQUEST_ERROR_CODE = 40001;
     public static final int CANNOT_CHANGE_FIELD = 40002;
+    public static final int CANNOT_DELETE_PROPOSED_WORKOUT = 40003;
 
     private RequestErrorCodes() {};
 }

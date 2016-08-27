@@ -3,19 +3,23 @@ package com.crossfit.services;
 import java.util.Optional;
 
 import com.crossfit.exceptions.CannotChangeFieldException;
+import com.crossfit.exceptions.ProposedWorkoutBeingUsedException;
 import com.crossfit.exceptions.ProposedWorkoutNotFoundException;
 import com.crossfit.model.Workout;
 import com.crossfit.repositories.ProposedWorkoutRepository;
+import com.crossfit.repositories.ResultWorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 class ProposedWorkoutServiceImpl implements ProposedWorkoutService {
     private final ProposedWorkoutRepository proposedWorkoutRepository;
+    private final ResultWorkoutRepository resultWorkoutRepository;
 
     @Autowired
-    ProposedWorkoutServiceImpl (ProposedWorkoutRepository proposedWorkoutRepository) {
+    ProposedWorkoutServiceImpl(ProposedWorkoutRepository proposedWorkoutRepository, ResultWorkoutRepository resultWorkoutRepository) {
         this.proposedWorkoutRepository = proposedWorkoutRepository;
+        this.resultWorkoutRepository = resultWorkoutRepository;
     }
 
     @Override
@@ -50,6 +54,10 @@ class ProposedWorkoutServiceImpl implements ProposedWorkoutService {
         findProposedWorkoutById(proposedWorkoutId)
               .orElseThrow(() -> new ProposedWorkoutNotFoundException(proposedWorkoutId));
 
-        proposedWorkoutRepository.delete(proposedWorkoutId);
+        if ( resultWorkoutRepository.countByProposedWorkoutId(proposedWorkoutId) == 0) {
+            proposedWorkoutRepository.delete(proposedWorkoutId);
+        } else {
+            throw new ProposedWorkoutBeingUsedException(proposedWorkoutId);
+        }
     }
 }
