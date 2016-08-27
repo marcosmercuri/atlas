@@ -4,4 +4,4 @@ spring:
       mongodb:
         port: 0
   datasource:
-      url: jdbc:h2:mem:atlas-test
+      url: jdbc:h2:mem:atlas-test;DB_CLOSE_ON_EXIT=FALSE
