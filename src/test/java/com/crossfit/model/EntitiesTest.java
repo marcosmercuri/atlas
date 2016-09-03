@@ -37,6 +37,11 @@ public class EntitiesTest {
         verifyEqualsAndHashcode(ResultWorkoutDetails.class);
     }
 
+    @Test
+    public void testEqualsOnUser() {
+        verifyEqualsAndHashcode(User.class);
+    }
+
     private void verifyEqualsAndHashcode(Class clazz) {
         EqualsVerifier.forClass(clazz)
               .usingGetClass()
