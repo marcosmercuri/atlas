@@ -1,12 +1,10 @@
-* Put the exercise entity in resultExercise and remove proposedExerciseIgd
-
-* Remove dependencies from mongo
 * Improve the SignupController, to save the user in a user table.
 * In AuthenticationResource return the user from the database.
 * Get the use from session and put it in the resultWorkout DTO.
 * Change the Attribute so it is not necessary to do this: The reason is needed (although never shown) so DefaultErrorResponseAttributes can process it.
 * Update README.
 * Review session duration
+* Put the exercise entity in resultExercise and remove proposedExerciseIgd
 * Move all endpoints to /api/ and restrict /api/**
 * Move the translation to each class.
 * Document the API.
