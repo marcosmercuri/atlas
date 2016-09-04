@@ -1,6 +1,6 @@
 package com.crossfit.security;
 
-import static com.crossfit.security.AuthenticationResourceTest.USERNAME_IN_SESSION;
+import static com.crossfit.security.SessionControllerTest.USERNAME_IN_SESSION;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WithMockUser(USERNAME_IN_SESSION)
-public class AuthenticationResourceTest extends AbstractControllerTest {
+public class SessionControllerTest extends AbstractControllerTest {
     static final String USERNAME_IN_SESSION = "username";
 
     @Autowired

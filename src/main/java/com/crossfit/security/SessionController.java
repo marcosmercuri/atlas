@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.*;
 /**
  * End point to check that a user is logged, and to logout that user.
  */
-public class AuthenticationResource {
+public class SessionController {
     private final UserService userService;
 
     @Autowired
-    public AuthenticationResource(UserService userService) {
+    public SessionController(UserService userService) {
         this.userService = userService;
     }
 
