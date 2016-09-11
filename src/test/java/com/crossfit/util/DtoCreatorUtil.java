@@ -197,7 +197,6 @@ public class DtoCreatorUtil {
         resultWorkout.setFinishTimeInSeconds(1200);
         resultWorkout.setProposedWorkoutId("proposed workout id");
         resultWorkout.setRx(true);
-        resultWorkout.setUserId("userId");
 
         resultWorkout.setResultExercises(Arrays.asList(
               createUnfinishedRxRepetitionResultExerciseDto(),

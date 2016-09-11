@@ -1,24 +1,23 @@
 package com.crossfit.controller;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * POJO for a done workout.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ResultWorkoutDTO {
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
     private String id;
-    @NotBlank (message="error.resultWorkout.userId.notBlank")
-    private String userId;
 
     @NotBlank (message="error.resultWorkout.proposedWorkoutId.notBlank")
     private String proposedWorkoutId;
@@ -95,14 +94,6 @@ public class ResultWorkoutDTO {
 
     public void setComments (String comments) {
         this.comments = comments;
-    }
-
-    public String getUserId () {
-        return userId;
-    }
-
-    public void setUserId (String userId) {
-        this.userId = userId;
     }
 
     public LocalDate getDate () {
