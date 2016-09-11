@@ -5,6 +5,8 @@ import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.Optional;
+
 import com.crossfit.controller.AbstractControllerTest;
 import com.crossfit.model.User;
 import com.crossfit.repositories.UserRepository;
@@ -35,7 +37,7 @@ public class SessionControllerTest extends AbstractControllerTest {
     }
 
     private User createUser(String username) {
-        return new User(username, "twitter", "123424", "myName", "myLastName", "www.google.com/image.jpg");
+        return new User(Optional.of("userId"), username, "twitter", "123424", "myName", "myLastName", "www.google.com/image.jpg");
     }
 
     @Test

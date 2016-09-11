@@ -1,5 +1,7 @@
 package com.crossfit.security;
 
+import java.util.Optional;
+
 import com.crossfit.exceptions.DuplicatedUsernameException;
 import com.crossfit.model.User;
 import com.crossfit.services.UserService;
@@ -46,7 +48,7 @@ public class SignupController {
     }
 
     private void saveInSystem(Connection<?> connection, UserProfile userProfile) {
-        User user = new User(userProfile.getUsername(), connection.getKey().getProviderId(),
+        User user = new User(Optional.empty(), userProfile.getUsername(), connection.getKey().getProviderId(),
               connection.getKey().getProviderUserId(), userProfile.getFirstName(),
               userProfile.getLastName(), connection.getImageUrl());
         userService.saveUser(user);

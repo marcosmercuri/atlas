@@ -45,7 +45,7 @@ public class UserServiceImplTest {
     }
 
     private User createUser(Optional<String> username) {
-        return new User(username.orElse("username"), "providerId", "providerUserId", "name", "last name", "www.example.com");
+        return new User(Optional.of("id"), username.orElse("username"), "providerId", "providerUserId", "name", "last name", "www.example.com");
     }
 
     @Test

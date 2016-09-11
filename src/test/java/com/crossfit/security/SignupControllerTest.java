@@ -35,7 +35,16 @@ public class SignupControllerTest extends AbstractControllerTest {
 
         Optional<User> maybeUser = userRepository.findByUsername(expectedUser.getUsername());
         assertTrue(maybeUser.isPresent());
-        assertThat(maybeUser.get(), is(expectedUser));
+        assertUser(maybeUser.get(), expectedUser);
+    }
+
+    private void assertUser(User actual, User expectedUser) {
+        assertThat(actual.getImageUrl(), is(expectedUser.getImageUrl()));
+        assertThat(actual.getLastName(), is(expectedUser.getLastName()));
+        assertThat(actual.getName(), is(expectedUser.getName()));
+        assertThat(actual.getProviderId(), is(expectedUser.getProviderId()));
+        assertThat(actual.getProviderUserId(), is(expectedUser.getProviderUserId()));
+        assertThat(actual.getUsername(), is(expectedUser.getUsername()));
     }
 
     @Test
@@ -50,7 +59,7 @@ public class SignupControllerTest extends AbstractControllerTest {
     }
 
     private User createUser(String username) {
-        return new User(username, "twitter", "123424", "myName", "myLastName", "www.google.com/image.jpg");
+        return new User(Optional.of("userId"), username, "twitter", "123424", "myName", "myLastName", "www.google.com/image.jpg");
     }
 
     private TestProviderSignInAttempt buildTestProviderSignInAttempt(User expectedUser) {
