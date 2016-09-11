@@ -35,7 +35,7 @@ public class ResultWorkoutMapperImplTest {
         ResultWorkoutDTO dto = DtoCreatorUtil.createFinishedRxResultWorkoutDto();
         givenProposedRepositoryReturnWorkoutForId(dto.getProposedWorkoutId());
 
-        ResultWorkout resultWorkout = resultWorkoutMapper.mapToEntity(dto);
+        ResultWorkout resultWorkout = resultWorkoutMapper.mapToEntity(dto, "userId");
 
         verifyEquality(resultWorkout, dto);
     }
@@ -47,7 +47,6 @@ public class ResultWorkoutMapperImplTest {
 
     private void verifyEquality (ResultWorkout resultWorkout, ResultWorkoutDTO dto) {
         assertThat(resultWorkout.getId(), is(dto.getId()));
-        assertThat(resultWorkout.getUserId(), is(dto.getUserId()));
         verifyResultWorkoutDetails(resultWorkout.getDetails(), dto);
         verifyExercises(resultWorkout, dto);
         assertThat(resultWorkout.getProposedWorkout().getId(), is(dto.getProposedWorkoutId()));
@@ -78,7 +77,7 @@ public class ResultWorkoutMapperImplTest {
         ResultWorkoutDTO dto = DtoCreatorUtil.createFinishedRxResultWorkoutDto();
         givenProposedRepositoryReturnNullForId();
 
-        resultWorkoutMapper.mapToEntity(dto);
+        resultWorkoutMapper.mapToEntity(dto, "userId");
     }
 
     private void givenProposedRepositoryReturnNullForId () {
@@ -92,5 +91,32 @@ public class ResultWorkoutMapperImplTest {
         ResultWorkoutDTO resultWorkoutDto = resultWorkoutMapper.mapToDto(resultWorkout);
 
         verifyEquality(resultWorkout, resultWorkoutDto);
+    }
+
+    @Test
+    public void given_user_id_when_mapped_to_dto_user_id_is_set_in_entity() {
+        ResultWorkoutDTO dto = DtoCreatorUtil.createFinishedRxResultWorkoutDto();
+        givenProposedRepositoryReturnWorkoutForId(dto.getProposedWorkoutId());
+
+        String expectedUserId = "userId";
+        ResultWorkout resultWorkout = resultWorkoutMapper.mapToEntity(dto, expectedUserId);
+
+        assertThat(resultWorkout.getUserId(), is(expectedUserId));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void given_null_user_id_when_mapped_to_dto_an_exception_is_thrown() {
+        ResultWorkoutDTO dto = DtoCreatorUtil.createFinishedRxResultWorkoutDto();
+        givenProposedRepositoryReturnWorkoutForId(dto.getProposedWorkoutId());
+
+        resultWorkoutMapper.mapToEntity(dto, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void given_empty_user_id_when_mapped_to_dto_an_exception_is_thrown() {
+        ResultWorkoutDTO dto = DtoCreatorUtil.createFinishedRxResultWorkoutDto();
+        givenProposedRepositoryReturnWorkoutForId(dto.getProposedWorkoutId());
+
+        resultWorkoutMapper.mapToEntity(dto, "");
     }
 }

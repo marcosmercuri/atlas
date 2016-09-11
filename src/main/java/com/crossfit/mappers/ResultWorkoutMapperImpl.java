@@ -13,6 +13,7 @@ import com.crossfit.model.Workout;
 import com.crossfit.repositories.ProposedWorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 @Component
 class ResultWorkoutMapperImpl implements ResultWorkoutMapper {
@@ -26,9 +27,10 @@ class ResultWorkoutMapperImpl implements ResultWorkoutMapper {
     }
 
     @Override
-    public ResultWorkout mapToEntity (ResultWorkoutDTO dto) {
+    public ResultWorkout mapToEntity (ResultWorkoutDTO dto, String userId) {
+        Assert.hasText(userId);
         Workout proposedWorkout = findProposedRepository(dto.getProposedWorkoutId());
-        return new ResultWorkout(dto.getId(), dto.getUserId(), proposedWorkout, mapExercisesToEntity(dto), mapDetails(dto));
+        return new ResultWorkout(dto.getId(), userId, proposedWorkout, mapExercisesToEntity(dto), mapDetails(dto));
     }
 
     private Workout findProposedRepository (String proposedWorkoutId) {
@@ -62,7 +64,6 @@ class ResultWorkoutMapperImpl implements ResultWorkoutMapper {
         dto.setId(resultWorkout.getId());
         dto.setProposedWorkoutId(resultWorkout.getProposedWorkout().getId());
         dto.setResultExercises(mapExercisesToDto(resultWorkout.getResultExercises()));
-        dto.setUserId(resultWorkout.getUserId());
         return dto;
     }
 

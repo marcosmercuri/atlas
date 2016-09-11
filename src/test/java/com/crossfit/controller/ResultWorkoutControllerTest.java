@@ -136,19 +136,6 @@ public class ResultWorkoutControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void test_fail_validation_on_update_result_workout () throws Exception {
-        ResultWorkoutDTO resultWorkout = createResultWorkout();
-
-        resultWorkout.setUserId(null);
-
-        mockMvc.perform(put("/resultWorkouts/{id}", resultWorkout.getId())
-              .content(convertToJson(resultWorkout))
-              .contentType(jsonContentType)
-                )
-              .andExpect(status().isBadRequest());
-    }
-
-    @Test
     public void test_fail_update_result_workout_with_different_ids () throws Exception {
         ResultWorkoutDTO resultWorkout = createResultWorkout();
         String originalResultWorkoutId = resultWorkout.getId();

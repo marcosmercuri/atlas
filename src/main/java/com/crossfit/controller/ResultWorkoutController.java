@@ -9,7 +9,8 @@ import com.crossfit.exceptions.ProposedWorkoutNotFoundException;
 import com.crossfit.exceptions.ResultWorkoutNotFoundException;
 import com.crossfit.mappers.ResultWorkoutMapper;
 import com.crossfit.model.ResultWorkout;
-import com.crossfit.model.Workout;
+import com.crossfit.model.User;
+import com.crossfit.security.LoggedInUserGetter;
 import com.crossfit.services.ResultWorkoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,16 +19,24 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping (value = "/resultWorkouts", produces = "application/json; charset=utf-8", consumes = "application/json; charset=utf-8")
 class ResultWorkoutController {
-    @Autowired
     private ResultWorkoutService resultWorkoutService;
-    @Autowired
     private ResultWorkoutMapper mapper;
+    private LoggedInUserGetter loggedInUserGetter;
+
+    @Autowired
+    ResultWorkoutController(ResultWorkoutService resultWorkoutService, ResultWorkoutMapper mapper,
+          LoggedInUserGetter loggedInUserGetter) {
+        this.resultWorkoutService = resultWorkoutService;
+        this.mapper = mapper;
+        this.loggedInUserGetter = loggedInUserGetter;
+    }
 
     @RequestMapping (method = POST)
     @ResponseStatus (HttpStatus.CREATED)
     public ResultWorkoutDTO createResultWorkout(@Valid @RequestBody ResultWorkoutDTO resultWorkoutDTO) {
-        ResultWorkout resultWorkout = resultWorkoutService.saveResultWorkout(mapper.mapToEntity(resultWorkoutDTO));
-        return mapper.mapToDto(resultWorkout);
+        User user = loggedInUserGetter.getLoggedInUser();
+        ResultWorkout resultWorkoutToSave = mapper.mapToEntity(resultWorkoutDTO, user.getId());
+        return mapper.mapToDto(resultWorkoutService.saveResultWorkout(resultWorkoutToSave));
     }
 
     @RequestMapping (value ="/{id}" , method = GET)
@@ -65,7 +74,8 @@ class ResultWorkoutController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateResultWorkout(@PathVariable("id") String resultWorkoutId,
           @Valid @RequestBody ResultWorkoutDTO resultWorkoutDto) {
-        ResultWorkout resultWorkout = mapper.mapToEntity(resultWorkoutDto);
+        User user = loggedInUserGetter.getLoggedInUser();
+        ResultWorkout resultWorkout = mapper.mapToEntity(resultWorkoutDto, user.getId());
         resultWorkoutService.updateResultWorkout(resultWorkoutId, resultWorkout);
     }
 

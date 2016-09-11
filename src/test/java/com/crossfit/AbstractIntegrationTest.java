@@ -1,16 +1,21 @@
 package com.crossfit;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import java.util.Map;
+import java.util.Optional;
 
+import com.crossfit.model.User;
+import com.crossfit.security.LoggedInUserGetter;
 import com.crossfit.util.Utils;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -30,6 +35,14 @@ public class AbstractIntegrationTest {
     @Value ("${local.server.port}")
     int applicationPort;
     private TestRestTemplate restTemplate;
+
+    @Configuration
+    static class ContextConfiguration {
+        @Bean
+        public LoggedInUserGetter loggedInUserGetter() {
+            return () -> new User(Optional.of("userId"), "username", "twitter", "123424", "myName", "myLastName", "www.google.com/image.jpg");
+        }
+    }
 
     @Before
     public void setUp() {

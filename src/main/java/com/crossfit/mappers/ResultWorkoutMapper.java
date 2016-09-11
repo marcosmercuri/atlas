@@ -11,7 +11,7 @@ public interface ResultWorkoutMapper {
      * @param resultWorkoutDto the DTO to be mapped
      * @return the model entity with the same values as resultWorkoutDto.
      */
-    ResultWorkout mapToEntity (ResultWorkoutDTO resultWorkoutDto);
+    ResultWorkout mapToEntity (ResultWorkoutDTO resultWorkoutDto, String userId);
 
     /**
      * Maps the entity to the DTO.

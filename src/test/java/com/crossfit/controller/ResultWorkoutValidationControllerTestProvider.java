@@ -11,7 +11,6 @@ class ResultWorkoutValidationControllerTestProvider {
 
     static List<ParametrizedTestData> data() {
         return Arrays.asList(
-              createWorkoutWithEmptyUserId(),
               createWorkoutWithEmptyProposedWorkoutId(),
               createWorkoutWithEmptyRx(),
               createWorkoutWithEmptyFinished(),
@@ -98,12 +97,6 @@ class ResultWorkoutValidationControllerTestProvider {
     private static ParametrizedTestData createWorkoutWithEmptyProposedWorkoutId() {
         return new ParametrizedTestData(TestHelper.createRequestResultWorkoutWith("userId", "", "true", "true", "100", "non", "2015-12-03"),
               "error.resultWorkout.proposedWorkoutId.notBlank"
-        );
-    }
-
-    private static ParametrizedTestData createWorkoutWithEmptyUserId() {
-        return new ParametrizedTestData(TestHelper.createRequestResultWorkoutWith("", "wod1", "true", "true", "100", "non", "2015-12-03"),
-              "error.resultWorkout.userId.notBlank"
         );
     }
 
