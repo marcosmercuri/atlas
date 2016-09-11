@@ -30,6 +30,6 @@ public class ResultWorkoutIntegrationTest extends AbstractIntegrationTest {
     }
 
     private HttpEntity<String> createNonExistentProposedWorkoutRequest(String proposedWorkoutId) {
-        return createJsonRequestWithBody(createRequestResultWorkoutWith("user-id", proposedWorkoutId, "true", "true", "100", "", "2015-03-03"));
+        return createJsonRequestWithBody(createRequestResultWorkoutWith(proposedWorkoutId, "true", "true", "100", "", "2015-03-03"));
     }
 }

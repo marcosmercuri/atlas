@@ -240,6 +240,6 @@ public class ProposedWorkoutControllerTest extends AbstractControllerTest {
     }
 
     private String createValidResultWorkout(String proposedWorkoutId) {
-        return TestHelper.createRequestResultWorkoutWith("user-id", proposedWorkoutId, "true", "true", "100", "", "2015-03-03");
+        return TestHelper.createRequestResultWorkoutWith(proposedWorkoutId, "true", "true", "100", "", "2015-03-03");
     }
 }

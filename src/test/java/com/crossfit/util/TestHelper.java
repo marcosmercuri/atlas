@@ -15,11 +15,10 @@ public class TestHelper {
     private static final String EXERCISE_TEMPLATE_NAME = "new_result_workout_request_with_template_exercises.json.tmpl";
 
 
-    public static String createRequestResultWorkoutWith(String userId, String proposedWorkoutId, String rx, String finished, String finishTimeInSeconds, String comments, String date) {
+    public static String createRequestResultWorkoutWith(String proposedWorkoutId, String rx, String finished, String finishTimeInSeconds, String comments, String date) {
         return generateWorkoutRequest(
               new HashMap<String, String>() {
                   {
-                      put("userId", userId);
                       put("proposedWorkoutId", proposedWorkoutId);
                       put("rx", rx);
                       put("finished", finished);

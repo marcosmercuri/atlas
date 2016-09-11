@@ -71,31 +71,31 @@ class ResultWorkoutValidationControllerTestProvider {
     }
 
     private static ParametrizedTestData createWorkoutWithZeroValueInFinishTimeInSeconds() {
-        return new ParametrizedTestData(TestHelper.createRequestResultWorkoutWith("userId", "wod1", "true", "false", "0", "non", "2015-12-03"),
+        return new ParametrizedTestData(TestHelper.createRequestResultWorkoutWith("wod1", "true", "false", "0", "non", "2015-12-03"),
               "error.resultWorkout.finishTimeInSeconds.belowMinimumOne"
         );
     }
 
     private static ParametrizedTestData createWorkoutWithEmptyFinishTimeInSeconds() {
-        return new ParametrizedTestData(TestHelper.createRequestResultWorkoutWith("userId", "wod1", "true", "false", "", "non", "2015-12-03"),
+        return new ParametrizedTestData(TestHelper.createRequestResultWorkoutWith("wod1", "true", "false", "", "non", "2015-12-03"),
               "error.resultWorkout.finishTimeInSeconds.notNull"
         );
     }
 
     private static ParametrizedTestData createWorkoutWithEmptyFinished() {
-        return new ParametrizedTestData(TestHelper.createRequestResultWorkoutWith("userId", "wod1", "true", "null", "100", "non", "2015-12-03"),
+        return new ParametrizedTestData(TestHelper.createRequestResultWorkoutWith("wod1", "true", "null", "100", "non", "2015-12-03"),
               "error.resultWorkout.finished.notNull"
         );
     }
 
     private static ParametrizedTestData createWorkoutWithEmptyRx() {
-        return new ParametrizedTestData(TestHelper.createRequestResultWorkoutWith("userId", "wod1", "null", "true", "100", "non", "2015-12-03"),
+        return new ParametrizedTestData(TestHelper.createRequestResultWorkoutWith("wod1", "null", "true", "100", "non", "2015-12-03"),
               "error.resultWorkout.rx.notNull"
         );
     }
 
     private static ParametrizedTestData createWorkoutWithEmptyProposedWorkoutId() {
-        return new ParametrizedTestData(TestHelper.createRequestResultWorkoutWith("userId", "", "true", "true", "100", "non", "2015-12-03"),
+        return new ParametrizedTestData(TestHelper.createRequestResultWorkoutWith("", "true", "true", "100", "non", "2015-12-03"),
               "error.resultWorkout.proposedWorkoutId.notBlank"
         );
     }
