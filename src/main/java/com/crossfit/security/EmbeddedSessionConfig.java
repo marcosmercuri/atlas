@@ -11,7 +11,7 @@ import org.springframework.session.web.http.SessionRepositoryFilter;
 @Profile("!test")
 // This can be changed for a Redis
 /**
- * The session is linked to the x-auth-token header, and it is store in an on-memory redis like ddbb.
+ * The session is linked to the x-auth-token header, and it is store in an in-memory redis like ddbb.
  * All magic's done by Spring-session.
  */
 public class EmbeddedSessionConfig {
