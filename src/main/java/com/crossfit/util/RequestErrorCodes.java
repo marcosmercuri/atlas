@@ -8,6 +8,7 @@ public class RequestErrorCodes {
     public static final int INVALID_FIELDS_IN_REQUEST_ERROR_CODE = 40001;
     public static final int CANNOT_CHANGE_FIELD = 40002;
     public static final int CANNOT_DELETE_PROPOSED_WORKOUT = 40003;
+    public static final int NO_LOGGED_USER = 40005;
 
     private RequestErrorCodes() {};
 }
