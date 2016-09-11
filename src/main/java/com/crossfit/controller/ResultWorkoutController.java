@@ -41,7 +41,8 @@ class ResultWorkoutController {
 
     @RequestMapping (value ="/{id}" , method = GET)
     public ResultWorkoutDTO getResultWorkout(@PathVariable("id") String resultWorkoutId) {
-        return mapper.mapToDto(resultWorkoutService.getResultWorkout(resultWorkoutId));
+        User user = loggedInUserGetter.getLoggedInUser();
+        return mapper.mapToDto(resultWorkoutService.getResultWorkout(resultWorkoutId, user));
     }
 
     /**

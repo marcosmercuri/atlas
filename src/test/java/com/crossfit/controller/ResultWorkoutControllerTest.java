@@ -12,15 +12,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.crossfit.exceptions.CannotChangeFieldException;
 import com.crossfit.exceptions.ProposedWorkoutNotFoundException;
 import com.crossfit.exceptions.ResultWorkoutNotFoundException;
+import com.crossfit.model.ResultWorkout;
+import com.crossfit.repositories.ResultWorkoutRepository;
 import com.crossfit.util.TestHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ResultWorkoutControllerTest extends AbstractControllerTest {
+    @Autowired
+    private ResultWorkoutRepository resultWorkoutRepository;
 
     @Test
     public void test_successful_new_result_workout() throws Exception {
@@ -166,4 +171,23 @@ public class ResultWorkoutControllerTest extends AbstractControllerTest {
 
     }
 
+    @Test
+    public void test_get_result_workout_on_returns_user_related_workouts() throws Exception {
+        String resultWorkoutId = createResultWorkout().getId();
+
+        updateResultWorkoutWithAnotherUser(resultWorkoutId);
+
+        mockMvc.perform(
+              get("/resultWorkouts/{id}", resultWorkoutId)
+                    .contentType(jsonContentType))
+              .andExpect(status().isNotFound());
+    }
+
+    private void updateResultWorkoutWithAnotherUser(String resultWorkoutId) {
+        ResultWorkout resultWorkout = resultWorkoutRepository.findOne(resultWorkoutId);
+        ResultWorkout resultWorkoutWithAnotherUser =
+              new ResultWorkout(resultWorkout.getId(), "another-user-id", resultWorkout.getProposedWorkout(),
+                    resultWorkout.getResultExercises(), resultWorkout.getDetails());
+        resultWorkoutRepository.save(resultWorkoutWithAnotherUser);
+    }
 }

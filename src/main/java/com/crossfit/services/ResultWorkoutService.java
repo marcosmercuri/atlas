@@ -1,6 +1,7 @@
 package com.crossfit.services;
 
 import com.crossfit.model.ResultWorkout;
+import com.crossfit.model.User;
 
 public interface ResultWorkoutService {
     /**
@@ -11,11 +12,12 @@ public interface ResultWorkoutService {
     ResultWorkout saveResultWorkout(ResultWorkout resultWorkout);
 
     /**
-     * Returns a saved result workout
+     * Returns a saved result workout that belongs to the user
      * @param resultWorkoutId id of the ResultWorkout to retrieve
+     * @param user the user making the request
      * @return the retrieved workout
      */
-    ResultWorkout getResultWorkout(String resultWorkoutId);
+    ResultWorkout getResultWorkout(String resultWorkoutId, User user);
 
     /**
      * Deletes the result workout

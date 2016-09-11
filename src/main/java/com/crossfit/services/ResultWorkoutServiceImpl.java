@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.crossfit.exceptions.CannotChangeFieldException;
 import com.crossfit.exceptions.ResultWorkoutNotFoundException;
 import com.crossfit.model.ResultWorkout;
+import com.crossfit.model.User;
 import com.crossfit.repositories.ResultWorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,8 @@ class ResultWorkoutServiceImpl implements ResultWorkoutService {
     }
 
     @Override
-    public ResultWorkout getResultWorkout(String resultWorkoutId) {
-        return Optional.ofNullable(resultWorkoutRepository.findOne(resultWorkoutId))
+    public ResultWorkout getResultWorkout(String resultWorkoutId, User user) {
+        return resultWorkoutRepository.findByUserIdAndId(user.getId(), resultWorkoutId)
               .orElseThrow(() -> new ResultWorkoutNotFoundException(resultWorkoutId));
     }
 
