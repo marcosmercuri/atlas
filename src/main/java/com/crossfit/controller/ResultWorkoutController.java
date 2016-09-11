@@ -78,7 +78,7 @@ class ResultWorkoutController {
           @Valid @RequestBody ResultWorkoutDTO resultWorkoutDto) {
         User user = loggedInUserGetter.getLoggedInUser();
         ResultWorkout resultWorkout = mapper.mapToEntity(resultWorkoutDto, user.getId());
-        resultWorkoutService.updateResultWorkout(resultWorkoutId, resultWorkout);
+        resultWorkoutService.updateResultWorkout(resultWorkoutId, resultWorkout, user);
     }
 
     /**

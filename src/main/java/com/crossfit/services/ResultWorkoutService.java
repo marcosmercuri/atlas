@@ -28,6 +28,9 @@ public interface ResultWorkoutService {
 
     /**
      * Updates the resultWorkout that has the resultWorkoutId.
+     * @param resultWorkout the new result workout content
+     * @param resultWorkoutId the result workout to update
+     * @param user the user making the request
      */
-    void updateResultWorkout(String resultWorkoutId, ResultWorkout resultWorkout);
+    void updateResultWorkout(String resultWorkoutId, ResultWorkout resultWorkout, User user);
 }

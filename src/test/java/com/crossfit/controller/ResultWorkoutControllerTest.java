@@ -202,4 +202,16 @@ public class ResultWorkoutControllerTest extends AbstractControllerTest {
                     .contentType(jsonContentType))
               .andExpect(status().isNotFound());
     }
+
+    @Test
+    public void test_update_result_workout_does_not_update_workout_of_another_user () throws Exception {
+        ResultWorkoutDTO resultWorkout = createResultWorkout();
+
+        updateResultWorkoutWithAnotherUser(resultWorkout.getId());
+
+        mockMvc.perform(put("/resultWorkouts/{id}", resultWorkout.getId())
+              .content(convertToJson(resultWorkout))
+              .contentType(jsonContentType)
+        ).andExpect(status().isNotFound());
+    }
 }
