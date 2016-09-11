@@ -16,7 +16,7 @@ import org.springframework.security.web.savedrequest.NullRequestCache;
 // Excluded in AtlasApplication, and included here, so is it not included in the classpath when the
 // profile is test.
 @Import(SecurityAutoConfiguration.class)
-@Profile("!test")
+@Profile("!integration-test")
 /**
  * Main configuration for the API authentication
  */

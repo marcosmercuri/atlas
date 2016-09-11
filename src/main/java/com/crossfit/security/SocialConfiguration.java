@@ -9,7 +9,7 @@ import org.springframework.social.config.annotation.SocialConfigurer;
 import org.springframework.social.connect.web.SignInAdapter;
 
 @Configuration
-@Profile("!test")
+@Profile("!integration-test")
 public class SocialConfiguration {
 
     @Bean

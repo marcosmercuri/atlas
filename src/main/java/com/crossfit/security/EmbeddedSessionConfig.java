@@ -8,7 +8,7 @@ import org.springframework.session.web.http.HeaderHttpSessionStrategy;
 import org.springframework.session.web.http.SessionRepositoryFilter;
 
 @Configuration
-@Profile("!test")
+@Profile("!integration-test")
 // This can be changed for a Redis
 /**
  * The session is linked to the x-auth-token header, and it is store in an in-memory redis like ddbb.

@@ -24,7 +24,7 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringApplicationConfiguration (classes = AtlasApplication.class)
 @WebIntegrationTest ("server.port:0")
 // Profile activated to disable spring security features.
-@ActiveProfiles("test")
+@ActiveProfiles("integration-test")
 public class AbstractIntegrationTest {
     //In this way I can get the port dynamically without hardcoding it
     @Value ("${local.server.port}")
