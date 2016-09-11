@@ -68,7 +68,8 @@ class ResultWorkoutController {
     @RequestMapping (value = "{id}", method = DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteResultWorkout(@PathVariable("id") String resultWorkoutId) {
-        resultWorkoutService.deleteResultWorkout(resultWorkoutId);
+        User user = loggedInUserGetter.getLoggedInUser();
+        resultWorkoutService.deleteResultWorkout(resultWorkoutId, user);
     }
 
     @RequestMapping (value = "/{id}", method = PUT)

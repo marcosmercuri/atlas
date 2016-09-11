@@ -172,7 +172,7 @@ public class ResultWorkoutControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void test_get_result_workout_on_returns_user_related_workouts() throws Exception {
+    public void test_get_result_workout_does_not_return_workout_of_another_user() throws Exception {
         String resultWorkoutId = createResultWorkout().getId();
 
         updateResultWorkoutWithAnotherUser(resultWorkoutId);
@@ -189,5 +189,17 @@ public class ResultWorkoutControllerTest extends AbstractControllerTest {
               new ResultWorkout(resultWorkout.getId(), "another-user-id", resultWorkout.getProposedWorkout(),
                     resultWorkout.getResultExercises(), resultWorkout.getDetails());
         resultWorkoutRepository.save(resultWorkoutWithAnotherUser);
+    }
+
+    @Test
+    public void test_delete_result_workout_does_not_delete_workout_of_another_user() throws Exception {
+        String resultWorkoutId = createResultWorkout().getId();
+
+        updateResultWorkoutWithAnotherUser(resultWorkoutId);
+
+        mockMvc.perform(
+              delete("/resultWorkouts/{id}", resultWorkoutId)
+                    .contentType(jsonContentType))
+              .andExpect(status().isNotFound());
     }
 }

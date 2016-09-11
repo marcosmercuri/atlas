@@ -22,8 +22,9 @@ public interface ResultWorkoutService {
     /**
      * Deletes the result workout
      * @param resultWorkoutId id of the resultWorkout to delete
+     * @param user the user making the request
      */
-    void deleteResultWorkout(String resultWorkoutId);
+    void deleteResultWorkout(String resultWorkoutId, User user);
 
     /**
      * Updates the resultWorkout that has the resultWorkoutId.

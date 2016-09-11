@@ -31,7 +31,9 @@ class ResultWorkoutServiceImpl implements ResultWorkoutService {
     }
 
     @Override
-    public void deleteResultWorkout(String resultWorkoutId) {
+    public void deleteResultWorkout(String resultWorkoutId, User user) {
+        resultWorkoutRepository.findByUserIdAndId(user.getId(), resultWorkoutId)
+              .orElseThrow(() -> new ResultWorkoutNotFoundException(resultWorkoutId));
         resultWorkoutRepository.delete(resultWorkoutId);
     }
 
