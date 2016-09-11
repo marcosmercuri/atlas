@@ -45,6 +45,22 @@ class ResultWorkoutController {
         return mapper.mapToDto(resultWorkoutService.getResultWorkout(resultWorkoutId, user));
     }
 
+    @RequestMapping (value = "{id}", method = DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteResultWorkout(@PathVariable("id") String resultWorkoutId) {
+        User user = loggedInUserGetter.getLoggedInUser();
+        resultWorkoutService.deleteResultWorkout(resultWorkoutId, user);
+    }
+
+    @RequestMapping (value = "/{id}", method = PUT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateResultWorkout(@PathVariable("id") String resultWorkoutId,
+          @Valid @RequestBody ResultWorkoutDTO resultWorkoutDto) {
+        User user = loggedInUserGetter.getLoggedInUser();
+        ResultWorkout resultWorkout = mapper.mapToEntity(resultWorkoutDto, user.getId());
+        resultWorkoutService.updateResultWorkout(resultWorkoutId, resultWorkout, user);
+    }
+
     /**
      * The exception is catch and marked as BadRequest, and rethrown automagically.
      * The reason is needed (although never shown) so DefaultErrorResponseAttributes can process it.
@@ -63,22 +79,6 @@ class ResultWorkoutController {
     @ResponseStatus(value=HttpStatus.NOT_FOUND, reason = "Result workout not found")
     public void resultWorkoutInResultWorkoutNotFound() {
         // Do nothing
-    }
-
-    @RequestMapping (value = "{id}", method = DELETE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteResultWorkout(@PathVariable("id") String resultWorkoutId) {
-        User user = loggedInUserGetter.getLoggedInUser();
-        resultWorkoutService.deleteResultWorkout(resultWorkoutId, user);
-    }
-
-    @RequestMapping (value = "/{id}", method = PUT)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateResultWorkout(@PathVariable("id") String resultWorkoutId,
-          @Valid @RequestBody ResultWorkoutDTO resultWorkoutDto) {
-        User user = loggedInUserGetter.getLoggedInUser();
-        ResultWorkout resultWorkout = mapper.mapToEntity(resultWorkoutDto, user.getId());
-        resultWorkoutService.updateResultWorkout(resultWorkoutId, resultWorkout, user);
     }
 
     /**
