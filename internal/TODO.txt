@@ -1,5 +1,3 @@
-* See how to mock the logged user in the @WebIntegrationTest (the @WithMockUser doesn't work)
-* Remove the profile distinctions (@ActiveProfiles and @Profile)
 * Get the use from session and put it in the resultWorkout DTO.
 * Update README.
 * Change the Attribute so it is not necessary to do this: The reason is needed (although never shown) so DefaultErrorResponseAttributes can process it.
