@@ -1,5 +1,5 @@
-* Get the use from session and put it in the resultWorkout DTO.
 * Update README.
+* Set the corresponding columns to Not Null
 * Change the Attribute so it is not necessary to do this: The reason is needed (although never shown) so DefaultErrorResponseAttributes can process it.
 * Review session duration
 * Put the exercise entity in resultExercise and remove proposedExerciseIgd
