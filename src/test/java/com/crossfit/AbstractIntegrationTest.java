@@ -29,7 +29,7 @@ public class AbstractIntegrationTest {
     //In this way I can get the port dynamically without hardcoding it
     @Value ("${local.server.port}")
     int applicationPort;
-    protected TestRestTemplate restTemplate;
+    private TestRestTemplate restTemplate;
 
     @Before
     public void setUp() {
