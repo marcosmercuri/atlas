@@ -2,7 +2,7 @@
 
 if [ "$#" -ne 1 ]
 then
-  echo "Provide twitter username"
+  echo "Provide twitter username as the first parameter: ./login.sh myTwitterUserName"
   exit 1
 fi
 
@@ -41,7 +41,7 @@ redirect=$(sed -n -e 's/^.*location: //Ip' <<< "$logged" | tr -d '\012\015')
 
 signup=$(curl ''$redirect'' -H 'Pragma: no-cache' -H 'Accept-Encoding: gzip, deflate, sdch' -H 'Accept-Language: es,en-US;q=0.8,en;q=0.6' -H 'Accept: */*' -H 'x-auth-token: '$xAuthToken'' -H 'Connection: keep-alive' -H 'Cache-Control: no-cache' --compressed 2>/dev/null)
 
-username=$(curl 'http://localhost:8080/api/session' -H 'Pragma: no-cache' -H 'Accept-Encoding: gzip, deflate, sdch' -H 'Accept-Language: es,en-US;q=0.8,en;q=0.6' -H 'Accept: */*' -H 'x-auth-token: '$xAuthToken'' -H 'Connection: keep-alive' -H 'Cache-Control: no-cache' --compressed 2>/dev/null)
+userInfo=$(curl 'http://localhost:8080/api/session' -H 'Pragma: no-cache' -H 'Accept-Encoding: gzip, deflate, sdch' -H 'Accept-Language: es,en-US;q=0.8,en;q=0.6' -H 'Accept: */*' -H 'x-auth-token: '$xAuthToken'' -H 'Connection: keep-alive' -H 'Cache-Control: no-cache' --compressed 2>/dev/null)
 
-echo "Here you should see your user info:" "$username"
+echo "Here you should see your user info:" "$userInfo"
 echo "On further calls use this header: x-auth-token: $xAuthToken"
