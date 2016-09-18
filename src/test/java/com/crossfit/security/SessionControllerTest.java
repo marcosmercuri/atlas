@@ -30,7 +30,7 @@ public class SessionControllerTest extends AbstractControllerTest {
         userRepository.save(savedUser);
 
         mockMvc.perform(
-              get("/api/session")
+              get("/session")
         ).andExpect(status().isOk())
           .andExpect(jsonPath("$.username", is(savedUser.getUsername())))
           .andExpect(jsonPath("$.name", is(savedUser.getName())));
@@ -44,7 +44,7 @@ public class SessionControllerTest extends AbstractControllerTest {
     @WithMockUser("non-existent-user")
     public void test_no_saved_user() throws Exception {
         mockMvc.perform(
-              get("/api/session")
+              get("/session")
         ).andExpect(status().isBadRequest());
     }
 }

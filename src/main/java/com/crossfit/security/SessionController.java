@@ -12,7 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/session")
+@RequestMapping("/session")
 /**
  * End point to check that a user is logged, and to logout that user.
  */

@@ -46,7 +46,7 @@ proposed workout.
 seen by the user that created it.
 
 # Available Endpoints
-* All endpoints are secured (except the /api/session, /signin,
+* All endpoints are secured (except the /session, /signin,
 /signup). So you must provide a x-auth-token header.
 * /proposedWorkouts:
   * POST: Creates a proposed workout, returning an id.
