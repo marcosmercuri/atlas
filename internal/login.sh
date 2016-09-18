@@ -11,6 +11,7 @@ read -s -p "Enter twitter Password: " password
 #"Look away. I'm hideous" (https://www.youtube.com/watch?v=Ka1PeNNi6dg)
 
 # The url of the application, don't include 'http://' nor a trailing '/'
+# To hit production replace with: atlas-crossfit.herokuapp.com
 host=localhost:8080
 
 login=$(curl 'http://'$host'/signin/twitter' -H 'Connection: keep-alive' --data '' -i 2>/dev/null)
