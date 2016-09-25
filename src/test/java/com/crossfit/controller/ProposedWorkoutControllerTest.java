@@ -123,20 +123,21 @@ public class ProposedWorkoutControllerTest extends AbstractControllerTest {
         )
               .andExpect(status().isCreated());
         String proposedWorkoutId = getResponseIdFromProposedDto(result);
-        mockMvc.perform(get("/proposedWorkouts/{id}", proposedWorkoutId))
+        mockMvc.perform(get("/proposedWorkouts/{id}", proposedWorkoutId)
+              .contentType(jsonContentType))
               .andExpect(status().isOk())
               .andExpect(jsonPath("$.id", is(proposedWorkoutId)));
     }
 
     @Test
     public void test_nonexistent_id_for_get_proposed_workout () throws Exception {
-        mockMvc.perform(get("/proposedWorkouts/{id}", "nonexistent_id"))
+        mockMvc.perform(get("/proposedWorkouts/{id}", "nonexistent_id").contentType(jsonContentType))
               .andExpect(status().isNotFound());
     }
 
     @Test
     public void test_nonexistent_id_for_put_proposed_workout () throws Exception {
-        mockMvc.perform(get("/proposedWorkouts/{id}", "nonexistent_id"))
+        mockMvc.perform(get("/proposedWorkouts/{id}", "nonexistent_id").contentType(jsonContentType))
               .andExpect(status().isNotFound());
     }
 
@@ -168,7 +169,8 @@ public class ProposedWorkoutControllerTest extends AbstractControllerTest {
     }
 
     private void verifyThatProposedWorkoutWasModified (ProposedWorkoutDTO modifiedProposedWorkout) throws Exception {
-        ResultActions result = mockMvc.perform(get("/proposedWorkouts/{id}", modifiedProposedWorkout.getId()));
+        ResultActions result = mockMvc.perform(get("/proposedWorkouts/{id}", modifiedProposedWorkout.getId())
+              .contentType(jsonContentType));
         ProposedWorkoutDTO proposedWorkoutLatestVersion = convertResponseToDtoClass(result, ProposedWorkoutDTO.class);
         assertThat(proposedWorkoutLatestVersion.getMaxAllowedSeconds(), is(modifiedProposedWorkout.getMaxAllowedSeconds()));
     }
@@ -192,20 +194,21 @@ public class ProposedWorkoutControllerTest extends AbstractControllerTest {
         ResultActions result = createForTimeProposedWorkout();
 
         String proposedWorkoutId = getResponseIdFromProposedDto(result);
-        mockMvc.perform(delete("/proposedWorkouts/{id}", proposedWorkoutId))
+        mockMvc.perform(delete("/proposedWorkouts/{id}", proposedWorkoutId).contentType(jsonContentType))
               .andExpect(status().isNoContent());
 
         verifyThatProposedWorkoutWasDeleted(proposedWorkoutId);
     }
 
     private void verifyThatProposedWorkoutWasDeleted (String proposedWorkoutId) throws Exception {
-        mockMvc.perform(get("/proposedWorkouts/{id}", proposedWorkoutId))
+        mockMvc.perform(get("/proposedWorkouts/{id}", proposedWorkoutId).contentType(jsonContentType))
               .andExpect(status().isNotFound());
     }
 
     @Test
     public void test_non_existent_id_on_delete_proposed_workout() throws Exception {
-        mockMvc.perform(delete("/proposedWorkouts/{id}", "nonexistent_id"))
+        mockMvc.perform(delete("/proposedWorkouts/{id}", "nonexistent_id")
+              .contentType(jsonContentType))
               .andExpect(status().isNotFound());
     }
 
@@ -228,7 +231,7 @@ public class ProposedWorkoutControllerTest extends AbstractControllerTest {
         String proposedWorkoutId = getResponseIdFromProposedDto(result);
         createResultWorkout(proposedWorkoutId);
 
-        mockMvc.perform(delete("/proposedWorkouts/{id}", proposedWorkoutId))
+        mockMvc.perform(delete("/proposedWorkouts/{id}", proposedWorkoutId).contentType(jsonContentType))
               .andExpect(status().isBadRequest());
     }
 
@@ -246,13 +249,14 @@ public class ProposedWorkoutControllerTest extends AbstractControllerTest {
 
     @Test
     public void test_get_all_proposed_workouts() throws Exception {
-        ResultActions mvcResult = mockMvc.perform(get("/proposedWorkouts/")).andExpect(status().isOk());
+        ResultActions mvcResult = mockMvc.perform(get("/proposedWorkouts/").contentType(jsonContentType))
+              .andExpect(status().isOk());
         List<ProposedWorkoutDTO> savedWorkouts = convertResponseToListDtoClass(mvcResult, ProposedWorkoutDTO.class);
 
         createForTimeProposedWorkout();
         createForTimeProposedWorkout();
 
-        mockMvc.perform(get("/proposedWorkouts"))
+        mockMvc.perform(get("/proposedWorkouts").contentType(jsonContentType))
               .andExpect(status().isOk())
               .andExpect(jsonPath("$", hasSize(savedWorkouts.size()+2)));
     }

@@ -43,7 +43,7 @@ public class ProposedWorkoutIntegrationTest extends AbstractIntegrationTest {
         assertNotNull(apiResponse);
         assertThat(apiResponse.get("status"), is(415));
         assertThat(apiResponse.get("message"), is("Unsupported Media Type"));
-        assertThat(apiResponse.get("developerMessage"), is("Exception: org.springframework.web.HttpMediaTypeNotSupportedException. Problem: Content type 'application/xml;charset=UTF-8' not supported"));
+        assertThat(apiResponse.get("developerMessage"), is("Exception: org.springframework.web.HttpMediaTypeNotSupportedException. Problem: Content type 'application/xml' not supported"));
         String timestamp = (String) apiResponse.get("timestamp");
         assertTrue(timestamp.matches("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.*"));
     }

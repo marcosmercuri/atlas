@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
  * Main controller of the application rest calls
  */
 @RestController
+@RequestMapping (value = "/proposedWorkouts", produces = "application/json; charset=utf-8", consumes = "application/json; charset=utf-8")
 public class ProposedWorkoutController {
 
     @Autowired
@@ -37,26 +38,26 @@ public class ProposedWorkoutController {
         binder.addValidators(proposedWorkoutValidator);
     }
 
-    @RequestMapping (value = "/proposedWorkouts", method = POST, produces = "application/json; charset=utf-8")
+    @RequestMapping (method = POST)
     @ResponseStatus(HttpStatus.CREATED)
     public ProposedWorkoutDTO createProposedWorkout(@Valid @RequestBody ProposedWorkoutDTO proposedWorkoutDto) {
         Workout saveProposedWorkout = proposedWorkoutService.saveProposedWorkout(proposedWorkoutMapper.mapToEntity(proposedWorkoutDto));
         return proposedWorkoutMapper.mapToDto(saveProposedWorkout);
     }
 
-    @RequestMapping (value = "/proposedWorkouts/{id}", method = GET, produces = "application/json; charset=utf-8")
+    @RequestMapping (value = "/{id}", method = GET)
     public ProposedWorkoutDTO getProposedWorkout(@PathVariable("id") String proposedWorkoutId) {
         Workout retrievedProposedWorkout = proposedWorkoutService.getProposedWorkoutById(proposedWorkoutId);
         return proposedWorkoutMapper.mapToDto(retrievedProposedWorkout);
     }
 
-    @RequestMapping (value = "/proposedWorkouts", method = GET)
+    @RequestMapping (method = GET)
     public List<ProposedWorkoutDTO> getAllProposedWorkout() {
         List<Workout> workouts = proposedWorkoutService.getAllProposedWorkout();
         return proposedWorkoutMapper.mapToDtos(workouts);
     }
 
-    @RequestMapping (value = "/proposedWorkouts/{id}", method = PUT)
+    @RequestMapping (value = "/{id}", method = PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateProposedWorkout(@PathVariable("id") String proposedWorkoutId,
           @Valid @RequestBody ProposedWorkoutDTO proposedWorkoutDto) {
@@ -64,7 +65,7 @@ public class ProposedWorkoutController {
         proposedWorkoutService.updateProposedWorkout(proposedWorkoutId, proposedWorkoutEntity);
     }
 
-    @RequestMapping (value = "/proposedWorkouts/{id}", method = DELETE)
+    @RequestMapping (value = "/{id}", method = DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProposedWorkout(@PathVariable("id") String proposedWorkoutId) {
         proposedWorkoutService.deleteProposedWorkout(proposedWorkoutId);
