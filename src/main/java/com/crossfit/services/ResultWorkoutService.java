@@ -1,5 +1,7 @@
 package com.crossfit.services;
 
+import java.util.List;
+
 import com.crossfit.model.ResultWorkout;
 import com.crossfit.model.User;
 
@@ -33,4 +35,11 @@ public interface ResultWorkoutService {
      * @param user the user making the request
      */
     void updateResultWorkout(String resultWorkoutId, ResultWorkout resultWorkout, User user);
+
+    /**
+     * Retrieves all the result workouts for the given user.
+     * @param user the user making the request
+     * @return all the result workouts
+     */
+    List<ResultWorkout> getAllResultWorkouts(User user);
 }

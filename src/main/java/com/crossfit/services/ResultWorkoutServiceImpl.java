@@ -1,5 +1,7 @@
 package com.crossfit.services;
 
+import java.util.List;
+
 import com.crossfit.exceptions.CannotChangeFieldException;
 import com.crossfit.exceptions.ResultWorkoutNotFoundException;
 import com.crossfit.model.ResultWorkout;
@@ -44,5 +46,10 @@ class ResultWorkoutServiceImpl implements ResultWorkoutService {
             throw new CannotChangeFieldException("id", resultWorkout.getId());
         }
         resultWorkoutRepository.save(resultWorkout);
+    }
+
+    @Override
+    public List<ResultWorkout> getAllResultWorkouts(User user) {
+        return resultWorkoutRepository.findByUserId(user.getId());
     }
 }

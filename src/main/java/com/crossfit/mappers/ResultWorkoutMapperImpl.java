@@ -70,4 +70,9 @@ class ResultWorkoutMapperImpl implements ResultWorkoutMapper {
     private List<ResultExerciseDTO> mapExercisesToDto(List<ResultExercise> resultExercises) {
         return resultExercises.stream().map(resultExerciseMapper::mapToDto).collect(Collectors.toList());
     }
+
+    @Override
+    public List<ResultWorkoutDTO> mapToDtos(List<ResultWorkout> resultWorkouts){
+        return resultWorkouts.stream().map(this::mapToDto).collect(Collectors.toList());
+    }
 }

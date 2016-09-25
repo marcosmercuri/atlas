@@ -1,5 +1,6 @@
 package com.crossfit.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.crossfit.model.ResultWorkout;
@@ -11,5 +12,7 @@ public interface ResultWorkoutRepository extends CrudRepository<ResultWorkout, S
     Long countByProposedWorkoutId(String proposedWorkoutId);
 
     Optional<ResultWorkout> findByUserIdAndId(String userId, String resultWorkoutId);
+
+    List<ResultWorkout> findByUserId(String userId);
 
 }

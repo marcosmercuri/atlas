@@ -1,20 +1,21 @@
 package com.crossfit.mappers;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
-import static org.mockito.Mockito.any;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.*;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.crossfit.model.*;
-import com.crossfit.util.DtoCreatorUtil;
 import com.crossfit.controller.ResultExerciseDTO;
 import com.crossfit.controller.ResultWorkoutDTO;
 import com.crossfit.exceptions.ProposedWorkoutNotFoundException;
+import com.crossfit.model.*;
 import com.crossfit.repositories.ProposedWorkoutRepository;
+import com.crossfit.util.DtoCreatorUtil;
 import com.crossfit.util.EntityCreatorUtil;
 import org.junit.Before;
 import org.junit.Test;
@@ -118,5 +119,30 @@ public class ResultWorkoutMapperImplTest {
         givenProposedRepositoryReturnWorkoutForId(dto.getProposedWorkoutId());
 
         resultWorkoutMapper.mapToEntity(dto, "");
+    }
+
+    @Test
+    public void given_a_list_of_entities_when_mapped_then_the_dtos_are_returned() {
+        List<ResultWorkout> resultWorkouts = Arrays.asList(EntityCreatorUtil.createUnFinishedNonRxResultWorkout()
+              , EntityCreatorUtil.createUnFinishedNonRxResultWorkout());
+
+        List<ResultWorkoutDTO> resultWorkoutDtos = resultWorkoutMapper.mapToDtos(resultWorkouts);
+
+        assertThat(resultWorkoutDtos.size(), is(2));
+        verifyListAreTheSame(resultWorkouts, resultWorkoutDtos);
+    }
+
+    private void verifyListAreTheSame(List<ResultWorkout> workouts, List<ResultWorkoutDTO> proposedWorkoutDTOs) {
+        List<String> dtosId = proposedWorkoutDTOs
+              .stream()
+              .map(ResultWorkoutDTO::getId)
+              .collect(Collectors.toList());
+
+        List<String> entitiesId = workouts
+              .stream()
+              .map(ResultWorkout::getId)
+              .collect(Collectors.toList());
+        assertTrue(dtosId.contains(entitiesId.get(0)));
+        assertTrue(dtosId.contains(entitiesId.get(1)));
     }
 }

@@ -3,11 +3,14 @@ package com.crossfit.controller;
 import static com.crossfit.util.RequestErrorCodes.RESULT_WORKOUT_NOT_FOUND;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import java.util.List;
 
 import com.crossfit.exceptions.CannotChangeFieldException;
 import com.crossfit.exceptions.ProposedWorkoutNotFoundException;
@@ -213,5 +216,20 @@ public class ResultWorkoutControllerTest extends AbstractControllerTest {
               .content(convertToJson(resultWorkout))
               .contentType(jsonContentType)
         ).andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void test_get_all_result_workouts() throws Exception {
+        ResultActions mvcResult = mockMvc.perform(get("/resultWorkouts/").contentType(jsonContentType))
+              .andExpect(status().isOk());
+
+        List<ResultWorkoutDTO> savedResultWorkouts = convertResponseToListDtoClass(mvcResult, ResultWorkoutDTO.class);
+
+        createResultWorkout();
+        createResultWorkout();
+
+        mockMvc.perform(get("/resultWorkouts").contentType(jsonContentType))
+              .andExpect(status().isOk())
+              .andExpect(jsonPath("$", hasSize(savedResultWorkouts.size()+2)));
     }
 }
