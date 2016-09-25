@@ -49,6 +49,11 @@ class ProposedWorkoutMapperImpl implements ProposedWorkoutMapper {
         throw new DtoMapperNotAvailableForWorkoutException(workout.getClass().toString());
     }
 
+    @Override
+    public List<ProposedWorkoutDTO> mapToDtos(List<Workout> workouts) {
+        return workouts.stream().map(this::mapToDto).collect(Collectors.toList());
+    }
+
     private ProposedWorkoutDTO mapForTimeToDto (ForTimeWorkout forTimeWorkout) {
         ProposedWorkoutDTO proposedWorkoutDTO = mapWorkoutCommonFieldsToDto(forTimeWorkout);
         proposedWorkoutDTO.setType(FOR_TIME.toString());

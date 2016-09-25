@@ -1,18 +1,22 @@
 package com.crossfit.mappers;
 
-import static com.crossfit.util.EntityCreatorUtil.givenValidAmrap;
 import static com.crossfit.controller.WorkoutType.*;
+import static com.crossfit.util.EntityCreatorUtil.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
 
-import com.crossfit.controller.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.crossfit.controller.ProposedExerciseDTO;
+import com.crossfit.controller.ProposedWorkoutDTO;
 import com.crossfit.model.Amrap;
 import com.crossfit.model.Exercise;
 import com.crossfit.model.ForTimeWorkout;
 import com.crossfit.model.Workout;
 import com.crossfit.util.DtoCreatorUtil;
-import com.crossfit.util.EntityCreatorUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -89,11 +93,35 @@ public class ProposedWorkoutMapperImplTest {
 
     @Test
     public void given_an_forTime_workout_when_map_then_the_DTO_has_all_fields_set(){
-        ForTimeWorkout forTimeWorkout = EntityCreatorUtil.givenValidForTimeWorkout();
+        ForTimeWorkout forTimeWorkout = givenValidForTimeWorkout();
 
         ProposedWorkoutDTO proposedWorkoutDTO = mapper.mapToDto(forTimeWorkout);
 
         assertThat(proposedWorkoutDTO.getTypeEnum(), is(FOR_TIME));
         verifyEquality(forTimeWorkout, proposedWorkoutDTO);
+    }
+
+    @Test
+    public void given_a_list_of_entities_when_mapped_then_the_dtos_are_returned() {
+        List<Workout> workouts = Arrays.asList(givenValidForTimeWorkout(), givenValidAmrap());
+
+        List<ProposedWorkoutDTO> proposedWorkoutDTOs = mapper.mapToDtos(workouts);
+
+        assertThat(proposedWorkoutDTOs.size(), is(2));
+        verifyListAreTheSame(workouts, proposedWorkoutDTOs);
+    }
+
+    private void verifyListAreTheSame(List<Workout> workouts, List<ProposedWorkoutDTO> proposedWorkoutDTOs) {
+        List<String> dtosId = proposedWorkoutDTOs
+              .stream()
+              .map(ProposedWorkoutDTO::getId)
+              .collect(Collectors.toList());
+
+        List<String> entitiesId = workouts
+              .stream()
+              .map(Workout::getId)
+              .collect(Collectors.toList());
+        assertTrue(dtosId.contains(entitiesId.get(0)));
+        assertTrue(dtosId.contains(entitiesId.get(1)));
     }
 }

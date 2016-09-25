@@ -1,5 +1,7 @@
 package com.crossfit.services;
 
+import java.util.List;
+
 import com.crossfit.model.Workout;
 
 public interface ProposedWorkoutService {
@@ -25,4 +27,9 @@ public interface ProposedWorkoutService {
      * Deletes the proposedWorkout with the given id.
      */
     void deleteProposedWorkout (String proposedWorkoutId);
+
+    /**
+     * Retrieves all the proposed workouts
+     */
+    List<Workout> getAllProposedWorkout();
 }

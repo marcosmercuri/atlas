@@ -2,6 +2,7 @@ package com.crossfit.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
+import java.util.List;
 import javax.validation.Valid;
 
 import com.crossfit.exceptions.CannotChangeFieldException;
@@ -47,6 +48,12 @@ public class ProposedWorkoutController {
     public ProposedWorkoutDTO getProposedWorkout(@PathVariable("id") String proposedWorkoutId) {
         Workout retrievedProposedWorkout = proposedWorkoutService.getProposedWorkoutById(proposedWorkoutId);
         return proposedWorkoutMapper.mapToDto(retrievedProposedWorkout);
+    }
+
+    @RequestMapping (value = "/proposedWorkouts", method = GET)
+    public List<ProposedWorkoutDTO> getAllProposedWorkout() {
+        List<Workout> workouts = proposedWorkoutService.getAllProposedWorkout();
+        return proposedWorkoutMapper.mapToDtos(workouts);
     }
 
     @RequestMapping (value = "/proposedWorkouts/{id}", method = PUT)

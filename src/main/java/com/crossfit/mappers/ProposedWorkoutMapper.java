@@ -1,5 +1,7 @@
 package com.crossfit.mappers;
 
+import java.util.List;
+
 import com.crossfit.controller.ProposedWorkoutDTO;
 import com.crossfit.model.Workout;
 
@@ -18,4 +20,11 @@ public interface ProposedWorkoutMapper {
      * @return The DTO with the same values as the entity.
      */
     ProposedWorkoutDTO mapToDto(Workout workout);
+
+    /**
+     * Maps the list of entities to a list of Dtos
+     * @param workouts the list to map
+     * @return the dtos
+     */
+    List<ProposedWorkoutDTO> mapToDtos(List<Workout> workouts);
 }

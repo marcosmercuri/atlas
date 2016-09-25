@@ -7,11 +7,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.crossfit.AtlasApplication;
 import com.crossfit.util.Utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -61,6 +63,13 @@ public abstract class AbstractControllerTest {
     protected <T> T convertResponseToDtoClass(ResultActions result, Class<T> resultDtoClass) throws IOException {
         String jsonResponse = result.andReturn().getResponse().getContentAsString();
         return objectMapper.readValue(jsonResponse, resultDtoClass);
+    }
+
+    protected <T> List<T> convertResponseToListDtoClass(ResultActions result, Class<T> resultDtoClass) throws IOException {
+        String jsonResponse = result.andReturn().getResponse().getContentAsString();
+
+        TypeFactory typeFactory = objectMapper.getTypeFactory();
+        return objectMapper.readValue(jsonResponse, typeFactory.constructCollectionType(List.class, resultDtoClass));
     }
 
     protected String getResponseIdFromProposedDto(ResultActions result) throws IOException {

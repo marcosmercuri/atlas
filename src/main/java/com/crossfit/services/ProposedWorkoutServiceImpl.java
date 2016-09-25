@@ -1,5 +1,6 @@
 package com.crossfit.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.crossfit.exceptions.CannotChangeFieldException;
@@ -8,6 +9,7 @@ import com.crossfit.exceptions.ProposedWorkoutNotFoundException;
 import com.crossfit.model.Workout;
 import com.crossfit.repositories.ProposedWorkoutRepository;
 import com.crossfit.repositories.ResultWorkoutRepository;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,5 +61,10 @@ class ProposedWorkoutServiceImpl implements ProposedWorkoutService {
         } else {
             throw new ProposedWorkoutBeingUsedException(proposedWorkoutId);
         }
+    }
+
+    @Override
+    public List<Workout> getAllProposedWorkout() {
+        return Lists.newArrayList(proposedWorkoutRepository.findAll());
     }
 }

@@ -1,7 +1,7 @@
 package com.crossfit.controller;
 
-import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.http.MediaType.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.List;
 
 import com.crossfit.util.TestHelper;
 import com.crossfit.util.Utils;
@@ -241,5 +242,18 @@ public class ProposedWorkoutControllerTest extends AbstractControllerTest {
 
     private String createValidResultWorkout(String proposedWorkoutId) {
         return TestHelper.createRequestResultWorkoutWith(proposedWorkoutId, "true", "true", "100", "", "2015-03-03");
+    }
+
+    @Test
+    public void test_get_all_proposed_workouts() throws Exception {
+        ResultActions mvcResult = mockMvc.perform(get("/proposedWorkouts/")).andExpect(status().isOk());
+        List<ProposedWorkoutDTO> savedWorkouts = convertResponseToListDtoClass(mvcResult, ProposedWorkoutDTO.class);
+
+        createForTimeProposedWorkout();
+        createForTimeProposedWorkout();
+
+        mockMvc.perform(get("/proposedWorkouts"))
+              .andExpect(status().isOk())
+              .andExpect(jsonPath("$", hasSize(savedWorkouts.size()+2)));
     }
 }
